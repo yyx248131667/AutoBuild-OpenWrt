@@ -1,4 +1,4 @@
-name: AutoBuild MeIsReallyBy's Kernel4.4 Padavan
+name: 云编译4.4内核的Padavan
 
 on:
   workflow_dispatch:
