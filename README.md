@@ -10,6 +10,20 @@
 - 内含Padavan固件编译。
 - 其他机型云编译还在继续测试添加中……
 
+## 捐贈
+
+***
+<center><b>如果你觉得此项目对你有帮助，可以捐助我，用爱发电也挺难的，哈哈。</b></center>
+
+|  微信   | 支付宝  |
+|  ----  | ----  |
+| ![](https://pic.imgdb.cn/item/62502707239250f7c5b8ac3d.png) | ![](https://pic.imgdb.cn/item/62502707239250f7c5b8ac36.png) |
+
+## 赞助名单
+
+![](https://pic.imgdb.cn/item/625028c0239250f7c5bd102b.jpg)
+感谢以上大佬的充电！
+
 ## 本地编译基本操作
 - 首次编译
 - cd openwrt
