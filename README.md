@@ -1,4 +1,4 @@
-# AutoBuild-OpenWrt-Padavan
+# 云编译-OpenWrt-Padavan
 
 - 定制.config文件：
 - 进入工作目录输入：./scripts/diffconfig.sh > diffconfig分离出定制的插件配置，
