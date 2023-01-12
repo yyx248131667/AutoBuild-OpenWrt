@@ -43,7 +43,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: $(date +"%Y%m%d")
+        default: '20230201'
       uploadwet:
         type: boolean
         description: 'upload firmware to wetransfer'
