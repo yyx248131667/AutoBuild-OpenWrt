@@ -62,7 +62,7 @@ env:
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
-  FIRMWARE_AUTHOR: MeIsReallyBa
+  FIRMWARE_AUTHOR: yuos-bit
   FIRMWARE_PATH: /opt/firmwares
 jobs:
   build:
