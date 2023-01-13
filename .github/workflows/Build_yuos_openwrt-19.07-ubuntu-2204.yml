@@ -94,6 +94,8 @@ jobs:
       run: |
         docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get install software-properties-common
+        sudo -E apt-add-repository multiverse
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL dwurl.cn/WfDhen)
         sudo -E apt-get -qq autoremove --purge
