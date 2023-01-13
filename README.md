@@ -34,6 +34,11 @@ Openwrt19.07编译全系更改阿里源
 * 2.但是使用阿里源则不会。如图：
 ![](https://s3.bmp.ovh/imgs/2023/01/13/9d9d8f1ed37fd0e6.png)
 ![](https://s3.bmp.ovh/imgs/2023/01/13/1d68f4f06208d6af.png)
+
+## 详情
+
+见[2022.01.13提交](https://github.com/yuos-bit/AutoBuild-OpenWrt19.07/commit/3b0bcc5c7e5a4361e12e79ce8dc2c1988b859607)
+
 ## 修改语法
 
 ```shell
