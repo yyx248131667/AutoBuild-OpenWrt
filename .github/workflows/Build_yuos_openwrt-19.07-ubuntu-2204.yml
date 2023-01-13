@@ -94,7 +94,6 @@ jobs:
       run: |
         docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo rm -f /etc/apt/sources.list.d/archive_uri-*
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL dwurl.cn/WfDhen)
