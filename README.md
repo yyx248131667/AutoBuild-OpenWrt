@@ -24,28 +24,20 @@
 ![](https://pic.imgdb.cn/item/625028c0239250f7c5bd102b.jpg)
 感谢以上大佬的充电！
 
-## 本地编译基本操作
-- 首次编译
-- cd openwrt
-- ./scripts/feeds update -a
-- ./scripts/feeds install -a
-- make menuconfig
-- 下载 dl 库，编译固件 （-j 后面是线程数，第一次编译推荐用单线程）
+Openwrt19.07编译全系更改阿里源
+## 测试说明
+* 1.经过测试，使用微软源在包更少的情况下所需时间更长，且会莫名报错。如图：
+![](https://s3.bmp.ovh/imgs/2023/01/13/a8d21b205a7ecaa4.png)
+![](https://s3.bmp.ovh/imgs/2023/01/13/1b45f00a0a8690fb.png)
+![](https://s3.bmp.ovh/imgs/2023/01/13/832bfe8be9414f1b.jpg)
 
-- make download -j8
-- make V=s -j1
+* 2.但是使用阿里源则不会。如图：
+![](https://s3.bmp.ovh/imgs/2023/01/13/9d9d8f1ed37fd0e6.png)
+![](https://s3.bmp.ovh/imgs/2023/01/13/1d68f4f06208d6af.png)
+## 修改语法
 
-- 二次编译：
-- cd lede
-- git pull
-- ./scripts/feeds update -a
-- ./scripts/feeds install -a
-- make defconfig
-- make download -j8
-- make V=s -j$(nproc)
-
-- 如果需要重新配置：
-- rm -rf ./tmp && rm -rf .config
-- make menuconfig
-- make V=s -j$(nproc)
-- 编译完成后输出路径：bin/targets
+```shell
+        sudo sed -i s@/azure.archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+        sudo -E apt -qq clean
+        sudo -E apt-get -qq update
+```
