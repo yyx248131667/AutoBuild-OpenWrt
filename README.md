@@ -37,7 +37,7 @@ Openwrt19.07编译全系更改阿里源
 
 ## 详情
 
-见[2022.01.13提交](https://github.com/yuos-bit/AutoBuild-OpenWrt19.07/commit/3b0bcc5c7e5a4361e12e79ce8dc2c1988b859607)
+见[2023.01.13提交](https://github.com/yuos-bit/AutoBuild-OpenWrt19.07/commit/3b0bcc5c7e5a4361e12e79ce8dc2c1988b859607)
 
 ## 修改语法
 
