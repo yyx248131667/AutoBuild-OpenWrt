@@ -23,6 +23,7 @@ on:
           - 'miwifi-nano'
           - 'miwifi-4c'
           - 'miwifi-3a'
+          - 'mir4a-100m'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
