@@ -23,6 +23,7 @@ on:
           - 'miwifi-nano'
           - 'miwifi-4c'
           - 'miwifi-3a'
+          - 'miwifi-3c'
           - 'mir4a-100m'
       UPLOAD_BIN_DIR:
         type: boolean
