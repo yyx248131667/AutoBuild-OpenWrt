@@ -21,7 +21,10 @@ on:
         type: choice
         options:
           - 'miwifi-nano'
+          - 'miwifi-mini'
+          - 'miwifi-r3'
           - 'miwifi-3a'
+          - 'miwifi-r3mi'
           - 'miwifi-3c'
           - 'mir4a-100m'
           - 'miwifi-4c'
