@@ -22,3 +22,6 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 # 预下载主题
 #git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
 #git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
+
+# 修改默认dnsmasq为dnsmasq-full
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
