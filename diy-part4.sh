@@ -15,3 +15,6 @@
 
 # 预下载主题
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear package/molun/luci-theme-netgear
+# 单独拉取 default-settings
+# git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
+git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
