@@ -21,8 +21,8 @@ sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 # 修改版本号
 sed -i "s/OpenWrt/小渔学长 build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/default-settings/files/zzz-default-settings
 
-# 修改默认wifi名称ssid为tymishop
-sed -i 's/ssid=OpenWrt/ssid=Yuos_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $5""$6 }'| tr a-z A-Z)/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# 修改默认wifi名称ssid为Xiaomi-Wifi
+sed -i "s/ssid=OpenWrt/ssid=Xiaomi-Wifi" package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 
 # 清除登陆密码
