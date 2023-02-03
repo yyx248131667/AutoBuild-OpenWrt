@@ -29,5 +29,5 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 
 # 单独拉取 default-settings
-# git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
-git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
+git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
+# git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
