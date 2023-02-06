@@ -69,3 +69,5 @@ sed -i 's/ssid=OpenWrt/ssid=Xiaomi-Wifi/g' package/kernel/mac80211/files/lib/wif
 
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
+# 删除多余的软件包
+rm -rf package/lean/default-settings/
