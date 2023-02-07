@@ -13,28 +13,24 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 # 修改软件包版本为大杂烩-openwrt21.02
-# sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-22.03/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
-# sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-22.03/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 修改软件包版本为大杂烩-openwrt22.03
 # sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-22.03/github.com\/coolsnowwolf\/packages.git;master/g' feeds.conf.default
 # sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-22.03/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 增加软件包
-# sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' feeds.conf.default
-# sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
-# sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
-# sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
+sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' feeds.conf.default
+sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
+sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
+sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
 
 # 预下载主题
 #git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
 #git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
 
 # 修改默认dnsmasq为dnsmasq-full
-# sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
-# 单独拉取 lean包到package 目录
-git clone -b main https://github.com/yuos-bit/other package/lean
-# 删除多余的软件包
-rm -rf package/lean/default-settings/

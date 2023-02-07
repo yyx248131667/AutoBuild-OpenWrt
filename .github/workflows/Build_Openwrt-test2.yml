@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 云编译Openwrt官方固件测试2
+name: 云编译Openwrt官方固件+插件22.03测试
 
 on:
   repository_dispatch:

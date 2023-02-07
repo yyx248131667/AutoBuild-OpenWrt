@@ -66,9 +66,3 @@ sed -i 's/ssid=OpenWrt/ssid=Xiaomi-Wifi/g' package/kernel/mac80211/files/lib/wif
 #sed -i 's/"Web 管理"/"Web管理"/g' package/lean/luci-app-webadmin/po/zh-cn/webadmin.po
 #sed -i 's/"管理权"/"改密码"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 #sed -i 's/"带宽监控"/"监视"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
-
-# 单独拉取 lean包到package 目录
-git clone -b main https://github.com/yuos-bit/other package/lean
-
-# 修改默认firewall4为firewall
-sed -i 's/firewall4/firewall/g' include/target.mk
