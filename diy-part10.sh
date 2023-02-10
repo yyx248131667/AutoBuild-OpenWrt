@@ -46,3 +46,8 @@ git clone -b main https://github.com/yuos-bit/other package/lean
 
 # 删除多余的软件包
 rm -rf package/lean/default-settings/
+
+# 设置闭源驱动开机自启
+wget https://github.com/yuos-bit/other/releases/download/shell/wifi.up.sh package/base-files/files
+# 给与自启权限
+chmod +x package/base-files/files/wifi.up.sh
