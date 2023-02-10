@@ -48,6 +48,6 @@ git clone -b main https://github.com/yuos-bit/other package/lean
 rm -rf package/lean/default-settings/
 
 # 设置闭源驱动开机自启
-wget https://github.com/yuos-bit/other/releases/download/shell/wifi.up.sh package/base-files/files
-# 给与自启权限
+wget -O package/base-files/files/wifi.up.sh https://github.com/yuos-bit/other/releases/download/shell/wifi.up.sh
+# 自启权限
 chmod +x package/base-files/files/wifi.up.sh
