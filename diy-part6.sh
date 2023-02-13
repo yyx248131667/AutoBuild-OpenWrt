@@ -24,10 +24,6 @@ sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master'
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
 
-# 预下载主题
-#git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
-#git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
-
 # 修改默认dnsmasq为dnsmasq-full
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 
@@ -36,7 +32,5 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
-# 删除多余的软件包
-rm -rf package/lean/default-settings/
 # 修改默认firewall4为firewall
 sed -i 's/firewall4/firewall/g' include/target.mk

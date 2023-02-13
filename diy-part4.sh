@@ -36,5 +36,3 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
-# 删除多余的软件包
-rm -rf package/lean/default-settings/

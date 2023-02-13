@@ -56,9 +56,6 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
 
-# 删除多余的软件包
-# rm -rf package/lean/default-settings/
-
 # 设置闭源驱动开机自启
 # wget -O package/yuos/default-settings/files/S99wifiopen https://github.com/yuos-bit/other/releases/download/shell/wifi.up.sh
 # 自启权限
