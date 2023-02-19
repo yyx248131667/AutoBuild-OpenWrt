@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 云编译Openwrt官方-红米AC2100
+name: 云编译Openwrt官方固件+插件21.02测试
 
 on:
   repository_dispatch:
@@ -67,11 +67,11 @@ on:
   
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Openwrt_${{ github.event.inputs.model }}-22.03.config
-  DIY_P1_SH: diy-part10.sh
-  DIY_P2_SH: diy-part11.sh
+  CONFIG_FILE: config/Openwrt_${{ github.event.inputs.model }}-21.02.config
+  DIY_P1_SH: diy-part8.sh
+  DIY_P2_SH: diy-part9.sh
 #  UPLOAD_BIN_DIR: true
 #  UPLOAD_FIRMWARE: true
 #  UPLOAD_COWTRANSFER: false
@@ -123,7 +123,7 @@ jobs:
     - name: add luci-theme-netgear
       run: |
            cd openwrt
-           git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/kenzo/luci-theme-netgear
+           git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/yuos/luci-theme-netgear
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
