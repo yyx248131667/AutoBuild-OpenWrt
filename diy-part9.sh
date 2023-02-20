@@ -18,9 +18,6 @@ sed -i 's/192.168.$((addr_offset++)).1/10.32.$((addr_offset++)).1/g' package/bas
 # 修改主机名称
 sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 
-# 修改版本号
-# sed -i "s/OpenWrt/小渔学长 build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/default-settings/files/zzz-default-settings
-
 # 修改默认wifi名称ssid为Xiaomi-Wifi
 sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
