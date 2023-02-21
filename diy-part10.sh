@@ -57,6 +57,4 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 git clone -b main https://github.com/yuos-bit/other package/lean
 
 # 设置闭源驱动开机自启
-# wget -O package/yuos/default-settings/files/S99wifiopen https://github.com/yuos-bit/other/releases/download/shell/wifi.up.sh
-# 自启权限
-# chmod 777 package/yuos/default-settings/files/S99wifiopen
+sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
