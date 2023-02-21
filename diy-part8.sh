@@ -31,12 +31,12 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 # 修改默认dnsmasq为dnsmasq-full
 sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
 
+# 单独拉取 lean包到package 目录
+git clone -b main https://github.com/yuos-bit/other package/lean
+
 # 修改默认wifi驱动为闭源驱动
 sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
-
-# 单独拉取 lean包到package 目录
-git clone -b main https://github.com/yuos-bit/other package/lean
