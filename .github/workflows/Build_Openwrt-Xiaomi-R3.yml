@@ -188,17 +188,6 @@ jobs:
 #        sed -i 's/1.6.0/1.5.5/g' feeds/packages/net/xray-core/Makefile
 #        sed -i 's/b65375090a2d48d358a582837d485bfaa9572e4d1f5a649895b9fd83d0f69e43/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
  
-    - name: Read config target
-      run: |
-        cd openwrt
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/^CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\1/' > ARCH_NAME
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/^CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\2/' > CPU_NAME
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/^CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\3/' > DEVICE_NAME
-        [ -s ARCH_NAME ] && echo "ARCH_NAME=$(cat ARCH_NAME)" >> $GITHUB_ENV
-        [ -s CPU_NAME ] && echo "CPU_NAME=$(cat CPU_NAME)" >> $GITHUB_ENV
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo -e "Arch: $(cat ARCH_NAME)\nCPU: $(cat CPU_NAME)\nDevice: $(cat DEVICE_NAME)"
-
     - name: Compile the firmware
       id: compile
       run: |
@@ -213,12 +202,12 @@ jobs:
     - name: Build PbBoot firmware
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-          cd openwrt/bin/targets/$ARCH_NAME/$CPU_NAME
+          cd openwrt/bin/targets/ramips/mt7620
           dd if=/dev/zero bs=4M count=1 | tr "\000" "\377" > padded_kernel.bin && \
-          dd if=openwrt-${ARCH_NAME}-${CPU_NAME}-${DEVICE_NAME}-squashfs-kernel1.bin of=padded_kernel.bin conv=notrunc && \
-          cat padded_kernel.bin openwrt-${ARCH_NAME}-${CPU_NAME}-${DEVICE_NAME}-squashfs-rootfs0.bin > openwrt-${ARCH_NAME}-${CPU_NAME}-${DEVICE_NAME}-squashfs-pbboot.bin && \
+          dd if=openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-kernel1.bin of=padded_kernel.bin conv=notrunc && \
+          cat padded_kernel.bin openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-rootfs0.bin > openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-pbboot.bin && \
           rm -rf padded_kernel.bin && \
-          sha256sum -b openwrt-${ARCH_NAME}-${CPU_NAME}-${DEVICE_NAME}-squashfs-pbboot.bin >> sha256sums
+          sha256sum -b openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-pbboot.bin >> sha256sums
 
     - name: Check space usage
       if: (!cancelled())
