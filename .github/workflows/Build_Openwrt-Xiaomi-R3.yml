@@ -204,10 +204,10 @@ jobs:
       run: |
           cd openwrt/bin/targets/ramips/mt7620
           dd if=/dev/zero bs=4M count=1 | tr "\000" "\377" > padded_kernel.bin && \
-          dd if=openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-kernel1.bin of=padded_kernel.bin conv=notrunc && \
-          cat padded_kernel.bin openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-rootfs0.bin > openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-pbboot.bin && \
+          dd if=openwrt-ramips-mt7620-xiaomi_miwifi-r3-squashfs-kernel1.bin of=padded_kernel.bin conv=notrunc && \
+          cat padded_kernel.bin openwrt-ramips-mt7620-xiaomi_miwifi-r3-squashfs-rootfs0.bin > openwrt-ramips-mt7620-xiaomi_miwifi-r3-squashfs-pbboot.bin && \
           rm -rf padded_kernel.bin && \
-          sha256sum -b openwrt-ramips-mt7620-DEVICE_xiaomi_miwifi-r3-squashfs-pbboot.bin >> sha256sums
+          sha256sum -b openwrt-ramips-mt7620-xiaomi_miwifi-r3-squashfs-pbboot.bin >> sha256sums
 
     - name: Check space usage
       if: (!cancelled())
