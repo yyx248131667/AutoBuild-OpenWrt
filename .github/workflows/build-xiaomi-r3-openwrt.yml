@@ -23,7 +23,7 @@ env:
   REPO_BRANCH: openwrt-21.02
   REPO_DEPTH: 1
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: Yuos_miwifi-r3.config
+  CONFIG_FILE: config/Yuos_miwifi-r3.config
   DIY_P1_SH: diy-part8B.sh
   DIY_P2_SH: diy-part9.sh
   FILES_PATH: files
