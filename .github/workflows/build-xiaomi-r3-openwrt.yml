@@ -4,6 +4,11 @@ name: 云编译小米路由3
 
 on:
   workflow_dispatch:
+        ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+        type: boolean
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt.git
@@ -11,6 +16,8 @@ env:
   REPO_DEPTH: 1
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Yuos_miwifi-r3.config
+  DIY_P1_SH: diy-part8.sh
+  DIY_P2_SH: diy-part9.sh
   FILES_PATH: files
   PATCHES_PATH: patches
   UPLOAD_RELEASE: true
@@ -70,7 +77,11 @@ jobs:
     - name: Setup feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
         cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+        ./scripts/feeds clean -a
+        git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/yuos/luci-theme-netgear
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
@@ -81,7 +92,11 @@ jobs:
 
     - name: Load custom config
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -f $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config && echo 'Custom config loaded!' || echo 'No custom config!'
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Apply patches
       run: |
@@ -89,6 +104,13 @@ jobs:
         cd openwrt
         [ -d $PATCHES_PATH ] && for FILE in $(ls $PATCHES_PATH | grep .patch); do git apply --check $PATCHES_PATH/$FILE; git apply $PATCHES_PATH/$FILE; done
         git status -s
+        
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Download package
       id: package
