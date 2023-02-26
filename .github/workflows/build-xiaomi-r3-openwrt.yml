@@ -1,6 +1,6 @@
 # Build OpenWrt using GitHub Actions
 
-name: Build OpenWrt
+name: 云编译小米路由3
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ env:
   REPO_BRANCH: openwrt-21.02
   REPO_DEPTH: 1
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+  CONFIG_FILE: Yuos_miwifi-r3.config
   FILES_PATH: files
   PATCHES_PATH: patches
   UPLOAD_RELEASE: true
