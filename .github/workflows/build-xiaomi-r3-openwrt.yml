@@ -4,6 +4,8 @@ name: 云编译小米路由3
 
 on:
   workflow_dispatch:
+    inputs:
+      model:
         ssh:
         description: 'SSH connection to Actions'
         required: false
