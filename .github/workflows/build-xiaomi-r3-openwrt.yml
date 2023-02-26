@@ -5,7 +5,7 @@ name: 云编译小米路由3
 on:
   workflow_dispatch:
     inputs:
-    
+
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
@@ -24,7 +24,7 @@ env:
   REPO_DEPTH: 1
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Yuos_miwifi-r3.config
-  DIY_P1_SH: diy-part8.sh
+  DIY_P1_SH: diy-part8B.sh
   DIY_P2_SH: diy-part9.sh
   FILES_PATH: files
   PATCHES_PATH: patches
