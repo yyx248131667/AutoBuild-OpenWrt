@@ -5,8 +5,7 @@ name: 云编译小米路由3
 on:
   workflow_dispatch:
     inputs:
-      model:
-      
+    
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
