@@ -5,6 +5,14 @@ name: 云编译小米路由3
 on:
   workflow_dispatch:
     inputs:
+        model:
+        description: '选择机型'
+        required: true
+        default: 'miwifi-r3' 
+        type: choice
+        options:
+          - 'MI-R3G'
+          - 'miwifi-r3'
 
       UPLOAD_BIN_DIR:
         type: boolean
@@ -23,7 +31,7 @@ env:
   REPO_BRANCH: openwrt-21.02
   REPO_DEPTH: 1
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Yuos_miwifi-r3.config
+  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part8B.sh
   DIY_P2_SH: diy-part9.sh
   FILES_PATH: files
@@ -134,7 +142,7 @@ jobs:
         cd openwrt
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\1/' > ARCH_NAME
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\2/' > CPU_NAME
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*CONFIG_TARGET_(.*)_(.*)_DEVICE_(.*)=y/\3/' > DEVICE_NAME
         [ -s ARCH_NAME ] && echo "ARCH_NAME=$(cat ARCH_NAME)" >> $GITHUB_ENV
         [ -s CPU_NAME ] && echo "CPU_NAME=$(cat CPU_NAME)" >> $GITHUB_ENV
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
