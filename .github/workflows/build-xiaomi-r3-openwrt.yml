@@ -12,7 +12,7 @@ on:
         default: 'miwifi-r3' 
         type: choice
         options:
-          - 'MI-R3G'
+          - 'miwifi-3a'
           - 'miwifi-r3'
       UPLOAD_BIN_DIR:
         type: boolean
