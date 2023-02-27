@@ -6,7 +6,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-        model:
+      model:
         description: '选择机型'
         required: true
         default: 'miwifi-r3' 
@@ -14,13 +14,11 @@ on:
         options:
           - 'MI-R3G'
           - 'miwifi-r3'
-
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
         required: false
         default: 'false'
-
       ssh:
         description: 'SSH connection to Actions'
         required: false
