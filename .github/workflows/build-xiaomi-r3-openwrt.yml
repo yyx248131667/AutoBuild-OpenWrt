@@ -3,6 +3,7 @@
 name: 云编译小米路由3
 
 on:
+  repository_dispatch:
   workflow_dispatch:
     inputs:
         model:
