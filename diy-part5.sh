@@ -67,6 +67,15 @@ sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wif
 #sed -i 's/"管理权"/"改密码"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 #sed -i 's/"带宽监控"/"监视"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
 
-# 修改xray版本为1.5.5
-sed -i 's/1.7.5/1.5.5/g' feeds/packages/net/xray-core/Makefile
-sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
+# 修改v2ray版本为4.27.5
+sed -i 's/5.4.0/4.27.5/g' feeds/helloworld/v2ray-core/Makefile
+sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' feeds/helloworld/v2ray-core/Makefile
+
+sed -i 's/5.4.0/4.27.5/g' feeds/small/v2ray-core/Makefile
+sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' feeds/small/v2ray-core/Makefile
+
+sed -i 's/5.4.0/4.27.5/g' feeds/small8/v2ray-core/Makefile
+sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' feeds/small8/v2ray-core/Makefile
+
+sed -i 's/5.4.0/4.27.5/g' package/feeds/helloworld/v2ray-core/Makefile
+sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' package/feeds/helloworld/v2ray-core/Makefile
