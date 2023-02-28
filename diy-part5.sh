@@ -77,5 +77,5 @@ sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d
 sed -i 's/5.4.0/4.27.5/g' feeds/small8/v2ray-core/Makefile
 sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' feeds/small8/v2ray-core/Makefile
 
-sed -i 's/5.4.0/4.27.5/g' package/feeds/helloworld/v2ray-core/Makefile
-sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' package/feeds/helloworld/v2ray-core/Makefile
+# sed -i 's/5.4.0/4.27.5/g' package/feeds/helloworld/v2ray-core/Makefile
+# sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' package/feeds/helloworld/v2ray-core/Makefile
