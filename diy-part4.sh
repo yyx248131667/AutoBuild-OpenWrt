@@ -39,5 +39,5 @@ rm -rf package/lean
 git clone -b main https://github.com/yuos-bit/other package/lean
 
 # 修改xray版本为1.5.5
-sed -i 's/1.7.5/1.5.5/g' feeds/packages/net/xray-core/Makefile
-sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
+# sed -i 's/1.7.5/1.5.5/g' feeds/packages/net/xray-core/Makefile
+# sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
