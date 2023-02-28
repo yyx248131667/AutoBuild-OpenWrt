@@ -77,3 +77,15 @@ sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wif
 # 修改xray版本为1.4.2
 sed -i 's/1.7.5/1.4.2/g' feeds/packages/net/xray-core/Makefile
 sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/packages/net/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/helloworld/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/helloworld/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' package/feeds/packages/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' package/feeds/packages/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/small/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/small/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/small8/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/small8/xray-core/Makefile
