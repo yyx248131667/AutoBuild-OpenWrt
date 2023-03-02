@@ -34,8 +34,11 @@ sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
 
-# 修改默认wifi驱动为闭源驱动
+# 修改默认红米AC2100 wifi驱动为闭源驱动
 sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+
+# 修改默认小米路由3G wifi驱动为闭源驱动
+sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 设置闭源驱动开机自启
 sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local

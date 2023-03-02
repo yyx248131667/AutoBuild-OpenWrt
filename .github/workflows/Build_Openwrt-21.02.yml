@@ -22,6 +22,10 @@ on:
           - 'MI-R3G'
           - 'Redmi_AC2100'
           - 'K2P'
+          - 'miwifi-nano'
+          - 'miwifi-mini'
+          - 'miwifi-r3'
+          - 'miwifi-r3mi'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
@@ -66,10 +70,10 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-21.02
+  REPO_URL: https://github.com/yuos-bit/openwrt
+  REPO_BRANCH: xiaomi
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Openwrt_${{ github.event.inputs.model }}-21.02.config
+  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part8.sh
   DIY_P2_SH: diy-part9.sh
 #  UPLOAD_BIN_DIR: true
@@ -91,14 +95,13 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo sed -i s@/azure.archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
-        sudo -E apt -qq clean
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo -E apt-get -qq install build-essential ccache ecj fastjar file g++ gawk \
+        gettext git java-propose-classpath libelf-dev libncurses5-dev \
+        libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+        python3-distutils python3-setuptools python3-dev rsync subversion \
+        swig time xsltproc zlib1g-dev
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
