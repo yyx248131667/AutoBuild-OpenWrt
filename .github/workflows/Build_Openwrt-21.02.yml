@@ -26,6 +26,7 @@ on:
           - 'miwifi-mini'
           - 'miwifi-r3'
           - 'miwifi-r3mi'
+          - 'E8820v2'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
