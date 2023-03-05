@@ -28,6 +28,7 @@ on:
           - 'miwifi-3a'
           - 'miwifi-r3'
           - 'miwifi-r3mi'
+          - 'miwifi-4c'
           - 'E8820v2'
           - 'E8820v2_128m'   
       UPLOAD_BIN_DIR:
