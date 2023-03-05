@@ -24,10 +24,12 @@ on:
           - 'K2P'
           - 'miwifi-nano'
           - 'miwifi-mini'
+          - 'miwifi-3c'
+          - 'miwifi-3a'
           - 'miwifi-r3'
           - 'miwifi-r3mi'
           - 'E8820v2'
-          - 'E8820v2_128m'
+          - 'E8820v2_128m'   
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
