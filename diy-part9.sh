@@ -41,10 +41,25 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 
 # 状态系统增加个性信息
 # 参考于 https://github.com/XXKDB/MI-R4A-breed-openwrt/blob/main/MI-R4A/R4A.sh
-sed -i "s/exit 0//" package/default-settings/default-settings/default-settings
-echo "sed -i '/CPU usage/a\<tr><td width=\"33%\">关于</td><td><a href=\"https://yuos.top\">作者博客</a>&nbsp;&nbsp;&nbsp;<a href=\"https://github.com/yuos-bit/openwrt/tree/xiaomi\">编译源地址</a>&nbsp;&nbsp;&nbsp;<a href=\"https://space.bilibili.com/318787487\">小渔学长</a></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
-echo "sed -i '/关于/a\<tr><td width=\"33%\">天气</td><td><iframe width=\"640\" scrolling=\"no\" height=\"75\" frameborder=\"0\" allowtransparency=\"true\" src=\"https://i.tianqi.com?c=code&id=39&color=%23FF7600&icon=3&num=2&site=12\"></iframe></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
-echo "sed -i '/天气/a\<tr><td width=\"33%\"> </td><td class=\"container\" style=\"height:200px;\"><canvas class=\"illo\" width=\"640\" height=\"640\" style=\"max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;\"></canvas></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
-echo "" >> package/default-settings/default-settings/files/zzz-default-settings
-echo "" >> package/default-settings/default-settings/files/zzz-default-settings
-echo "exit 0" >> package/default-settings/default-settings/files/zzz-default-settings
+# sed -i "s/exit 0//" package/default-settings/default-settings/default-settings
+#echo "sed -i '/CPU usage/a\<tr><td width=\"33%\">关于</td><td><a href=\"https://yuos.top\">作者博客</a>&nbsp;&nbsp;&nbsp;<a href=\"https://github.com/yuos-bit/openwrt/tree/xiaomi\">编译源地址</a>&nbsp;&nbsp;&nbsp;<a href=\"https://space.bilibili.com/318787487\">小渔学长</a></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
+#echo "sed -i '/关于/a\<tr><td width=\"33%\">天气</td><td><iframe width=\"640\" scrolling=\"no\" height=\"75\" frameborder=\"0\" allowtransparency=\"true\" src=\"https://i.tianqi.com?c=code&id=39&color=%23FF7600&icon=3&num=2&site=12\"></iframe></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
+#echo "sed -i '/天气/a\<tr><td width=\"33%\"> </td><td class=\"container\" style=\"height:200px;\"><canvas class=\"illo\" width=\"640\" height=\"640\" style=\"max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;\"></canvas></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/default-settings/default-settings/files/zzz-default-settings
+#echo "" >> package/default-settings/default-settings/files/zzz-default-settings
+#echo "" >> package/default-settings/default-settings/files/zzz-default-settings
+#echo "exit 0" >> package/default-settings/default-settings/files/zzz-default-settings
+# 修改xray版本为1.4.2
+sed -i 's/1.7.5/1.4.2/g' feeds/packages/net/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/packages/net/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/helloworld/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/helloworld/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' package/feeds/packages/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' package/feeds/packages/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/small/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/small/xray-core/Makefile
+
+sed -i 's/1.7.5/1.4.2/g' feeds/small8/xray-core/Makefile
+sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/small8/xray-core/Makefile
