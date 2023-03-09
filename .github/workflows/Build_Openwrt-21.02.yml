@@ -30,7 +30,8 @@ on:
           - 'miwifi-r3mi'
           - 'miwifi-4c'
           - 'E8820v2'
-          - 'E8820v2_128m'   
+          - 'E8820v2_128m'
+          - 'x86'   
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
