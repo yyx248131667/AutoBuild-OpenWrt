@@ -53,8 +53,8 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # 防火墙HWNAT补丁
 # Download fullconenat.patch to package/network/config/firewall/patches/
 mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+wget -P package/network/config/firewall/patches/ https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
 # Patch LuCI
 pushd feeds/luci
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+wget -O- https://github.com/yuos-bit/other/releases/download/openwrt-patch/luci.patch | git apply
 popd
