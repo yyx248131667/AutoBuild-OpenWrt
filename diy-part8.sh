@@ -54,7 +54,4 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # Download fullconenat.patch to package/network/config/firewall/patches/
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
-# Patch LuCI
-pushd feeds/luci
-wget -O- https://github.com/yuos-bit/other/releases/download/openwrt-patch/luci.patch | git apply
-popd
+wget -O package/network/config/firewall/patches/ https://github.com/yuos-bit/other/releases/download/openwrt-patch/luci.patch
