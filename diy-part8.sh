@@ -52,3 +52,5 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 
 # 防火墙HWNAT补丁
 rm -rf package/firmware
+git clone -b firmware-patch https://github.com/yuos-bit/other package/firmware
+rm -rf package/firmware/.git/
