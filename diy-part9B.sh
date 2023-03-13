@@ -46,3 +46,6 @@ git clone -b master https://github.com/MeIsReallyBa/Redmi2100-WIFI-ProprietaryDr
 
 # 拉取sfe-flowoffload-linux-5.4
 git clone -b master https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4 package/yuos/sfe
+
+# 拉取natflow
+git clone -b master https://github.com/MeIsReallyBa/natflow package/yuos/natflow
