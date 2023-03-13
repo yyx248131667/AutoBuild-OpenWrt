@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 云编译Openwrt官方-红米AC2100-闭源驱动
+name: 云编译红米AC2100-Openwrt官方21.02固件
 
 on:
   repository_dispatch:
@@ -19,9 +19,7 @@ on:
         default: 'Redmi_AC2100' 
         type: choice
         options:
-          - 'MI-R3G'
           - 'Redmi_AC2100'
-          - 'K2P'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
@@ -66,12 +64,12 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
+  REPO_URL: https://github.com/yuos-bit/openwrt
+  REPO_BRANCH: xiaomi
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Openwrt_${{ github.event.inputs.model }}-22.03-MTK.config
-  DIY_P1_SH: diy-part10.sh
-  DIY_P2_SH: diy-part11.sh
+  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
+  DIY_P1_SH: diy-part8B.sh
+  DIY_P2_SH: diy-part9B.sh
 #  UPLOAD_BIN_DIR: true
 #  UPLOAD_FIRMWARE: true
 #  UPLOAD_COWTRANSFER: false
@@ -91,14 +89,13 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo sed -i s@/azure.archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
-        sudo -E apt -qq clean
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo -E apt-get -qq install build-essential ccache ecj fastjar file g++ gawk \
+        gettext git java-propose-classpath libelf-dev libncurses5-dev \
+        libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+        python3-distutils python3-setuptools python3-dev rsync subversion \
+        swig time xsltproc zlib1g-dev
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -123,7 +120,7 @@ jobs:
     - name: add luci-theme-netgear
       run: |
            cd openwrt
-           git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/kenzo/luci-theme-netgear
+           git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/yuos/luci-theme-netgear
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
