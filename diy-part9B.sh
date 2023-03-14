@@ -40,9 +40,9 @@ sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 
 # 删除默认闭源wifi驱动
 rm -rf package/lean/mt
-
 # 拉取红米AC2100专属闭源wifi驱动
-git clone -b master https://github.com/MeIsReallyBa/Redmi2100-WIFI-ProprietaryDriver-linux5.4 package/lean/mt/mt7603
+git clone -b master https://github.com/yuos-bit/MTK-WIFI-Driver-linux5.4 package/lean/mt
+
 # 拉取sfe-flowoffload-linux-5.4
 git clone -b master https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4 package/yuos/shortcut-fe
 cp -R package/yuos/shortcut-fe/shortcut-fe package/kernel/shortcut-fe
@@ -50,5 +50,6 @@ cp package/yuos/shortcut-fe/952-net-conntrack-events-support-multiple-registrant
 cp package/yuos/shortcut-fe/999-shortcut-fe-support.patch target/linux/generic/hack-5.4/
 rm -rf package/lean/shortcut-fe
 rm -rf package/yuos/shortcut-fe
+
 # 拉取natflow
 git clone -b master https://github.com/MeIsReallyBa/natflow package/yuos/natflow
