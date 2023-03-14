@@ -44,7 +44,7 @@ rm -rf package/lean/mt
 git clone -b master https://github.com/yuos-bit/MTK-WIFI-Driver-linux5.4 package/lean/mt
 
 # 拉取sfe-flowoffload-linux-5.4
-git clone -b master https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4 package/yuos/shortcut-fe
+git clone -b master https://github.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4 package/yuos/shortcut-fe
 
 cp -arf package/yuos/shortcut-fe/shortcut-fe package/kernel/shortcut-fe
 
