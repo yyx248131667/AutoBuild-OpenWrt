@@ -19,10 +19,10 @@ sed -i 's/192.168.$((addr_offset++)).1/10.32.$((addr_offset++)).1/g' package/bas
 sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 
 # 修改默认wifi名称ssid为Xiaoyu-Wifi
-# sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改默认wifi密码key为1234567890
-# sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 #使用sed 在第四行后添加新字
 # sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.default_radio${devidx}.key=1234567890' package/kernel/mac80211/files/lib/wifi/mac80211.sh
@@ -44,14 +44,6 @@ rm -rf package/lean/mt
 git clone -b master https://github.com/yuos-bit/MTK-WIFI-Driver-linux5.4 package/lean/mt
 
 # 拉取sfe-flowoffload-linux-5.4
-git clone -b master https://github.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4 package/yuos/shortcut-fe
-
-cp -arf package/yuos/shortcut-fe/shortcut-fe package/kernel/shortcut-fe
-
-cp -arf package/yuos/shortcut-fe/952-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-5.4/
-
-cp -arf package/yuos/shortcut-fe/999-shortcut-fe-support.patch target/linux/generic/hack-5.4/
-
 rm -rf package/lean/shortcut-fe
 rm -rf package/yuos/shortcut-fe
 
