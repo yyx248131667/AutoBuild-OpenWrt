@@ -64,8 +64,8 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/yuos-bit/openwrt
-  REPO_BRANCH: xiaomi
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part8B.sh
