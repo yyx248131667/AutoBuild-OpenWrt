@@ -45,6 +45,6 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 
 # 防火墙HWNAT补丁
-mkdir package/network/config/firewall/patches
-wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
+# mkdir package/network/config/firewall/patches
+# wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
 
