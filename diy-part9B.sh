@@ -48,4 +48,4 @@ rm -rf package/lean/shortcut-fe
 rm -rf package/yuos/shortcut-fe
 
 # 拉取natflow
-git clone -b master https://github.com/MeIsReallyBa/natflow package/yuos/natflow
+# git clone -b master https://github.com/MeIsReallyBa/natflow package/yuos/natflow
