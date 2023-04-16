@@ -17,7 +17,7 @@
 # sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 
 # 修改软件包版本为大杂烩-openwrt-master
-sed -i 's/git.openwrt.org\/feed\/packages.git/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/feed\/packages.git/github.com\/Lienol\/openwrt-packages.git;master/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 
 
