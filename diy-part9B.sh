@@ -40,8 +40,9 @@ sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/w
 
 # 删除默认闭源wifi驱动
 rm -rf package/lean/mt
+
 # 拉取红米AC2100专属闭源wifi驱动
-git clone -b master https://github.com/yuos-bit/MTK-WIFI-Driver-linux5.4 package/lean/mt
+# git clone -b master https://github.com/yuos-bit/MTK-WIFI-Driver-linux5.4 package/lean/mt
 
 # 拉取sfe-flowoffload-linux-5.4
 rm -rf package/lean/shortcut-fe
