@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 红米AC2100-Openwrt官方21.02固件
+name: 红米AC2100-Openwrt官方固件测试
 
 on:
   repository_dispatch:
