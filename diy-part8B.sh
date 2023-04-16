@@ -15,6 +15,11 @@
 # 修改软件包版本为大杂烩-openwrt21.02
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+# 修改软件包版本为大杂烩-openwrt-master
+sed -i 's/git.openwrt.org\/feed\/packages.git/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+
+
 # 修改软件包版本为大杂烩-openwrt22.03
 # sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-22.03/github.com\/coolsnowwolf\/packages.git;master/g' feeds.conf.default
 # sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-22.03/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
@@ -29,7 +34,22 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 #git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
 
 # 修改默认dnsmasq为dnsmasq-full
-sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
+# sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
+
+# master 分支启用
+# 修改默认第一排插件
+sed -i 's/dnsmasq/dnsmasq-full firewall iptables/g' include/target.mk
+# 修改默认第二排插件
+sed -i 's/firewall4/block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
+# 修改默认第三排插件
+sed -i 's/nftables/iptables-mod-tproxy/g' include/target.mk
+# 修改默认第四排插件
+sed -i 's/kmod-nft-offload/kmod-nft-offload curl ca-certificates/g' include/target.mk
+# 修改默认第五排插件
+sed -i 's/odhcp6c/odhcp6c iptables-mod-tproxy iptables-mod-extra/g' include/target.mk
+# 修改默认第六排插件
+sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g' include/target.mk
+# master分支启用
 
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
