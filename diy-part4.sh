@@ -24,5 +24,4 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 
 # 单独拉取 lean包到package 目录
 rm -rf package/lean
-
 git clone -b main https://github.com/yuos-bit/other package/lean
