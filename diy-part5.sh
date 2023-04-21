@@ -24,11 +24,6 @@ sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 # 修改默认wifi名称ssid为Xiaomi-Wifi
 sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
-
-# 修改登陆密码
-# sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
-# sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
-
 # Add kernel build user
 [ -z $(grep "CONFIG_KERNEL_BUILD_USER=" .config) ] &&
     echo 'CONFIG_KERNEL_BUILD_USER="MOLUN"' >>.config ||
@@ -73,11 +68,6 @@ sed -i 's/ssid=OpenWrt/ssid=Xiaoyu-Wifi/g' package/kernel/mac80211/files/lib/wif
 
 # sed -i 's/5.4.0/4.27.5/g' feeds/small8/v2ray-core/Makefile
 # sed -i 's/86be35461a9dc7d037e0045771d99f1eae284fdb7aa0818a6782d18b6b003fca/f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8/g' feeds/small8/v2ray-core/Makefile
-
-# 修改xray版本为1.5.5
-# sed -i 's/1.7.5/1.5.5/g' feeds/packages/net/xray-core/Makefile
-# sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
-
 # 修改xray版本为1.4.2
 sed -i 's/1.7.5/1.4.2/g' feeds/packages/net/xray-core/Makefile
 sed -i 's/a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3/565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc/g' feeds/packages/net/xray-core/Makefile
