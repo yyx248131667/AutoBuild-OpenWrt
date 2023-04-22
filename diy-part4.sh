@@ -23,5 +23,4 @@ sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
 
 # 单独拉取 lean包到package 目录
-rm -rf package/lean
 git clone -b main https://github.com/yuos-bit/other package/lean
