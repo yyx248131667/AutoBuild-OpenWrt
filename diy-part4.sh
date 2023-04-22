@@ -16,9 +16,6 @@
 #git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
 #git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
 
-# 修改默认dnsmasq为dnsmasq-full
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
-
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
 
