@@ -11,10 +11,10 @@
 #=================================================
 
 # Modify default IP 修改openwrt登陆地址,把下面的192.168.3.1修改成你想要的就可以了
-sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.32.0.1/g' package/base-files/files/bin/config_generate
 
 # Modify default Hostname 修改主机名字，把MI-R3G修改你喜欢的就行（不能使用中文）
-sed -i 's/ImmortalWrt/XiaoMi/g' package/base-files/files/bin/config_generate
+sed -i 's/ImmortalWrt/Xiaoyu/g' package/base-files/files/bin/config_generate
 
 # 清除登陆密码
 #sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/default-settings/files/zzz-default-settings
