@@ -7,7 +7,7 @@
 # Description: Build OpenWrt using GitHub Actions
 # Modified for padavanonly/immortalwrt
 
-name: Build_padavanonly_ImmortalWrt_kvr
+name: 云编译_ImmortalWrt_kvr
 
 on:
   repository_dispatch:
