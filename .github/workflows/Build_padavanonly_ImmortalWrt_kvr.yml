@@ -22,6 +22,7 @@ on:
           - 'MI-R3G'
           - 'MI-R3P'
           - 'K2P'
+          - 'D2'
       #cpu超频：1000Mhz--0x312 1100Mhz--0x362 1200Mhz--0x3B2
       cpu_overclock:
         type: boolean
