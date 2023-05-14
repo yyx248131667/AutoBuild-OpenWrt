@@ -35,7 +35,7 @@ sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
 git clone -b main https://github.com/yuos-bit/other package/lean
 
 # 修改默认红米AC2100 wifi驱动为闭源驱动
-sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+# sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 修改默认小米路由3G wifi驱动为闭源驱动
 sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
@@ -44,7 +44,7 @@ sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpa
 sed -i 's/kmod-mt7615e kmod-mt7615-firmware/-luci-newapi -wpad-openssl kmod-mt7615d_dbdc wireless-tools/g' target/linux/ramips/image/mt7621.mk
 
 # 设置闭源驱动开机自启
-sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
+# sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
@@ -53,4 +53,8 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 # 防火墙HWNAT补丁
 mkdir package/network/config/firewall/patches
 wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
+
+#SFE补丁
+wget -O target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+wget -O target/linux/ramips/patches-5.4/999-shortcut-fe-support.patch
 # wget -O package/network/config/firewall/patches/luci.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/luci.patch
