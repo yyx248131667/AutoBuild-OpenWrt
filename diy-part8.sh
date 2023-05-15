@@ -50,10 +50,6 @@ sed -i 's/kmod-mt7615e kmod-mt7615-firmware/-luci-newapi -wpad-openssl kmod-mt76
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 # git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 
-# 防火墙HWNAT补丁
-mkdir package/network/config/firewall/patches
-wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
-
 # SFE补丁
 # wget -O target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/952-net-conntrack-events-support-multiple-registrant.patch
 # wget -O target/linux/ramips/patches-5.4/999-shortcut-fe-support.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/999-shortcut-fe-support.patch 
