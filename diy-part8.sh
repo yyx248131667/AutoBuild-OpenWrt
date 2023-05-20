@@ -31,6 +31,9 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 # 修改默认dnsmasq为dnsmasq-full
 sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
 
+# 修改默认编译LUCI进系统
+sed -i 's/ppp-mod-pppoe/ppp-mod-pppoe default-settings luci curl/g' include/target.mk
+
 # 单独拉取 lean包到package 目录
 # git clone -b main https://github.com/yuos-bit/other package/lean
 
@@ -48,7 +51,6 @@ sed -i 's/kmod-mt7615e kmod-mt7615-firmware/-luci-newapi -wpad-openssl kmod-mt76
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
-# git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 
 # SFE补丁
 # wget -O target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/952-net-conntrack-events-support-multiple-registrant.patch
@@ -119,11 +121,11 @@ git clone -b master --single-branch https://github.com/garypang13/luci-theme-edg
 #修正架构
 sed -i "s,boardinfo.system,'ARMv8',g" feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
 chmod -R 755 ./
-echo -e '\nQuintus Build @ '$(date "+%Y.%m.%d")'\n'  >> package/base-files/files/etc/banner
+echo -e '\n小渔学长 Build @ '$(date "+%Y.%m.%d")'\n'  >> package/base-files/files/etc/banner
 sed -i '/DISTRIB_REVISION/d' package/base-files/files/etc/openwrt_release
 echo "DISTRIB_REVISION='$(date "+%Y.%m.%d")'" >> package/base-files/files/etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' package/base-files/files/etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='Quintus Build@$(date "+%Y.%m.%d")" >> package/base-files/files/etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='小渔学长 Build@$(date "+%Y.%m.%d")" >> package/base-files/files/etc/openwrt_release
 
 #install upx
 mkdir -p staging_dir/host/bin/
