@@ -13,14 +13,8 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 # 修改软件包版本为大杂烩-openwrt21.02
-# sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
-# sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
-
-# 修改软件包版本为大杂烩-openwrt-master
-sed -i 's/git.openwrt.org\/feed\/packages.git/github.com\/Lienol\/openwrt-packages.git;master/g' feeds.conf.default
-sed -i 's/git.openwrt.org\/project\/luci.git/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
-
-
+sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 修改软件包版本为大杂烩-openwrt22.03
 # sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-22.03/github.com\/coolsnowwolf\/packages.git;master/g' feeds.conf.default
 # sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-22.03/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
@@ -32,40 +26,93 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 
 # 预下载主题
 #git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
-#git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
 
 # 修改默认dnsmasq为dnsmasq-full
-# sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
 
-# master 分支启用
-# 修改默认第一排插件
-sed -i 's/dnsmasq/dnsmasq-full firewall iptables/g' include/target.mk
-# 修改默认第二排插件
-sed -i 's/firewall4/block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
-# 修改默认第三排插件
-sed -i 's/nftables/iptables-mod-tproxy/g' include/target.mk
-# 修改默认第四排插件
-sed -i 's/kmod-nft-offload/kmod-nft-offload curl ca-certificates/g' include/target.mk
-# 修改默认第五排插件
-sed -i 's/odhcp6c/odhcp6c iptables-mod-tproxy iptables-mod-extra/g' include/target.mk
-# 修改默认第六排插件
-sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g' include/target.mk
-# master分支启用
-
-# 单独拉取 lean包到package 目录
-git clone -b main https://github.com/yuos-bit/other package/lean
+# 修改默认编译LUCI进系统
+sed -i 's/ppp-mod-pppoe/ppp-mod-pppoe default-settings luci curl/g' include/target.mk
 
 # 修改默认红米AC2100 wifi驱动为闭源驱动
 # sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+
+# 修改默认小米路由3G wifi驱动为闭源驱动
+# sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+
+# 修改默认斐讯K2Pwifi驱动为闭源驱动
+# sed -i 's/kmod-mt7615e kmod-mt7615-firmware/-luci-newapi -wpad-openssl kmod-mt7615d_dbdc wireless-tools/g' target/linux/ramips/image/mt7621.mk
 
 # 设置闭源驱动开机自启
 # sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
-# git clone -b lede-default-settings https://github.com/yuos-bit/other package/default-settings
 
-# 防火墙HWNAT补丁
-# mkdir package/network/config/firewall/patches
-# wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/fullconenat.patch
+# SFE补丁
+# wget -O target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/952-net-conntrack-events-support-multiple-registrant.patch
+# wget -O target/linux/ramips/patches-5.4/999-shortcut-fe-support.patch https://github.com/yuos-bit/other/releases/download/openwrt-patch/999-shortcut-fe-support.patch 
 
+#patches
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1001-dnsmasq_add_filter_aaaa_option.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/tree/master/not_use_file/luci-add-filter-aaaa-option.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/tree/master/not_use_file/1002-luci-app-firewall_add_sfe_switch.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0000-use_json_object_new_int64.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/tree/master/not_use_file/kernel_crypto-add-rk3328-crypto-support.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/tree/master/not_use_file/900-add-filter-aaaa-option.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/tree/master/not_use_file/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/991-r8152-Add-module-param-for-customized-LEDs.patch
+
+patch -p1 < ./kernel_crypto-add-rk3328-crypto-support.patch
+patch -p1 < ./0000-use_json_object_new_int64.patch
+patch -p1 < ./1001-dnsmasq_add_filter_aaaa_option.patch
+patch -p1 < ./luci-add-filter-aaaa-option.patch
+patch -p1 < ./1002-luci-app-firewall_add_sfe_switch.patch
+cp ./900-add-filter-aaaa-option.patch package/network/services/dnsmasq/patches/
+cp ./998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/
+# cp ./991-r8152-Add-module-param-for-customized-LEDs.patch ./target/linux/rockchip/patches-5.4/
+
+svn co https://github.com/coolsnowwolf/openwrt-gl-ax1800/tree/master/extra/luci/applications/luci-app-cpufreq package/lean/luci-app-cpufreq
+wget https://github.com/project-openwrt/R2S-OpenWrt/raw/master/PATCH/luci-app-freq.patch
+patch -p1 < ./luci-app-freq.patch
+
+#FullCone Patch
+git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+# Patch FireWall for fullcone
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+
+pushd feeds/luci
+wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+popd
+#Patch Kernel for fullcone
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+popd
+
+# SFE kernel patch
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
+popd
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
+
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/999-unlock-1608mhz-rk3328.patch
+cp 999-unlock-1608mhz-rk3328.patch target/linux/rockchip/patches-5.4/
+
+
+rm -rf ./feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+
+
+#AutoCore
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/autocore package/lean/autocore
+
+#coremark
+rm -rf ./feeds/packages/utils/coremark
+rm -rf ./package/feeds/packages/coremark
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark package/lean/coremark
+sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
+
+#install upx
+mkdir -p staging_dir/host/bin/
+ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
