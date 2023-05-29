@@ -140,6 +140,3 @@ svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping pac
 #install upx
 mkdir -p staging_dir/host/bin/
 ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
-#or
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/step/03-remove_upx.sh
-bash 03-remove_upx
