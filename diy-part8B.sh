@@ -78,6 +78,7 @@ patch -p1 < ./shortcut-fe-support.patch
 
 #FullCone Patch
 git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
+
 # Patch FireWall for fullcone
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
@@ -92,11 +93,11 @@ wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/gen
 popd
 
 # SFE kernel patch
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-popd
-svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
+# pushd target/linux/generic/hack-5.4
+# wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+# popd
+# svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
+# svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
 
 #AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
