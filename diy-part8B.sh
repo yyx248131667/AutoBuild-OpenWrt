@@ -50,30 +50,27 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 
 
 #patches
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/dnsmasq-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-app-firewall_add_sfe_switch.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/use_json_object_new_int64.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/kernel_crypto-add-rk3328-crypto-support.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/900-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/991-r8152-Add-module-param-for-customized-LEDs.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0001-tools-add-upx-ucl-support.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1001-dnsmasq_add_filter_aaaa_option.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1002-fw3_fullconenat.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1003-luci-app-firewall_add_fullcone.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2001-add-5.14-support.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2003-mod-for-k514.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/910-mini-ttl.patch
+wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/911-dnsmasq-filter-aaaa.patch
 
-patch -p1 < ./kernel_crypto-add-rk3328-crypto-support.patch
-patch -p1 < ./use_json_object_new_int64.patch
-patch -p1 < ./dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ./luci-add-filter-aaaa-option.patch
-patch -p1 < ./luci-app-firewall_add_sfe_switch.patch
-cp ./900-add-filter-aaaa-option.patch package/network/services/dnsmasq/patches/
-cp ./998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/
-cp ./991-r8152-Add-module-param-for-customized-LEDs.patch ./target/linux/rockchip/patches-5.4/
+patch -p1 < ./tools-add-upx-ucl-support.patch
+patch -p1 < ./dnsmasq_add_filter_aaaa_option.patch
+patch -p1 < ./fw3_fullconenat.patch
+patch -p1 < ./luci-app-firewall_add_fullcone.patch
+patch -p1 < ./add-5.14-support.patch
+patch -p1 < ./mod-for-k514.patch
+patch -p1 < ./mini-ttl.patch
+patch -p1 < ./dnsmasq-filter-aaaa.patch
 
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
-wget https://github.com/project-openwrt/R2S-OpenWrt/raw/master/PATCH/luci-app-freq.patch
-patch -p1 < ./luci-app-freq.patch
 
 #FullCone Patch
-git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
 # Patch FireWall for fullcone
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
@@ -81,6 +78,7 @@ wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/full
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 popd
+
 #Patch Kernel for fullcone
 pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
@@ -88,20 +86,11 @@ popd
 
 # SFE kernel patch
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 popd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
 
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/999-unlock-1608mhz-rk3328.patch
-cp 999-unlock-1608mhz-rk3328.patch target/linux/rockchip/patches-5.4/
-
-
-rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
-
-#arpbind
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind package/lean/luci-app-arpbind
 #AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 #coremark
@@ -109,14 +98,7 @@ rm -rf ./feeds/packages/utils/coremark
 rm -rf ./package/feeds/packages/coremark
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
-#ddns script
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun package/lean/ddns-scripts_aliyun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod package/lean/ddns-scripts_dnspod
-#autoreboot
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot package/lean/luci-app-autoreboot
-#gost
-svn co https://github.com/project-openwrt/openwrt/trunk/package/ctcgfw/gost package/ctcgfw/gost
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/luci-app-gost package/ctcgfw/luci-app-gost
+
 #ssrp
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/lean/luci-app-ssr-plus
 rm -rf ./feeds/packages/net/kcptun
