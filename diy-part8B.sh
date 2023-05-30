@@ -71,7 +71,7 @@ patch -p1 < ./dnsmasq-filter-aaaa.patch
 #shortcut-fe patches
 wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
 wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
-git clone -b master --single-branch https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4 package/sfe-flowoffload-linux-5.4
+git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
 patch -p1 < ./shortcut-fe-support.patch
