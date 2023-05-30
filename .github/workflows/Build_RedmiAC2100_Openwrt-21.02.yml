@@ -120,7 +120,7 @@ jobs:
     - name: download lean-package
       run: |
            cd openwrt
-           git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
+           git clone -b main --single-branch https://github.com/yuos-bit/other feeds/yuos
       
     - name: add luci-theme-netgear
       run: |
