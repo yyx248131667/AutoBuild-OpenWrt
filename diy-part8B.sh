@@ -68,6 +68,14 @@ patch -p1 < ./mod-for-k514.patch
 patch -p1 < ./mini-ttl.patch
 patch -p1 < ./dnsmasq-filter-aaaa.patch
 
+#shortcut-fe patches
+wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
+wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
+git clone -b master --single-branch https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4 package/sfe-flowoffload-linux-5.4
+
+patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
+patch -p1 < ./shortcut-fe-support.patch
+
 
 #FullCone Patch
 git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
