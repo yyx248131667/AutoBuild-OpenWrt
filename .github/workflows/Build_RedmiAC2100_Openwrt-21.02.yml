@@ -116,10 +116,14 @@ jobs:
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
+
+    - name: download lean-package
+      run: |
+           cd openwrt
+           git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
       
     - name: add luci-theme-netgear
       run: |
-           cd openwrt
            git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git feeds/yuos/luci-theme-netgear
 
     - name: Install feeds
