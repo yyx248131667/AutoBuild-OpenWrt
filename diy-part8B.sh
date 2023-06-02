@@ -47,6 +47,7 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
+git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 
 #patches
