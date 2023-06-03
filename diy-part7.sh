@@ -93,6 +93,9 @@ wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2003-mod
 wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/910-mini-ttl.patch
 wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/911-dnsmasq-filter-aaaa.patch
 wget https://github.com/LGA1150/openwrt-fullconenat/raw/master/patches/000-printk.patch
+wget https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch
+wget https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+
 
 patch -p1 < ./tools-add-upx-ucl-support.patch
 patch -p1 < ./dnsmasq_add_filter_aaaa_option.patch
@@ -111,13 +114,7 @@ wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/maste
 patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
 patch -p1 < ./shortcut-fe-support.patch
 
-
-#FullCone Patch
 git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
 
-# Patch FireWall for fullcone
-mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 patch -p1 < ./fullconenat.patch
 patch -p1 < ./luci.patch
