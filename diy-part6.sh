@@ -74,12 +74,12 @@ patch -p1 < ./mini-ttl.patch
 patch -p1 < ./dnsmasq-filter-aaaa.patch
 patch -p1 < ./printk.patch
 
-#shortcut-fe patches
-wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
-wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
+# #shortcut-fe patches
+# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
+# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
 
-patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
-patch -p1 < ./shortcut-fe-support.patch
+# patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
+# patch -p1 < ./shortcut-fe-support.patch
 
 # git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
 # patch -p1 < ./fullconenat.patch
