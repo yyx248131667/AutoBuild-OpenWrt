@@ -121,7 +121,3 @@ wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/full
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 patch -p1 < ./fullconenat.patch
 patch -p1 < ./luci.patch
-
-# SFE kernel patch
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-patch -p1 < ./net-patch-linux-kernel-to-support-shortcut-fe.patch
