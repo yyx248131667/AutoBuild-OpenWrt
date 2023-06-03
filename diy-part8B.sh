@@ -96,11 +96,11 @@ wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/gen
 popd
 
 # SFE kernel patch
-# pushd target/linux/generic/hack-5.4
-# wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-# popd
-# svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
-# svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+popd
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe package/new/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/tree/master/package/lean/shortcut-fe/fast-classifier package/new/fast-classifier
 
 #AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
