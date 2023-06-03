@@ -118,17 +118,10 @@ git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconen
 # Patch FireWall for fullcone
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-
-pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
-popd
-
-#Patch Kernel for fullcone
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-popd
+patch -p1 < ./fullconenat.patch
+patch -p1 < ./luci.patch
 
 # SFE kernel patch
-pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-popd
+patch -p1 < ./net-patch-linux-kernel-to-support-shortcut-fe.patch
