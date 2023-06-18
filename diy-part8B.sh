@@ -49,6 +49,9 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
+#FullCone Patch
+git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
+
 
 #patches
 wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0001-tools-add-upx-ucl-support.patch
@@ -78,6 +81,3 @@ wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/maste
 patch -p1 < ./952-net-conntrack-events-support-multiple-registrant.patch
 patch -p1 < ./999-shortcut-fe-support.patch
 
-
-#FullCone Patch
-git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
