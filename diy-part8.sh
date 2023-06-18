@@ -50,8 +50,7 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 #FullCone Patch
-git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
-
+git clone -b main --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
 
 #patches
 # wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0001-tools-add-upx-ucl-support.patch
