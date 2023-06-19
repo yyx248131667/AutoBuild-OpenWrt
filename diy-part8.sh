@@ -50,7 +50,7 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 #FullCone Patch
-git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
+git clone -b master --single-branch https://github.com/yuos-bit/openwrt-fullconenat package/fullconenat
 
 # Download fullconenat.patch to package/network/config/firewall/patches/
 mkdir package/network/config/firewall/patches
