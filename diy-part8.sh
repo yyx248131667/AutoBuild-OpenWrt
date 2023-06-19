@@ -52,30 +52,10 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 #FullCone Patch
 git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
 
-#patches
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0001-tools-add-upx-ucl-support.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1001-dnsmasq_add_filter_aaaa_option.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1002-fw3_fullconenat.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1003-luci-app-firewall_add_fullcone.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2001-add-5.14-support.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2003-mod-for-k514.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/910-mini-ttl.patch
-# wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/911-dnsmasq-filter-aaaa.patch
-# wget https://github.com/LGA1150/openwrt-fullconenat/raw/master/patches/000-printk.patch
-
-# patch -p1 < ./0001-tools-add-upx-ucl-support.patch
-# patch -p1 < ./1001-dnsmasq_add_filter_aaaa_option.patch
-# patch -p1 < ./1002-fw3_fullconenat.patch
-# patch -p1 < ./1003-luci-app-firewall_add_fullcone.patch
-# patch -p1 < ./2001-add-5.14-support.patch
-# patch -p1 < ./2003-mod-for-k514.patch
-# patch -p1 < ./910-mini-ttl.patch
-# patch -p1 < ./911-dnsmasq-filter-aaaa.patch
-# patch -p1 < ./000-printk.patch
-
-# #shortcut-fe patches
-# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
-# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
-
-# patch -p1 < ./952-net-conntrack-events-support-multiple-registrant.patch
-# patch -p1 < ./999-shortcut-fe-support.patch
+# Download fullconenat.patch to package/network/config/firewall/patches/
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+# Patch LuCI
+pushd feeds/luci
+wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+popd
