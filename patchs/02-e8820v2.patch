@@ -16,7 +16,7 @@
 +
 --- /dev/null
 +++ b/target/linux/ramips/dts/mt7621_zte_e8820v2.dts
-@@ -0,0 +1,150 @@
+@@ -0,0 +1,184 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +
 +#include "mt7621.dtsi"
