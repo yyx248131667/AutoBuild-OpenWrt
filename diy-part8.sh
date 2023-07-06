@@ -8,7 +8,11 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
-#
+
+# 复制E8820V2配置文件到编译目录
+cp -R patchs/E8820V2/mt7621.mk ./target/linux/ramips/image/mt7621.mk
+cp -R patchs/E8820V2/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/mt7621_zte_e8820v2.dts
+cp -R patchs/E8820V2/01_leds ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
@@ -35,6 +39,9 @@ sed -i 's/ppp-mod-pppoe/ppp-mod-pppoe default-settings luci curl/g' include/targ
 
 # 修改默认红米AC2100 wifi驱动为闭源驱动
 sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+
+# 修改默认E8820V2 wifi驱动为闭源驱动
+sed -i 's/kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-usb-ledtrig-usbport wpad luci/kmod-mt7603e kmod-mt7612e luci-app-mtwifi kmod-usb3 kmod-usb-ledtrig-usbport wpad luci/g' target/linux/ramips/image/mt7621.mk
 
 # 修改默认小米路由3G wifi驱动为闭源驱动
 # sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
