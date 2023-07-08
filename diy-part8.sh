@@ -10,9 +10,9 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 
 # 复制E8820V2配置文件到编译目录
-cp -R patchs/E8820V2/mt7621.mk ./target/linux/ramips/image/mt7621.mk
-cp -R patchs/E8820V2/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/mt7621_zte_e8820v2.dts
-cp -R patchs/E8820V2/01_leds ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
+cp -R $GITHUB_WORKSPACE/patchs/E8820V2/mt7621.mk $GITHUB_WORKSPACE/openwrt/target/linux/ramips/image/mt7621.mk
+cp -R $GITHUB_WORKSPACE/patchs/E8820V2/mt7621_zte_e8820v2.dts $GITHUB_WORKSPACE/openwrt/target/linux/ramips/dts/mt7621_zte_e8820v2.dts
+cp -R $GITHUB_WORKSPACE/patchs/E8820V2/01_leds $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
