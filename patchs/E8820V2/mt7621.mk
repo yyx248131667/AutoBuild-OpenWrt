@@ -251,35 +251,6 @@ define Device/asus_rt-n56u-b1
 endef
 TARGET_DEVICES += asus_rt-n56u-b1
 
-define Device/beeline_smartbox-turbo-plus
-  $(Device/dsa-migration)
-  BLOCKSIZE := 128k
-  PAGESIZE := 2048
-  UBINIZE_OPTS := -E 5
-  KERNEL_SIZE := 6144k
-  IMAGE_SIZE := 32768k
-  KERNEL_LOADADDR := 0x81001000
-  LZMA_TEXT_START := 0x82800000
-  SERCOMM_KERNEL_OFFSET := 0x400100
-  SERCOMM_ROOTFS_OFFSET := 0x1000000
-  KERNEL := kernel-bin | append-dtb | lzma | loader-kernel | \
-  lzma | uImage lzma | sercomm-kernel
-  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-kernel | \
-  lzma | uImage lzma
-  LOADER_TYPE := bin
-  IMAGES += factory.img
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
-  SERCOMM_HWID := 435152
-  SERCOMM_HWVER := 0001
-  SERCOMM_SWVER := 9999
-  IMAGE/factory.img := append-ubi | sercomm-tag-factory
-  DEVICE_VENDOR := Beeline
-  DEVICE_MODEL := SmartBox TURBO+
-  DEVICE_PACKAGES := kmod-mt7603e kmod-mt7615d luci-app-mtwifi \
-	-wpad-openssl kmod-usb3 uboot-envtools
-endef
-TARGET_DEVICES += beeline_smartbox-turbo-plus
-
 define Device/buffalo_wsr-1166dhp
   $(Device/dsa-migration)
   $(Device/uimage-lzma-loader)
