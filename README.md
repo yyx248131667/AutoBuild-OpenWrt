@@ -17,7 +17,7 @@
 
 |  微信   | 支付宝  |
 |  ----  | ----  |
-| ![](https://pic.imgdb.cn/item/62502707239250f7c5b8ac3d.png) | ![](https://pic.imgdb.cn/item/62502707239250f7c5b8ac36.png) |
+| ![](http://image.yuos.top/image/202307132329175.png) | ![](http://image.yuos.top/image/202307132328124.png) |
 
 ## 赞助名单
 
