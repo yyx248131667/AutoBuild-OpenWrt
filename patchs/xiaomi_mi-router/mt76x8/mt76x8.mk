@@ -842,3 +842,11 @@ define Device/xiaomi_mi-router-3c
   DEVICE_PACKAGES := uboot-envtools
 endef
 TARGET_DEVICES += xiaomi_mi-router-3c
+
+define Device/xiaomi_mi-router-3a
+  IMAGE_SIZE := 14976k
+  DEVICE_VENDOR := Xiaomi
+  DEVICE_TITLE := Mi Router 3A
+  DEVICE_PACKAGES := kmod-mt76x2
+endef
+TARGET_DEVICES += xiaomi_mi-router-3a
