@@ -21,7 +21,6 @@ on:
         options:
           - 'MI-R3G'
           - 'Redmi_AC2100'
-          - 'Redmi_AC2100_test'
           - 'K2P'
           - 'miwifi-nano'
           - 'miwifi-mini'
