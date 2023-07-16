@@ -33,6 +33,8 @@ sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' fe
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
+sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages.git;master' feeds.conf.default
+
 
 # 预下载主题
 #git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
@@ -62,13 +64,3 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
-#FullCone Patch
-git clone -b master --single-branch https://github.com/yuos-bit/openwrt-fullconenat package/fullconenat
-
-# Download fullconenat.patch to package/network/config/firewall/patches/
-mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-# Patch LuCI
-# pushd feeds/luci
-# wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
-# popd
