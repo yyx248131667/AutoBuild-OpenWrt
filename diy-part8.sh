@@ -65,7 +65,7 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 # turboacc 加速
-pushd feeds/packages
-wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/002-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
-wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/100-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
-popd
+# pushd feeds/packages
+# wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/002-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
+# wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/100-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
+# popd
