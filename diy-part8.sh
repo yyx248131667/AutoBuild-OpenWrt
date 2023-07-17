@@ -71,4 +71,4 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 # popd
 
 # macvlan
-git clone -b main --single-branch https://github.com/ParticleG/luci-app-macvlan package/yuos/luci-app-macvlan
+# git clone -b main --single-branch https://github.com/ParticleG/luci-app-macvlan package/yuos/luci-app-macvlan
