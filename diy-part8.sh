@@ -64,13 +64,4 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 # turboacc 加速
-# pushd feeds/packages
-# wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/002-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
-# wget -qO - https://github.com/msylgj/R2S-R4S-OpenWrt/raw/master/PATCHES/100-mod-turboacc-switch-bbr-support-to-bbr2.patch | patch -p1
-# popd
-
-# macvlan
-# git clone -b main --single-branch https://github.com/ParticleG/luci-app-macvlan package/yuos/luci-app-macvlan
-
-# 删除默认的 luci-app-turboacc
-rm -rf $GITHUB_WORKSPACE/openwrt/feeds/luci/applications/luci-app-turboacc
+rm -rf feeds/luci/applications/luci-app-turboacc
