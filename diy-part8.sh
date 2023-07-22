@@ -63,3 +63,6 @@ rm -rf feeds/luci/applications/luci-app-turboacc
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
+# 打SFE补丁
+wget https://raw.githubusercontent.com/gl-inet/gl-infra-builder/main/patches-mt798x-7.6.6.1/2006-Kernel-support-software-acceleration.patch
+patch -p1 < ./2006-Kernel-support-software-acceleration.patch
