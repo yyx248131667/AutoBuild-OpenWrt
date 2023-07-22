@@ -71,3 +71,6 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 # macvlan
 # git clone -b main --single-branch https://github.com/ParticleG/luci-app-macvlan package/yuos/luci-app-macvlan
+
+# 删除默认的 luci-app-turboacc
+rm -rf $GITHUB_WORKSPACE/openwrt/feeds/luci/applications/luci-app-turboacc
