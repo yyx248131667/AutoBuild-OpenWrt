@@ -33,7 +33,6 @@ sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' fe
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
-# sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages.git;master' feeds.conf.default
 
 
 # 预下载主题
