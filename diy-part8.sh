@@ -62,8 +62,11 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 # 打SFE补丁
-wget https://raw.githubusercontent.com/gl-inet/gl-infra-builder/main/patches-mt798x-7.6.6.1/2006-Kernel-support-software-acceleration.patch
-patch -p1 < ./2006-Kernel-support-software-acceleration.patch
+# wget https://raw.githubusercontent.com/gl-inet/gl-infra-builder/main/patches-mt798x-7.6.6.1/2006-Kernel-support-software-acceleration.patch
+# patch -p1 < ./2006-Kernel-support-software-acceleration.patch
 # SFE
 wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/952-net-conntrack-events-support-multiple-registrant.patch
 wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/999-shortcut-fe-support.patch
+
+cp -R ./952-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/mediatek/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+cp -R ./999-shortcut-fe-support.patch $GITHUB_WORKSPACE/openwrt/target/linux/mediatek/patches-5.4/999-shortcut-fe-support.patch
