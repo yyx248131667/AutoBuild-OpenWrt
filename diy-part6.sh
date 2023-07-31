@@ -21,25 +21,25 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 
 
 # 修改默认第一排插件
-sed -i 's/dnsmasq/dnsmasq-full firewall iptables/g' include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full iptables/g' include/target.mk
 
 # 修改默认第二排插件
-sed -i 's/firewall4/block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
+sed -i 's/firewall4/firewall4 block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
 
 # 修改默认第三排插件
-sed -i 's/nftables/iptables-mod-tproxy/g' include/target.mk
+sed -i 's/nftables/nftables iptables-mod-tproxy/g' include/target.mk
 
 # 修改默认第四排插件
-sed -i 's/kmod-nft-offload/curl ca-certificates/g' include/target.mk
+sed -i 's/kmod-nft-offload/kmod-nft-offload curl ca-certificates/g' include/target.mk
 
 # 修改默认第五排插件
-sed -i 's/odhcp6c/iptables-mod-tproxy iptables-mod-extra/g' include/target.mk
+sed -i 's/odhcp6c/odhcp6c iptables-mod-tproxy iptables-mod-extra/g' include/target.mk
 
 # 修改默认第六排插件
-sed -i 's/odhcpd-ipv6only/ipset ip-full default-settings luci/g' include/target.mk
+sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g' include/target.mk
 
-# 修改默认wifi驱动为闭源驱动
-# sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+# 修改默认红米AC2100 wifi驱动为闭源驱动
+sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
@@ -48,39 +48,27 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 git clone -b main https://github.com/yuos-bit/other package/lean
 
 # 设置闭源驱动开机自启
-# sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
+sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
 #patches
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/0001-tools-add-upx-ucl-support.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1001-dnsmasq_add_filter_aaaa_option.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1002-fw3_fullconenat.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/1003-luci-app-firewall_add_fullcone.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2001-add-5.14-support.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/2003-mod-for-k514.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/910-mini-ttl.patch
-wget https://github.com/quintus-lab/openwrt-rockchip/raw/master/patches/911-dnsmasq-filter-aaaa.patch
-wget https://github.com/LGA1150/openwrt-fullconenat/raw/master/patches/000-printk.patch
-wget https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch
-wget https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-
-
-patch -p1 < ./tools-add-upx-ucl-support.patch
-patch -p1 < ./dnsmasq_add_filter_aaaa_option.patch
-patch -p1 < ./fw3_fullconenat.patch
-patch -p1 < ./luci-app-firewall_add_fullcone.patch
-patch -p1 < ./add-5.14-support.patch
-patch -p1 < ./mod-for-k514.patch
-patch -p1 < ./mini-ttl.patch
-patch -p1 < ./dnsmasq-filter-aaaa.patch
-patch -p1 < ./printk.patch
-
-# #shortcut-fe patches
-# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/952-net-conntrack-events-support-multiple-registrant.patch
-# wget https://github.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/raw/master/999-shortcut-fe-support.patch
-
-# patch -p1 < ./net-conntrack-events-support-multiple-registrant.patch
-# patch -p1 < ./shortcut-fe-support.patch
-
-# git clone -b master --single-branch https://github.com/lxz1104/openwrt-fullconenat package/fullconenat
-# patch -p1 < ./fullconenat.patch
-# patch -p1 < ./luci.patch
+mkdir -p turboacc_tmp ./package/turboacc
+cd turboacc_tmp 
+git clone https://github.com/chenmozhijin/turboacc -b package
+cd ../package/turboacc
+git clone https://github.com/fullcone-nat-nftables/nft-fullcone
+git clone https://github.com/chenmozhijin/turboacc
+mv ./turboacc/luci-app-turboacc ./luci-app-turboacc
+rm -rf ./turboacc
+cd ../..
+cp -f turboacc_tmp/turboacc/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch ./target/linux/generic/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch
+cp -f turboacc_tmp/turboacc/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch ./target/linux/generic/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+cp -f turboacc_tmp/turboacc/pending-5.10/613-netfilter_optional_tcp_window_check.patch ./target/linux/generic/hack-5.10/613-netfilter_optional_tcp_window_check.patch
+rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/network/utils/nftables
+mkdir -p ./package/network/config/firewall4 ./package/libs/libnftnl ./package/network/utils/nftables
+cp -r ./turboacc_tmp/turboacc/shortcut-fe ./package/turboacc
+cp -RT ./turboacc_tmp/turboacc/firewall4-$(grep -o 'FIREWALL4_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/firewall4 ./package/network/config/firewall4
+cp -RT ./turboacc_tmp/turboacc/libnftnl-$(grep -o 'LIBNFTN_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/libnftnl ./package/libs/libnftnl
+cp -RT ./turboacc_tmp/turboacc/nftables-$(grep -o 'NFTABLES_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/nftables ./package/network/utils/nftables
+rm -rf turboacc_tmp
+echo "# CONFIG_NF_CONNTRACK_CHAIN_EVENTS is not set" >> target/linux/generic/config-5.10
+echo "# CONFIG_SHORTCUT_FE is not set" >> target/linux/generic/config-5.10
