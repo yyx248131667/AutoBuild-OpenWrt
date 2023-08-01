@@ -69,6 +69,3 @@ wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.
 cp -f ./2006-Kernel-support-software-acceleration.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/2006-Kernel-support-software-acceleration.patch
 cp -f ./952-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 cp -f ./999-shortcut-fe-support.patch $GITHUB_WORKSPACE/openwrt/target/linux/ramips/patches-5.4/999-shortcut-fe-support.patch
-
-# 设置XRAY 1.7.2
-cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile $GITHUB_WORKSPACE/openwrt/package/helloworld/xray-core/Makefile
