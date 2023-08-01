@@ -58,9 +58,10 @@ sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615
 
 # 设置闭源驱动开机自启
 sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
-# 单独拉取 default-settings
+# 单独拉取软件包
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
+git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 # 打SFE补丁
 wget https://raw.githubusercontent.com/gl-inet/gl-infra-builder/main/patches-mt798x-7.6.6.1/2006-Kernel-support-software-acceleration.patch
 wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/952-net-conntrack-events-support-multiple-registrant.patch
