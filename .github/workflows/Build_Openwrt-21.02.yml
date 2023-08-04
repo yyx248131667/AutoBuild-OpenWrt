@@ -132,6 +132,7 @@ jobs:
     - name: set xray1.7.2
       run: |
            cd openwrt
+           rm -rf $GITHUB_WORKSPACE/openwrt/feeds/helloworld/xray-core/Makefile
            cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile $GITHUB_WORKSPACE/openwrt/feeds/helloworld/xray-core/Makefile
            ./scripts/feeds update -a
 
