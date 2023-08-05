@@ -62,11 +62,48 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
-# 打SFE补丁
-# wget https://raw.githubusercontent.com/gl-inet/gl-infra-builder/main/patches-mt798x-7.6.6.1/2006-Kernel-support-software-acceleration.patch
-# wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/952-net-conntrack-events-support-multiple-registrant.patch
-# wget https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/999-shortcut-fe-support.patch
-
-# cp -f ./2006-Kernel-support-software-acceleration.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/2006-Kernel-support-software-acceleration.patch
-# cp -f ./952-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/ramips/patches-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-# cp -f ./999-shortcut-fe-support.patch $GITHUB_WORKSPACE/openwrt/target/linux/ramips/patches-5.4/999-shortcut-fe-support.patch
+# 添加5.4内核ACC、shortcut-fe补丁
+rm -f ./target/linux/generic/hack-5.4/250-netfilter_depends.patch
+wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/250-netfilter_depends.patch
+rm -f ./target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
+wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
+rm -f ./target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
+wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
+rm -f ./target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
+wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
+rm -f ./target/linux/generic/hack-5.4/721-phy_packets.patch
+wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/721-phy_packets.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/998-add-ndo-do-ioctl.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
+# 关闭https-dns-proxy自启动
+sed -i 's/'*'/''/g' feeds/packages/net/https-dns-proxy/files/https-dns-proxy.config
+sed -i 's/'*'/''/g' feeds/packages/net/https-dns-proxy/files/https-dns-proxy.init
+# 修改feeds里的luci-app-firewall加速开关等源码包
+wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
+pushd feeds/luci/applications/luci-app-firewall
+patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
+popd
+# 添加wifi的MU-MIMO功能
+wget -P ./feeds/luci/modules/luci-mod-network/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/modules/luci-mod-network/patches/001-wifi-add-MU-MIMO-option.patch
+pushd feeds/luci/modules/luci-mod-network
+patch -p1 < 001-wifi-add-MU-MIMO-option.patch
+popd
+# 添加upx压缩源码
+svn co https://github.com/zxlhhyccc/acc-imq-bbr/trunk/master/tools/ucl tools/ucl
+svn co https://github.com/zxlhhyccc/acc-imq-bbr/trunk/master/tools/upx tools/upx
+rm -f ./tools/Makefile
+wget -P ./tools/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/tools/Makefile
+# 修复新版luci的cpu等寄存器显示
+wget -P ./feeds/luci/modules/luci-mod-status/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/modules/luci-mod-status/patches/001-luci-mod-status-fix-register-functions.patch
+pushd feeds/luci/modules/luci-mod-status
+patch -p1 < 001-luci-mod-status-fix-register-functions.patch
+popd
+wget -P ./feeds/luci/modules/luci-mod-status/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/modules/luci-mod-status/patches/002-luci-mod-status-drop-lluci.ver-display.patch
+pushd feeds/luci/modules/luci-mod-status
+patch -p1 < 002-luci-mod-status-drop-lluci.ver-display.patch
+popd
+# # mvebu 添加cpu显示
+# rm -rf target/linux/mvebu/Makefile
+# wget -P ./target/linux/mvebu/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/mvebu/Makefile
