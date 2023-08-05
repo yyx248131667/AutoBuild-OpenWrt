@@ -64,10 +64,10 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
 # 添加5.4内核ACC、shortcut-fe补丁
-rm -f ./target/linux/generic/hack-5.4/250-netfilter_depends.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/250-netfilter_depends.patch
-rm -f ./target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
+# rm -f ./target/linux/generic/hack-5.4/250-netfilter_depends.patch
+# wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/250-netfilter_depends.patch
+# rm -f ./target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
+# wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
 rm -f ./target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
 rm -f ./target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
