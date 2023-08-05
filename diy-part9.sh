@@ -39,5 +39,5 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
     sed -i 's@\(CONFIG_KERNEL_BUILD_DOMAIN=\).*@\1$"GitHub Actions"@' .config
 
 # # 设置XRAY 1.7.2
-# cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile $GITHUB_WORKSPACE/openwrt/feeds/helloworld/xray-core/Makefile
+# cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile feeds/helloworld/xray-core/Makefile
 # ./scripts/feeds update -a
