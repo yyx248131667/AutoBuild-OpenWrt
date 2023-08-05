@@ -128,13 +128,6 @@ jobs:
         
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
-      
-    - name: set xray1.7.2
-      run: |
-          cd openwrt
-          rm -rf $GITHUB_WORKSPACE/openwrt/feeds/helloworld/xray-core/Makefile
-          cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile feeds/helloworld/xray-core/Makefile
-          ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
@@ -165,6 +158,11 @@ jobs:
 #        #Downgrade Xray to 1.5.5, this is only for passwall build due to low on nand flash free space
 #        sed -i 's/1.6.0/1.5.5/g' feeds/packages/net/xray-core/Makefile
 #        sed -i 's/b65375090a2d48d358a582837d485bfaa9572e4d1f5a649895b9fd83d0f69e43/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
+    - name: set xray1.7.2
+      run: |
+          cd openwrt
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/Makefile feeds/helloworld/xray-core/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/Makefile feeds/packages/net/xray-core/Makefile 
 
     - name: Compile the firmware
       id: compile
