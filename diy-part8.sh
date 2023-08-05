@@ -84,9 +84,3 @@ wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubuserconte
 pushd feeds/luci/applications/luci-app-firewall
 patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
 popd
-
-# 添加upx压缩源码
-svn co https://github.com/zxlhhyccc/acc-imq-bbr/trunk/master/tools/ucl tools/ucl
-svn co https://github.com/zxlhhyccc/acc-imq-bbr/trunk/master/tools/upx tools/upx
-rm -f ./tools/Makefile
-wget -P ./tools/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/tools/Makefile
