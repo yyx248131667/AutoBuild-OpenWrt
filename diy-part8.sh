@@ -89,7 +89,7 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 # wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
 
 # 修改feeds里的luci-app-firewall加速开关等源码包
-wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
-pushd feeds/luci/applications/luci-app-firewall
-patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
-popd
+# wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
+# pushd feeds/luci/applications/luci-app-firewall
+# patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
+# popd
