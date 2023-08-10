@@ -123,11 +123,11 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
 
-    - name: set xray1.5.2
+    - name: set xray1.5.3
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.2/Makefile feeds/helloworld/xray-core/Makefile
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.2/Makefile feeds/packages/net/xray-core/Makefile 
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/helloworld/xray-core/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/packages/net/xray-core/Makefile 
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
