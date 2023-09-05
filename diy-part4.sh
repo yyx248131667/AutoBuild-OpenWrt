@@ -21,3 +21,9 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
+
+# 补充包
+git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
+# 实时监控
+git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+# 设置向导

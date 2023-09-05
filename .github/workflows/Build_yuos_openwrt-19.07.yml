@@ -28,7 +28,6 @@ on:
           - 'miwifi-3c'
           - 'mir4a-100m'
           - 'miwifi-4c'
-          - 'k2'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
@@ -76,7 +75,7 @@ env:
   REPO_URL: https://github.com/yuos-bit/openwrt-19.07
   REPO_BRANCH: xiaomi
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
+  CONFIG_FILE: config/4.14_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part4.sh
   DIY_P2_SH: diy-part5.sh
 #  UPLOAD_BIN_DIR: true
