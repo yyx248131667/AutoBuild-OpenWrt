@@ -10,17 +10,10 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
-# Uncomment a feed source
-
-# 预下载主题
-#git clone https://github.com/jerrykuku/luci-theme-argon package/yuos/luci-theme-argon
-#git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/molun/luci-theme-infinityfreedom
-
-# 单独拉取 default-settings
-git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
-
-# 单独拉取 lean包到package 目录
-git clone -b main https://github.com/yuos-bit/other package/lean
+# 单独拉取软件包
+git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
+git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
+git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
 # 补充包
 git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
