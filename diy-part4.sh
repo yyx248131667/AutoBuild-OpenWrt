@@ -11,7 +11,7 @@
 #
 
 # 单独拉取软件包
-# git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
+git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
