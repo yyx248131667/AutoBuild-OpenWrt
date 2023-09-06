@@ -72,10 +72,10 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/yuos-bit/openwrt-19.07
-  REPO_BRANCH: xiaomi
+  REPO_URL: https://github.com/yuos-bit/openwrt
+  REPO_BRANCH: openwrt-19.07
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/4.14_${{ github.event.inputs.model }}.config
+  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part4.sh
   DIY_P2_SH: diy-part5.sh
 #  UPLOAD_BIN_DIR: true
