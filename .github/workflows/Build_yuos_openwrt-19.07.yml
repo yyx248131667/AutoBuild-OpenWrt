@@ -17,7 +17,7 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'miwifi-4c' 
+        default: 'miwifi-3c' 
         type: choice
         options:
           - 'miwifi-nano'
