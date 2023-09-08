@@ -101,3 +101,10 @@ wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/full
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 popd
+
+##补充包##
+git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
+# 实时监控
+git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+# 设置向导
+##补充包##
