@@ -105,6 +105,6 @@ popd
 ##补充包##
 git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
-git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 # 设置向导
 ##补充包##
