@@ -37,3 +37,7 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 [ -z $(grep "CONFIG_KERNEL_BUILD_DOMAIN=" .config) ] &&
     echo 'CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions"' >>.config ||
     sed -i 's@\(CONFIG_KERNEL_BUILD_DOMAIN=\).*@\1$"GitHub Actions"@' .config
+
+
+# 单独拉取软件包
+git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear

@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 定制Openwrt官方21.02固件+锐捷插件
+name: 定制Openwrt-锐捷固件
 
 on:
   repository_dispatch:
@@ -80,8 +80,8 @@ env:
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/ruijie_${{ github.event.inputs.model }}.config
-  DIY_P1_SH: diy-part8.sh
-  DIY_P2_SH: diy-part9.sh
+  DIY_P1_SH: ruijie-1.sh
+  DIY_P2_SH: ruijie-2.sh
 #  UPLOAD_BIN_DIR: true
 #  UPLOAD_FIRMWARE: true
 #  UPLOAD_COWTRANSFER: false
