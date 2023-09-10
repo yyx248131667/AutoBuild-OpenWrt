@@ -104,9 +104,6 @@ popd
 
 ##补充包##
 
-git clone https://github.com/sirpdboy/luci-app-netwizard package/yuos/luci-app-netwizard
-# 设置向导
-
 ## 锐捷校园网
 git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
