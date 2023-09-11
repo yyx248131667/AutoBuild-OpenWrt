@@ -488,7 +488,7 @@ endef
 TARGET_DEVICES += zyxel_keenetic-extra-ii
 
 define Device/xiaomi_mi-router-3c
-  DTS := mt7628an_xiaomi_mi-router-3c.dts
+  DTS := mt7628an_xiaomi_mi-router-3c
   IMAGE_SIZE := 14976k
   DEVICE_TITLE := Mi Router 3C
   DEVICE_PACKAGES := uboot-envtools
