@@ -40,7 +40,7 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
 # 补充包
-git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
+# git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
-git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+# git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
 # 设置向导
