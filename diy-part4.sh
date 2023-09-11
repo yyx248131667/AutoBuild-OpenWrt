@@ -23,7 +23,7 @@ sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' fe
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
-sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages.git;master' feeds.conf.default
+# sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages.git;master' feeds.conf.default
 
 
 # 预下载主题
@@ -43,8 +43,8 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 # 补充包
 # git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
-# git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
-# 设置向导
+
+
 # 添加4.14内核ACC、shortcut-fe补丁
 # netfilter补丁
 cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-4.14/613-netfilter_optional_tcp_window_check.patch
