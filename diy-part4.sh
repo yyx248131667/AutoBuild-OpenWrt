@@ -45,3 +45,23 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 # 实时监控
 # git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
 # 设置向导
+# 添加4.14内核ACC、shortcut-fe补丁
+# netfilter补丁
+cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-4.14/613-netfilter_optional_tcp_window_check.patch
+
+wget -P ./target/linux/generic/hack-4.14/ https://gitea.auro.re/jeltz/openwrt/raw/branch/openwrt-19.07/target/linux/generic/hack-4.14/250-netfilter_depends.patch
+wget -P ./target/linux/generic/hack-4.14/ https://gitea.auro.re/jeltz/openwrt/raw/branch/openwrt-19.07/target/linux/generic/hack-4.14/647-netfilter-flow-acct.patch
+wget -P ./target/linux/generic/hack-4.14/ https://gitea.auro.re/jeltz/openwrt/raw/branch/openwrt-19.07/target/linux/generic/hack-4.14/650-netfilter-add-xt_OFFLOAD-target.patch
+# netfilter补丁
+# 修改feeds里的luci-app-firewall加速开关等源码包
+wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
+pushd feeds/luci/applications/luci-app-firewall
+patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
+popd
+# 全锥形NAT修复
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+# Patch LuCI
+pushd feeds/luci
+wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+popd
