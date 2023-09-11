@@ -47,7 +47,7 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 
 # 添加4.14内核ACC、shortcut-fe补丁
 # netfilter补丁
-cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-4.14/613-netfilter_optional_tcp_window_check.patch
+# cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-4.14/613-netfilter_optional_tcp_window_check.patch
 
 wget -P ./target/linux/generic/hack-4.14/ https://gitea.auro.re/jeltz/openwrt/raw/branch/openwrt-19.07/target/linux/generic/hack-4.14/250-netfilter_depends.patch
 wget -P ./target/linux/generic/hack-4.14/ https://gitea.auro.re/jeltz/openwrt/raw/branch/openwrt-19.07/target/linux/generic/hack-4.14/647-netfilter-flow-acct.patch
