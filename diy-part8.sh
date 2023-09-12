@@ -21,7 +21,10 @@ cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mt76x8.mk $GITHUB_WORKSPA
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/02_network $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt76x8/base-files/etc/board.d/02_network
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mac80211.sh $GITHUB_WORKSPACE/openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+## 以下为测试
+# copy firmware package
+cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
+## 以上为测试
 # 修改软件包版本为大杂烩-openwrt21.02
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
@@ -84,7 +87,7 @@ rm -f ./target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
 rm -f ./target/linux/generic/hack-5.4/721-phy_packets.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/721-phy_packets.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/yuos-bit/Openwrt-sfe-flowoffload-linux-5.4/master/952-net-conntrack-events-support-multiple-registrant.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/992-add-ndo-do-ioctl.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
@@ -97,6 +100,10 @@ popd
 # 全锥形NAT修复
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/feeds/luci/0001-add-fullcone-option.patch
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0001-fullcone_option.patch
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0002-fullcone_firewall.patch
 # Patch LuCI
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
@@ -108,5 +115,3 @@ git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
 
 ##补充包##
-
-## 以下为测试
