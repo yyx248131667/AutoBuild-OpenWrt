@@ -1,142 +1,91 @@
-#
-# Copyright (C) 2019-2020 Xingwang Liao
-# Copyright (C) 2020-2021 Mattraks
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=xray
+PKG_NAME:=xray-core
 PKG_VERSION:=1.7.2
 PKG_RELEASE:=1
-PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 
-PKG_SOURCE:=xray-core-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/XTLS/xray-core/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29
 
-PKG_LICENSE:=MPL
+PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
+PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_XRAY_EXCLUDE_ASSETS \
-	CONFIG_XRAY_COMPRESS_GOPROXY \
-	CONFIG_XRAY_COMPRESS_UPX \
-	CONFIG_XRAY_COMPATIBILITY_MODE
-
+PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/xtls/xray-core
-GO_PKG_LDFLAGS:=-s -w
+GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.version=$(PKG_VERSION) \
-	$(GO_PKG)/core.codename=OpenWrt
+	$(GO_PKG)/core.build=OpenWrt \
+	$(GO_PKG)/core.version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/$(PKG_NAME)
-	TITLE:=A platform for building proxies
-	SECTION:=net
-	CATEGORY:=Network
-	SUBMENU:=Project X
-	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-certificates
-#  PROVIDES:=v2ray
+define Package/xray/template
+  TITLE:=A platform for building proxies to bypass network restrictions
+  SECTION:=net
+  CATEGORY:=Network
+  URL:=https://xtls.github.io
 endef
 
-define Package/$(PKG_NAME)/description
-Project X originates from XTLS protocol, provides a set of network tools such as Xray-core and Xray-flutter.
-It secures your network connections and thus protects your privacy.
-
-	This package contains Xray, geoip.dat and geosite.dat.
+define Package/xray-core
+  $(call Package/xray/template)
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/$(PKG_NAME)/config
-menu "Xray Configuration"
-	depends on PACKAGE_xray
-
-config XRAY_COMPRESS_GOPROXY
-	bool "Compiling with GOPROXY proxy"
-	default n
-
-config XRAY_EXCLUDE_ASSETS
-	bool "Exclude geoip.dat & geosite.dat"
-	default y
-
-config XRAY_COMPRESS_UPX
-	bool "Compress executable files with UPX"
-	default y
-
-config XRAY_COMPATIBILITY_MODE
-	bool "V2ray Compatibility mode(v2ray soft connection Xray)"
-	default n
-endmenu
+define Package/xray-example
+  $(call Package/xray/template)
+  TITLE+= (example configs)
+  DEPENDS:=xray-core
+  PKGARCH:=all
 endef
 
-ifeq ($(CONFIG_XRAY_COMPRESS_GOPROXY),y)
-export GO111MODULE=on
-export GOPROXY=https://goproxy.io
-#export GOPROXY=https://mirrors.aliyun.com/goproxy/
-endif
-
-GEOIP_VER:=latest
-GEOIP_FILE:=geoip-$(GEOIP_VER).dat
-
-define Download/geoip.dat
-	URL:=https://github.com/v2fly/geoip/releases/$(GEOIP_VER)/download
-	URL_FILE:=geoip.dat
-	FILE:=$(GEOIP_FILE)
-	HASH:=skip
+define Package/xray/description
+  Xray, Penetrates Everything. It helps you to build your own computer network.
+  It secures your network connections and thus protects your privacy.
 endef
 
-GEOSITE_VER:=latest
-GEOSITE_FILE:=geosite-$(GEOSITE_VER).dat
-
-define Download/geosite.dat
-	URL:=https://github.com/v2fly/domain-list-community/releases/$(GEOSITE_VER)/download
-	URL_FILE:=dlc.dat
-	FILE:=$(GEOSITE_FILE)
-	HASH:=skip
+define Package/xray-core/description
+  $(call Package/xray/description)
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-ifneq ($(CONFIG_XRAY_EXCLUDE_ASSETS),y)
-	# move file to make sure download new file every build
-	mv -f $(DL_DIR)/$(GEOIP_FILE) $(PKG_BUILD_DIR)/geoip.dat
-	mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/geosite.dat
-endif
+define Package/xray-example/description
+  $(call Package/xray/description)
+
+  This includes example configuration files for xray-core.
 endef
 
-define Build/Compile
-	$(eval GO_PKG_BUILD_PKG:=$(GO_PKG)/main)
-	$(call GoPackage/Build/Compile)
-	mv -f $(GO_PKG_BUILD_BIN_DIR)/main $(GO_PKG_BUILD_BIN_DIR)/xray
-ifeq ($(CONFIG_XRAY_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/xray || true
-endif
+define Package/xray-core/conffiles
+/etc/xray/
+/etc/config/xray
 endef
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/xray $(1)/usr/bin
-ifeq ($(CONFIG_XRAY_COMPATIBILITY_MODE),y)
-	$(LN) xray $(1)/usr/bin/v2ray
-endif
-ifneq ($(CONFIG_XRAY_EXCLUDE_ASSETS),y)
-	$(INSTALL_DIR) $(1)/usr/share/xray
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/{geoip,geosite}.dat $(1)/usr/share/xray
-endif
+define Package/xray-core/install
+	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+	mv -f $(GO_PKG_BUILD_PKG)/main $(GO_PKG_BUILD_PKG)/xray
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_PKG)/xray || true
+	$(INSTALL_DIR) $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+
+	$(INSTALL_DIR) $(1)/etc/xray/
+	$(INSTALL_DATA) $(CURDIR)/files/config.json.example $(1)/etc/xray/
+
+	$(INSTALL_DIR) $(1)/etc/config/
+	$(INSTALL_CONF) $(CURDIR)/files/xray.conf $(1)/etc/config/xray
+	$(INSTALL_DIR) $(1)/etc/init.d/
+	$(INSTALL_BIN) $(CURDIR)/files/xray.init $(1)/etc/init.d/xray
 endef
 
-ifneq ($(CONFIG_XRAY_EXCLUDE_ASSETS),y)
-$(eval $(call Download,geoip.dat))
-$(eval $(call Download,geosite.dat))
-endif
+define Package/xray-example/install
+	$(INSTALL_DIR) $(1)/etc/xray/
+	$(INSTALL_DATA) $(CURDIR)/files/vpoint_socks_vmess.json $(1)/etc/xray/
+	$(INSTALL_DATA) $(CURDIR)/files/vpoint_vmess_freedom.json $(1)/etc/xray/
+endef
 
-$(eval $(call GoBinPackage,$(PKG_NAME)))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,xray-core))
+$(eval $(call BuildPackage,xray-example))
