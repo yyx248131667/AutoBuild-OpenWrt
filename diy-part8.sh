@@ -21,11 +21,13 @@ cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mt76x8.mk $GITHUB_WORKSPA
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/02_network $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt76x8/base-files/etc/board.d/02_network
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mac80211.sh $GITHUB_WORKSPACE/openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Uncomment a feed source
+
 ## 以下为测试
 # copy firmware package
 # rm -rf $GITHUB_WORKSPACE/openwrt/package/firmware
 # cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
 ## 以上为测试
+
 # 修改软件包版本为大杂烩-openwrt21.02
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
@@ -56,6 +58,7 @@ sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615
 
 # 设置闭源驱动开机自启
 sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
+
 # 单独拉取软件包
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
@@ -74,13 +77,11 @@ rm -f ./target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
 rm -f ./target/linux/generic/hack-5.4/601-netfilter-export-udp_get_timeouts-function.patch
 rm -f ./target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
 rm -f ./target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
-
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/250-netfilter_depends.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/601-netfilter-export-udp_get_timeouts-function.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
-# netfilter补丁
 rm -f ./target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
 rm -f ./target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
@@ -91,12 +92,14 @@ wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/ryohuan
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/992-add-ndo-do-ioctl.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
+# netfilter补丁
 
 # 修改feeds里的luci-app-firewall加速开关等源码包
 wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
 pushd feeds/luci/applications/luci-app-firewall
 patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
 popd
+
 # 全锥形NAT修复
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
