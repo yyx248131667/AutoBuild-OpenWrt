@@ -23,6 +23,7 @@ cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mac80211.sh $GITHUB_WORKS
 # Uncomment a feed source
 ## 以下为测试
 # copy firmware package
+rm -rf $GITHUB_WORKSPACE/openwrt/package/firmware
 cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
 ## 以上为测试
 # 修改软件包版本为大杂烩-openwrt21.02
