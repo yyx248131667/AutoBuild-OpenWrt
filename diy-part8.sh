@@ -101,7 +101,6 @@ popd
 # 全锥形NAT修复
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/feeds/luci/0001-add-fullcone-option.patch
 wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
 wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0001-fullcone_option.patch
 wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0002-fullcone_firewall.patch
