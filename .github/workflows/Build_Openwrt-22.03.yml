@@ -16,10 +16,10 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'Redmi_AC2100' 
+        default: 'miwifi-3c' 
         type: choice
         options:
-          - 'MI-R3G'
+          - 'miwifi-3c'
           - 'Redmi_AC2100'
           - 'K2P'
       UPLOAD_BIN_DIR:
@@ -69,7 +69,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}_22.03.config
+  CONFIG_FILE: config/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part6.sh
   DIY_P2_SH: diy-part7.sh
 #  UPLOAD_BIN_DIR: true
