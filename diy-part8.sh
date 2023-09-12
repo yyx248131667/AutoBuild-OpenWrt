@@ -23,8 +23,8 @@ cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mac80211.sh $GITHUB_WORKS
 # Uncomment a feed source
 ## 以下为测试
 # copy firmware package
-rm -rf $GITHUB_WORKSPACE/openwrt/package/firmware
-cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
+# rm -rf $GITHUB_WORKSPACE/openwrt/package/firmware
+# cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
 ## 以上为测试
 # 修改软件包版本为大杂烩-openwrt21.02
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
@@ -102,11 +102,6 @@ popd
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
 
-# 测试
-# wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
-# wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0001-fullcone_option.patch
-# wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/openwrt/0002-fullcone_firewall.patch
-# 测试
 # Patch LuCI
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
