@@ -12,17 +12,30 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
+PKG_CONFIG_DEPENDS:= \
+	CONFIG_XRAY_EXCLUDE_ASSETS \
+	CONFIG_XRAY_COMPRESS_GOPROXY \
+	CONFIG_XRAY_COMPRESS_UPX \
+	CONFIG_XRAY_COMPATIBILITY_MODE
+
 PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.com/xtls/xray-core
-GO_PKG_LDFLAGS:=-s -w
-GO_PKG_BUILD_PKG:=$(GO_PKG)/main
-GO_PKG_LDFLAGS_X:= \
+define Build/Compile
+  GO_PKG:=github.com/xtls/xray-core
+  GO_PKG_LDFLAGS:=-s -w
+  GO_PKG_BUILD_PKG:=$(GO_PKG)/main
+  GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG)/core.build=OpenWrt \
 	$(GO_PKG)/core.version=$(PKG_VERSION)
+  mv -f $(GO_PKG)/main $(GO_PKG)/xray
+ifeq ($(CONFIG_XRAY_COMPRESS_UPX),y)
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
+endif
+endef
+
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
@@ -38,6 +51,28 @@ endef
 define Package/xray-core/description
   Xray, Penetrates Everything. It helps you to build your own computer network.
   It secures your network connections and thus protects your privacy.
+endef
+
+define Package/$(PKG_NAME)/config
+menu "Xray Configuration"
+	depends on PACKAGE_xray
+
+config XRAY_COMPRESS_GOPROXY
+	bool "Compiling with GOPROXY proxy"
+	default n
+
+config XRAY_EXCLUDE_ASSETS
+	bool "Exclude geoip.dat & geosite.dat"
+	default y
+
+config XRAY_COMPRESS_UPX
+	bool "Compress executable files with UPX"
+	default y
+
+config XRAY_COMPATIBILITY_MODE
+	bool "V2ray Compatibility mode(v2ray soft connection Xray)"
+	default n
+endmenu
 endef
 
 define Package/xray-core/install
