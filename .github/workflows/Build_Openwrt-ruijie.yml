@@ -19,19 +19,9 @@ on:
         default: 'miwifi-3c' 
         type: choice
         options:
-          - 'miwifi-4'
-          - 'MI-R3G'
-          - 'Redmi_AC2100'
           - 'K2P'
-          - 'miwifi-nano'
-          - 'miwifi-mini'
-          - 'miwifi-3c'
-          - 'miwifi-3a'
-          - 'miwifi-r3'
-          - 'miwifi-r3mi'
-          - 'miwifi-4c'
-          - 'E8820v2'
-          - 'x86'   
+          - 'K2'
+          - 'miwifi-3c'  
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
