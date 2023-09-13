@@ -12,6 +12,9 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
+PKG_CONFIG_DEPENDS:= \
+	CONFIG_XRAY_COMPRESS_UPX
+
 PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
@@ -22,7 +25,6 @@ GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
 GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG)/core.build=OpenWrt \
 	$(GO_PKG)/core.version=$(PKG_VERSION)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
@@ -64,6 +66,13 @@ endef
 define Package/xray-core/conffiles
 /etc/xray/
 /etc/config/xray
+$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
+endef
+
+define Package/xray-core/upx
+	ifeq ($(CONFIG_XRAY_COMPRESS_UPX),y)
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
+	endif
 endef
 
 define Package/xray-core/install
