@@ -44,12 +44,8 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 # git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
 
-
 # 添加4.14内核ACC、shortcut-fe补丁
-# netfilter补丁
-# cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-4.14/613-netfilter_optional_tcp_window_check.patch
 
-# netfilter补丁
 # 修改feeds里的luci-app-firewall加速开关等源码包
 wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
 pushd feeds/luci/applications/luci-app-firewall
