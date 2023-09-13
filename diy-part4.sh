@@ -41,8 +41,11 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
 # 补充包
-# git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
-# 实时监控
+# 修改默认斐讯K2 wifi驱动为闭源驱动
+# sed -i 's/kmod-mt76x2/kmod-mt7612e luci-app-mtwifi/g' target/linux/ramips/image/mt7621.mk
+
+# 设置闭源驱动开机自启
+# sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
 # 添加4.14内核ACC、shortcut-fe补丁
 
