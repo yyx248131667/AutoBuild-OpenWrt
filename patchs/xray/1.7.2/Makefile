@@ -12,16 +12,14 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_XRAY_COMPRESS_UPX
-
 PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/xtls/xray-core
-GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
+GO_PKG_LDFLAGS:=-s -w
+GO_PKG_BUILD_PKG:=$(GO_PKG)/main
 GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG)/core.build=OpenWrt \
 	$(GO_PKG)/core.version=$(PKG_VERSION)
@@ -29,71 +27,24 @@ GO_PKG_LDFLAGS_X:= \
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/xray/template
+define Package/xray-core
   TITLE:=A platform for building proxies to bypass network restrictions
   SECTION:=net
   CATEGORY:=Network
   URL:=https://xtls.github.io
-endef
-
-define Package/xray-core
-  $(call Package/xray/template)
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/xray-example
-  $(call Package/xray/template)
-  TITLE+= (example configs)
-  DEPENDS:=xray-core
-  PKGARCH:=all
-endef
-
-define Package/xray/description
+define Package/xray-core/description
   Xray, Penetrates Everything. It helps you to build your own computer network.
   It secures your network connections and thus protects your privacy.
 endef
 
-define Package/xray-core/description
-  $(call Package/xray/description)
-endef
-
-define Package/xray-example/description
-  $(call Package/xray/description)
-
-  This includes example configuration files for xray-core.
-endef
-
-define Package/xray-core/conffiles
-/etc/xray/
-/etc/config/xray
-$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
-endef
-
-define Package/xray-core/upx
-	ifeq ($(CONFIG_XRAY_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
-	endif
-endef
-
 define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG)/xray || true
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
-
-	$(INSTALL_DIR) $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/config.json.example $(1)/etc/xray/
-
-	$(INSTALL_DIR) $(1)/etc/config/
-	$(INSTALL_CONF) $(CURDIR)/files/xray.conf $(1)/etc/config/xray
-	$(INSTALL_DIR) $(1)/etc/init.d/
-	$(INSTALL_BIN) $(CURDIR)/files/xray.init $(1)/etc/init.d/xray
-endef
-
-define Package/xray-example/install
-	$(INSTALL_DIR) $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/vpoint_socks_vmess.json $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/vpoint_vmess_freedom.json $(1)/etc/xray/
 endef
 
 $(eval $(call BuildPackage,xray-core))
-$(eval $(call BuildPackage,xray-example))
