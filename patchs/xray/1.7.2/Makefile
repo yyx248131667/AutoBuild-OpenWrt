@@ -67,8 +67,7 @@ endef
 
 define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	mv -f $(GO_PKG_BUILD_PKG)/main $(GO_PKG_BUILD_PKG)/xray
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_PKG)/xray || true
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_PKG) || true
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
 
