@@ -136,6 +136,9 @@ jobs:
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.2/Makefile feeds/helloworld/xray-core/Makefile
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.2/Makefile feeds/packages/net/xray-core/Makefile 
 
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/xray feeds/helloworld/xray-core/xray
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/xray feeds/packages/net/xray-core/xray
+
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
