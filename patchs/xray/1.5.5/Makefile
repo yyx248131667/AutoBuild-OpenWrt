@@ -13,18 +13,6 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=golang/host
-PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
-
-GO_PKG:=github.com/xtls/xray-core
-GO_PKG_LDFLAGS:=-s -w
-GO_PKG_BUILD_PKG:=$(GO_PKG)/main
-GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.build=OpenWrt \
-	$(GO_PKG)/core.version=$(PKG_VERSION)
-
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
@@ -42,8 +30,6 @@ define Package/xray-core/description
 endef
 
 define Package/xray-core/install
-	$(INSTALL_DIR) $(1)/usr/bin/
-  rm -rf $(PKG_INSTALL_DIR)/usr/bin/main
   $(INSTALL_BIN) ./xray $(1)/usr/bin/xray
 endef
 
