@@ -30,7 +30,7 @@ define Package/xray-core/description
 endef
 
 define Package/xray-core/install
-  $(INSTALL_BIN) ./xray $(1)/usr/bin/xray
+  $(INSTALL_BIN)./xray $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))
