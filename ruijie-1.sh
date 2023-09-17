@@ -108,6 +108,11 @@ popd
 ## 锐捷校园网
 git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
+git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
+# 防检测
+git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAuth
+# 网页认证
+
 # git clone -b master https://github.com/CHN-beta/xmurp-ua package/yuos/xmurp-ua
 # 使用 XMURP-UA 修改 UA
 git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
