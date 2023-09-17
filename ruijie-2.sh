@@ -41,3 +41,5 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 
 # 单独拉取软件包
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
+
+# 安装cmake
