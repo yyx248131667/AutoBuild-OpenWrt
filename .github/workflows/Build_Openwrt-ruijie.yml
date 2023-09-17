@@ -119,14 +119,14 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
     
-    - name: update Cmake3.11.4
+    - name: update Cmake3.27.5
       run: |
           sudo apt-get remove cmake
           sudo apt-get purge cmake
           sudo apt-get install build-essential
-          wget https://cmake.org/files/v3.11/cmake-3.11.4.tar.gz
-          tar -zxv -f cmake-3.11.4.tar.gz
-          cd  cmake-3.11.4
+          wget https://cmake.org/files/v3.27/cmake-3.27.5.tar.gz
+          tar -zxv -f cmake-3.27.5.tar.gz
+          cd  cmake-3.27.5
           sudo ./bootstrap
           sudo make 
           sudo make install
