@@ -137,6 +137,10 @@ jobs:
         sudo apt-get install manpages-dev
         sudo apt-get install gcc-11 
         sudo apt-get install g++-11
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 20
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 20
 
         
     - name: Install feeds
