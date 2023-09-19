@@ -135,17 +135,9 @@ jobs:
       run: |
         sudo apt install build-essential
         sudo apt-get install manpages-dev
-        gcc --version
-        sudo apt install git
-        git clone git://gcc.gnu.org/git/gcc.git src
-        sudo apt-get install libmpc-dev
-        sudo apt-get install flex
-        ../src/configure --disable-multilib
-        make
-        sudo make install
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/x86_64-linux-gnu-gcc-9 90
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/x86_64-pc-linux-gnu-gcc 100
-        sudo update-alternatives --config gcc
+        sudo apt-get install gcc-11 
+        sudo apt-get install g++-11
+
         
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
