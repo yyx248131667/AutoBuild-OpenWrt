@@ -130,6 +130,7 @@ jobs:
           sudo ./bootstrap
           sudo make 
           sudo make install
+          sudo update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 100
 
     - name: update GCC11
       run: |
@@ -143,7 +144,6 @@ jobs:
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 60 --slave /usr/bin/g++ g++ /usr/bin/g++-11 &&
           sudo update-alternatives --config gcc
 
-        
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
