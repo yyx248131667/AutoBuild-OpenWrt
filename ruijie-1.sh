@@ -106,7 +106,7 @@ popd
 ##补充包##
 
 ## 锐捷校园网
-git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
+# git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
 git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
 # 防检测
