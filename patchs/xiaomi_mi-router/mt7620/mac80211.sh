@@ -182,11 +182,11 @@ detect_mac80211() {
 			set wireless.default_radio${devidx}.device=radio${devidx}
 			set wireless.default_radio${devidx}.network=lan
 			set wireless.default_radio${devidx}.mode=ap
-			set wireless.default_radio0.ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_2.4G
+			set wireless.default_radio0.ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_5.2G
 			set wireless.default_radio0.encryption=psk2
 			set wireless.default_radio0.key=1234567890
 			set wireless.default_radio0.encryption=psk2
-			set wireless.default_radio1.ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_5G
+			set wireless.default_radio1.ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_2.4G
 			set wireless.default_radio1.key=1234567890
 			set wireless.default_radio1.encryption=psk2
 
