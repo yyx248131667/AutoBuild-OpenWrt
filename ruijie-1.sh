@@ -106,9 +106,7 @@ popd
 ##补充包##
 
 ## 锐捷校园网
-git clone -b 20220902T135035 https://github.com/Zxilly/UA2F.git package/UA2F 
-# git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
-# git clone -b 20220902T135035 https://github.com/Zxilly/UA2F package/yuos/UA2F
+git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
 git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
 # 针对基于 IPv4 数据包包头内的 Identification 字段的检测的解决方案
