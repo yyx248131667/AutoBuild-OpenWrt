@@ -106,8 +106,9 @@ popd
 ##补充包##
 
 ## 锐捷校园网
-git clone https://github.com/Zxilly/UA2F.git package/UA2F --depth=1 --branch=20220902T135035
+git clone -b 20220902T135035 https://github.com/Zxilly/UA2F.git package/UA2F 
 # git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
+# git clone -b 20220902T135035 https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
 git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
 # 针对基于 IPv4 数据包包头内的 Identification 字段的检测的解决方案
@@ -122,7 +123,29 @@ git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAut
 
 sed -i '2a iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64' package/base-files/files/etc/rc.local
 # 设置开机自启加入防火墙 针对基于 IPv4 数据包包头内的 TTL 字段的检测的解决方案
-
+sed -i '3a iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
+sed -i '4a iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
+sed -i '6a # 防 IPID 检测' package/base-files/files/etc/rc.local
+sed -i '7a iptables -t mangle -N IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '8a iptables -t mangle -A FORWARD -j IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '9a iptables -t mangle -A OUTPUT -j IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '10a iptables -t mangle -A IPID_MOD -d 0.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '11a iptables -t mangle -A IPID_MOD -d 127.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '12a # 由于本校局域网是 A 类网，所以我将这一条注释掉了，具体要不要注释结合你所在的校园网内网类型' package/base-files/files/etc/rc.local
+sed -i '13a # iptables -t mangle -A IPID_MOD -d 10.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '14a iptables -t mangle -A IPID_MOD -d 172.16.0.0/12 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '15a iptables -t mangle -A IPID_MOD -d 192.168.0.0/16 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '16a iptables -t mangle -A IPID_MOD -d 255.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '17a iptables -t mangle -A IPID_MOD -j MARK --set-xmark 0x10/0x10' package/base-files/files/etc/rc.local
+sed -i '18a # 防时钟偏移检测' package/base-files/files/etc/rc.local
+sed -i '19a iptables -t nat -N ntp_force_local' package/base-files/files/etc/rc.local
+sed -i '20a iptables -t nat -I PREROUTING -p udp --dport 123 -j ntp_force_local' package/base-files/files/etc/rc.local
+sed -i '21a iptables -t nat -A ntp_force_local -d 0.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '22a iptables -t nat -A ntp_force_local -d 127.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '23a iptables -t nat -A ntp_force_local -d 192.168.0.0/16 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '24a iptables -t nat -A ntp_force_local -s 192.168.0.0/16 -j DNAT --to-destination 192.168.1.1' package/base-files/files/etc/rc.local
+sed -i '25a # 通过 iptables 修改 TTL 值' package/base-files/files/etc/rc.local
+sed -i '26a iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64' package/base-files/files/etc/rc.local
 # 自定义主题
 rm -rf feeds/luci/themes/luci-theme-netgear
 
