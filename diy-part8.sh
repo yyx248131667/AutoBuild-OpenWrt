@@ -44,10 +44,10 @@ sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
 
 # 修改默认dnsmasq为dnsmasq-full
-sed -i 's/dnsmasq/dnsmasq-full luci/g' include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full firewall iptables block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-ipt-raw6 kmod-tun/g' include/target.mk
 
 # 修改默认编译LUCI进系统
-sed -i 's/ppp-mod-pppoe/ppp-mod-pppoe default-settings luci curl/g' include/target.mk
+sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp ppp-mod-pppoe default-settings luci curl ca-certificates/g' include/target.mk
 
 # 修改默认红米AC2100 wifi驱动为闭源驱动
 sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
