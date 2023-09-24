@@ -106,8 +106,12 @@ popd
 ##补充包##
 
 ## 锐捷校园网
+git clone https://github.com/Zxilly/UA2F.git package/UA2F --depth=1 --branch=20220902T135035
 # git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # 防检测
+git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
+# 针对基于 IPv4 数据包包头内的 Identification 字段的检测的解决方案
+
 git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
 # 防检测
 git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAuth
@@ -115,8 +119,7 @@ git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAut
 
 # git clone -b master https://github.com/CHN-beta/xmurp-ua package/yuos/xmurp-ua
 # 使用 XMURP-UA 修改 UA
-git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
-# 针对基于 IPv4 数据包包头内的 Identification 字段的检测的解决方案
+
 sed -i '2a iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64' package/base-files/files/etc/rc.local
 # 设置开机自启加入防火墙 针对基于 IPv4 数据包包头内的 TTL 字段的检测的解决方案
 

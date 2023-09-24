@@ -10,10 +10,10 @@
 	model = "Xiaomi Mi Router 3X";
 
 	aliases {
-		led-boot = &led_yellow;
-		led-failsafe = &led_red;
-		led-running = &led_blue;
-		led-upgrade = &led_blue;
+		led-boot = &led_power_yellow;
+		led-failsafe = &led_power_red;
+		led-running = &led_power_blue;
+		led-upgrade = &led_power_yellow;
 		label-mac-device = &ethernet;
 	};
 
@@ -26,7 +26,7 @@
 
 		reset {
 			label = "reset";
-			gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
 			linux,code = <KEY_RESTART>;
 		};
 	};
@@ -34,34 +34,34 @@
 	leds {
 		compatible = "gpio-leds";
 
-		led_blue: blue {
-			label = "blue:status";
-			gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
+        led_power_blue: power_blue {
+			label = "blue:power";
+			gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
 		};
 
-		led_yellow: yellow {
-			label = "yellow:status";
-			gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+		led_power_yellow: power_yellow {
+			label = "yellow:power";
+			gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
 		};
 
-		led_red: red {
-			label = "red:status";
-			gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+		led_power_red: power_red {
+			label = "red:power";
+			gpios = <&gpio 5 GPIO_ACTIVE_LOW>;
 		};
 
 		wan {
 			label = "green:wan";
-			gpios = <&gpio2 4 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio 4 GPIO_ACTIVE_LOW>;
 		};
 
 		lan1 {
 			label = "green:lan1";
-			gpios = <&gpio2 1 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
 		};
 
 		lan2 {
 			label = "green:lan2";
-			gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
 		};
 	};
 };
