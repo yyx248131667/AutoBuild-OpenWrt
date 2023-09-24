@@ -121,7 +121,6 @@ git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAut
 # git clone -b master https://github.com/CHN-beta/xmurp-ua package/yuos/xmurp-ua
 # 使用 XMURP-UA 修改 UA
 
-sed -i '2a iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64' package/base-files/files/etc/rc.local
 # 设置开机自启加入防火墙 针对基于 IPv4 数据包包头内的 TTL 字段的检测的解决方案
 sed -i '3a iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
 sed -i '4a iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
