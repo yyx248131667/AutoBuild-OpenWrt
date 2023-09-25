@@ -127,9 +127,9 @@ jobs:
           sudo apt-get purge cmake
           wget https://cmake.org/files/v3.27/cmake-3.27.6.tar.gz
           tar -zxv -f cmake-3.27.6.tar.gz
+          sudo chmod -R 777 cmake-3.27.6
           cd  cmake-3.27.6
           sudo apt-get install build-essential 
-          sudo chmod -R 777 cmake-3.27.6
           ./bootstrap
           make
           sudo make install
