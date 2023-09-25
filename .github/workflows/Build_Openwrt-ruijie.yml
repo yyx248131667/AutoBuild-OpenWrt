@@ -125,7 +125,6 @@ jobs:
           cmake -version
           sudo apt-get remove cmake
           sudo apt-get purge cmake
-          sudo apt-get install build-essential
           wget https://cmake.org/files/v3.27/cmake-3.27.6.tar.gz
           tar -zxv -f cmake-3.27.6.tar.gz
           cd  cmake-3.27.6
