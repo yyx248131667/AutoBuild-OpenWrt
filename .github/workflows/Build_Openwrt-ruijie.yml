@@ -122,16 +122,20 @@ jobs:
     
     - name: update Cmake3.27.6
       run: |
+          cmake -version
           sudo apt-get remove cmake
           sudo apt-get purge cmake
           sudo apt-get install build-essential
           wget https://cmake.org/files/v3.27/cmake-3.27.6.tar.gz
           tar -zxv -f cmake-3.27.6.tar.gz
           cd  cmake-3.27.6
-          sudo ./bootstrap
-          sudo make 
+          sudo apt-get install build-essential 
+          sudo chmod -R 777 cmake-3.16.6
+          ./bootstrap
+          make
           sudo make install
-          sudo update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 100
+          sudo ln -s /usr/local/bin/cmake /usr/bin 
+          cmake -version
 
     - name: update GCC11
       run: |
