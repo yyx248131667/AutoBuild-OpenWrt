@@ -112,7 +112,7 @@ git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 # sed -i 's/VERSION 3.16/VERSION 3.27.6/g' package/yuos/UA2F/CMakeLists.txt
 # 确定cmake最低版本
 # sed -i 's/set(CMAKE_C_STANDARD 17)/set(CMAKE_C_STANDARD 11)/g' package/yuos/UA2F/CMakeLists.txt
-sed -i '4a set(CMAKE_C_STANDARD_REQUIRED ON)' package/yuos/UA2F/CMakeLists.txt
+# sed -i '4a set(CMAKE_C_STANDARD_REQUIRED ON)' package/yuos/UA2F/CMakeLists.txt
 # 单独拉取软件包
 # 防检测
 git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
