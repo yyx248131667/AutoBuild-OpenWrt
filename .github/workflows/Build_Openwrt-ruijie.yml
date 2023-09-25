@@ -129,7 +129,7 @@ jobs:
           tar -zxv -f cmake-3.27.6.tar.gz
           cd  cmake-3.27.6
           sudo apt-get install build-essential 
-          sudo chmod -R 777 cmake-3.16.6
+          sudo chmod -R 777 cmake-3.27.6
           ./bootstrap
           make
           sudo make install
