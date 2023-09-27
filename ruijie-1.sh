@@ -111,7 +111,7 @@ git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 ## 参阅：https://cmake.org/cmake/help/v3.27/prop_tgt/CXX_STANDARD.html
 # sed -i 's/VERSION 3.16/VERSION 3.27.6/g' package/yuos/UA2F/CMakeLists.txt
 # 确定cmake最低版本
-# sed -i 's/set(CMAKE_C_STANDARD 17)/set(CMAKE_C_STANDARD 11)/g' package/yuos/UA2F/CMakeLists.txt
+sed -i 's/set(CMAKE_C_STANDARD 17)/set(CMAKE_C_STANDARD 11)/g' package/yuos/UA2F/CMakeLists.txt
 # sed -i '4a set(CMAKE_C_STANDARD_REQUIRED ON)' package/yuos/UA2F/CMakeLists.txt
 # sed -i '5a SET_TARGET_PROPERTIES(target PROPERTIES name 17)' package/yuos/UA2F/CMakeLists.txt
 
