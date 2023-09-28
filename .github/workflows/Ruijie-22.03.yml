@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 
-name: 定制Openwrt-锐捷固件
+name: 锐捷22.03官方固件
 
 on:
   repository_dispatch:
@@ -16,13 +16,10 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'miwifi-3c' 
+        default: 'miwifi-3x' 
         type: choice
         options:
-          - 'K2P'
-          - 'K2'
-          - 'miwifi-3c'
-          - 'miwifi-3x'    
+          - 'miwifi-3x'  
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
@@ -67,12 +64,12 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/yuos-bit/openwrt
-  REPO_BRANCH: openwrt-21.02
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/ruijie_${{ github.event.inputs.model }}.config
-  DIY_P1_SH: ruijie-1.sh
-  DIY_P2_SH: ruijie-2.sh
+  DIY_P1_SH: diy-part6.sh
+  DIY_P2_SH: diy-part7.sh
 #  UPLOAD_BIN_DIR: true
 #  UPLOAD_FIRMWARE: true
 #  UPLOAD_COWTRANSFER: false
@@ -118,10 +115,10 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        
+
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
-    
+      
     - name: update Cmake3.27.6
       run: |
           cmake -version
@@ -137,26 +134,6 @@ jobs:
           sudo make install
           sudo ln -s /usr/local/bin/cmake /usr/bin 
           cmake -version
-
-    - name: update GCC11
-      run: |
-          sudo apt-get update -y
-          sudo apt-get upgrade -y
-          sudo apt-get dist-upgrade -y
-          sudo apt-get install build-essential software-properties-common -y
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-          sudo apt-get update -y
-          sudo apt-get install gcc-11 g++-11 -y
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 60 --slave /usr/bin/g++ g++ /usr/bin/g++-11
-
-    - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
-
-    - name: set xray1.7.2
-      run: |
-          cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.2/Makefile feeds/helloworld/xray-core/Makefile
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.2/Makefile feeds/packages/net/xray-core/Makefile 
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
@@ -184,6 +161,9 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+#        #Downgrade Xray to 1.5.5, this is only for passwall build due to low on nand flash free space
+#        sed -i 's/1.6.0/1.5.5/g' feeds/packages/net/xray-core/Makefile
+#        sed -i 's/b65375090a2d48d358a582837d485bfaa9572e4d1f5a649895b9fd83d0f69e43/3f8d04fef82a922c83bab43cac6c86a76386cf195eb510ccf1cc175982693893/g' feeds/packages/net/xray-core/Makefile
 
     - name: Compile the firmware
       id: compile
