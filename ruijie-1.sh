@@ -117,7 +117,7 @@ git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
 ## 参阅：https://cmake.org/cmake/help/v3.27/prop_tgt/CXX_STANDARD.html
 # sed -i 's/VERSION 3.16/VERSION 3.27.6/g' package/yuos/UA2F/CMakeLists.txt
 # 确定cmake最低版本
-sed -i 's/set(CMAKE_C_STANDARD 17)//g' package/yuos/UA2F/CMakeLists.txt
+# sed -i 's/set(CMAKE_C_STANDARD 17)//g' package/yuos/UA2F/CMakeLists.txt
 ## 检查你的CMakeLists.txt文件中是否有set(CMAKE_C_STANDARD 17)这一行，如果有，你可以注释掉或删除它，因为CMake 3.8及以上版本会自动检测并设置C标准版本
 # sed -i '4a set(CMAKE_C_STANDARD_REQUIRED ON)' package/yuos/UA2F/CMakeLists.txt
 # sed -i '5a set_property(TARGET tgt PROPERTY C_STANDARD 11)' package/yuos/UA2F/CMakeLists.txt
