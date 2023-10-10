@@ -30,7 +30,7 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 
 # # 修改默认第二排插件
-sed -i 's/firewall4/firewall4 block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
+sed -i 's/firewall4/firewall block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
 
 # # 修改默认第三排插件
 sed -i 's/nftables/nftables iptables-mod-tproxy/g' include/target.mk
