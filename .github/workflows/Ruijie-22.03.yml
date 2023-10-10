@@ -19,7 +19,8 @@ on:
         default: 'miwifi-3x' 
         type: choice
         options:
-          - 'miwifi-3x'  
+          - 'miwifi-3x'
+          - 'miwifi-mini'
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
