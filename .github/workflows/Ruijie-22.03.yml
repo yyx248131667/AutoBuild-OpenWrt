@@ -23,6 +23,8 @@ on:
           - 'K2'
           - 'miwifi-3c'
           - 'miwifi-3x'    
+          - 'miwifi-mini'    
+          - 'miwifi-4c' 
       UPLOAD_BIN_DIR:
         type: boolean
         description: '上传bin文件夹'
