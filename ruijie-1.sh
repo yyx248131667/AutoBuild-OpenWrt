@@ -60,7 +60,7 @@ sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g'
 # sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 单独拉取 default-settings
-git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
+git clone -b ruijie https://github.com/yuos-bit/other package/yuos
 
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
