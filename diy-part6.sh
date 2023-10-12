@@ -57,7 +57,7 @@ sed -i 's/odhcp6c/odhcp6c iptables-mod-tproxy iptables-mod-extra/g' include/targ
 sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g' include/target.mk
 
 # 修改默认红米AC2100 wifi驱动为闭源驱动
-# sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
+sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
@@ -69,16 +69,30 @@ git clone -b main https://github.com/yuos-bit/other package/lean
 # sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
 ##补充包##
-
-## 锐捷校园网
-git clone -b master https://github.com/Zxilly/UA2F package/yuos/UA2F
-# 防检测
-git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
-# 防检测
-git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
-# 防检测
-git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAuth
-# 网页认证
+### 硬件加速
+mkdir -p turboacc_tmp ./package/turboacc
+cd turboacc_tmp 
+git clone https://github.com/chenmozhijin/turboacc -b package
+cd ../package/turboacc
+git clone https://github.com/fullcone-nat-nftables/nft-fullcone
+git clone https://github.com/chenmozhijin/turboacc
+mv ./turboacc/luci-app-turboacc ./luci-app-turboacc
+rm -rf ./turboacc
+cd ../..
+cp -f turboacc_tmp/turboacc/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch ./target/linux/generic/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch
+cp -f turboacc_tmp/turboacc/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch ./target/linux/generic/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+cp -f turboacc_tmp/turboacc/pending-5.10/613-netfilter_optional_tcp_window_check.patch ./target/linux/generic/hack-5.10/613-netfilter_optional_tcp_window_check.patch
+rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/network/utils/nftables
+mkdir -p ./package/network/config/firewall4 ./package/libs/libnftnl ./package/network/utils/nftables
+cp -r ./turboacc_tmp/turboacc/shortcut-fe ./package/turboacc
+cp -RT ./turboacc_tmp/turboacc/firewall4-$(grep -o 'FIREWALL4_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/firewall4 ./package/network/config/firewall4
+cp -RT ./turboacc_tmp/turboacc/libnftnl-$(grep -o 'LIBNFTN_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/libnftnl ./package/libs/libnftnl
+cp -RT ./turboacc_tmp/turboacc/nftables-$(grep -o 'NFTABLES_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/nftables ./package/network/utils/nftables
+rm -rf turboacc_tmp
+echo "# CONFIG_NF_CONNTRACK_CHAIN_EVENTS is not set" >> target/linux/generic/config-5.10
+echo "# CONFIG_SHORTCUT_FE is not set" >> target/linux/generic/config-5.10
+### 硬件加速
+## 其他补丁
 
 
 # golang更新到1.15.3
