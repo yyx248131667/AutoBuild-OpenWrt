@@ -82,32 +82,30 @@ git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAut
 
 
 ## 其他补丁
-### 硬件加速
-mkdir -p turboacc_tmp ./package/turboacc
-cd turboacc_tmp 
-git clone https://github.com/chenmozhijin/turboacc -b package
-cd ../package/turboacc
-git clone https://github.com/fullcone-nat-nftables/nft-fullcone
-git clone https://github.com/chenmozhijin/turboacc
-mv ./turboacc/luci-app-turboacc ./luci-app-turboacc
-rm -rf ./turboacc
-cd ../..
-cp -f turboacc_tmp/turboacc/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch ./target/linux/generic/hack-5.10/952-net-conntrack-events-support-multiple-registrant.patch
-cp -f turboacc_tmp/turboacc/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch ./target/linux/generic/hack-5.10/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-cp -f turboacc_tmp/turboacc/pending-5.10/613-netfilter_optional_tcp_window_check.patch ./target/linux/generic/hack-5.10/613-netfilter_optional_tcp_window_check.patch
-rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/network/utils/nftables
-mkdir -p ./package/network/config/firewall4 ./package/libs/libnftnl ./package/network/utils/nftables
-cp -r ./turboacc_tmp/turboacc/shortcut-fe ./package/turboacc
-cp -RT ./turboacc_tmp/turboacc/firewall4-$(grep -o 'FIREWALL4_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/firewall4 ./package/network/config/firewall4
-cp -RT ./turboacc_tmp/turboacc/libnftnl-$(grep -o 'LIBNFTN_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/libnftnl ./package/libs/libnftnl
-cp -RT ./turboacc_tmp/turboacc/nftables-$(grep -o 'NFTABLES_VERSION=.*' ./turboacc_tmp/turboacc/version | cut -d '=' -f 2)/nftables ./package/network/utils/nftables
-rm -rf turboacc_tmp
-echo "# CONFIG_NF_CONNTRACK_CHAIN_EVENTS is not set" >> target/linux/generic/config-5.10
-echo "# CONFIG_SHORTCUT_FE is not set" >> target/linux/generic/config-5.10
-### 硬件加速
+# git clone -b master https://github.com/CHN-beta/xmurp-ua package/yuos/xmurp-ua
+# 使用 XMURP-UA 修改 UA
+# 设置开机自启加入防火墙 针对基于 IPv4 数据包包头内的 TTL 字段的检测的解决方案
+sed -i '3a iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
+sed -i '4a iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' package/base-files/files/etc/rc.local
+sed -i '6a # 防 IPID 检测' package/base-files/files/etc/rc.local
+sed -i '7a iptables -t mangle -N IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '8a iptables -t mangle -A FORWARD -j IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '9a iptables -t mangle -A OUTPUT -j IPID_MOD' package/base-files/files/etc/rc.local
+sed -i '10a iptables -t mangle -A IPID_MOD -d 0.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '11a iptables -t mangle -A IPID_MOD -d 127.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '12a # 由于本校局域网是 A 类网，所以我将这一条注释掉了，具体要不要注释结合你所在的校园网内网类型' package/base-files/files/etc/rc.local
+sed -i '13a iptables -t mangle -A IPID_MOD -d 10.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '14a iptables -t mangle -A IPID_MOD -d 172.16.0.0/12 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '15a iptables -t mangle -A IPID_MOD -d 192.168.0.0/16 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '16a iptables -t mangle -A IPID_MOD -d 255.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '17a iptables -t mangle -A IPID_MOD -j MARK --set-xmark 0x10/0x10' package/base-files/files/etc/rc.local
+sed -i '18a # 防时钟偏移检测' package/base-files/files/etc/rc.local
+sed -i '19a iptables -t nat -N ntp_force_local' package/base-files/files/etc/rc.local
+sed -i '20a iptables -t nat -I PREROUTING -p udp --dport 123 -j ntp_force_local' package/base-files/files/etc/rc.local
+sed -i '21a iptables -t nat -A ntp_force_local -d 0.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '22a iptables -t nat -A ntp_force_local -d 127.0.0.0/8 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '23a iptables -t nat -A ntp_force_local -d 192.168.0.0/16 -j RETURN' package/base-files/files/etc/rc.local
+sed -i '24a iptables -t nat -A ntp_force_local -s 192.168.0.0/16 -j DNAT --to-destination 192.168.1.1' package/base-files/files/etc/rc.local
+sed -i '25a # 通过 iptables 修改 TTL 值' package/base-files/files/etc/rc.local
+sed -i '26a iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64' package/base-files/files/etc/rc.local
 ## 其他补丁
-
-
-# golang更新到1.15.3
-# sed -i 's/GO_VERSION_PATCH:=2/GO_VERSION_PATCH:=3/g' feeds/packages/lang/golang/golang/Makefile
-# sed -i 's/28bf9d0bcde251011caae230a4a05d917b172ea203f2a62f2c2f9533589d4b4d/896a602570e54c8cdfc2c1348abd4ffd1016758d0bd086ccd9787dbfc9b64888/g' feeds/packages/lang/golang/golang/Makefile
