@@ -25,6 +25,7 @@ on:
           - 'K2P'
           - 'miwifi-nano'
           - 'miwifi-mini'
+          - 'miwifi-3'
           - 'miwifi-3x'
           - 'miwifi-3c'
           - 'miwifi-3a'
