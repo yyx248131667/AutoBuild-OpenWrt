@@ -111,6 +111,7 @@ patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
 popd
 
 # 全锥形NAT修复
+git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
 mkdir package/network/config/firewall/patches
 wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
 
