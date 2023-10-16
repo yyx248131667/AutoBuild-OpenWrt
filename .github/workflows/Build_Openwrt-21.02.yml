@@ -131,6 +131,15 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
 
+    - name: update fullconenat
+      run: |
+          cd openwrt
+          rm -rf package/feeds/small8/fullconenat-nft
+          rm -rf package/small8/fullconenat-nft
+          cp -rf $GITHUB_WORKSPACE/patchs/package/network/utils package/network/utilsy
+          cp -rf $GITHUB_WORKSPACE/patchs/package/utils package/utils
+
+
     - name: set xray1.7.2
       run: |
           cd openwrt
