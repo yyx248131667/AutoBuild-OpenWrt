@@ -102,6 +102,7 @@ wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/ryohuan
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/992-add-ndo-do-ioctl.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
+wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/3335844502e5951ea57e9aa5ce4b2319e7383d37/include/meson.mk
 # netfilter补丁
 
 # 修改feeds里的luci-app-firewall加速开关等源码包
