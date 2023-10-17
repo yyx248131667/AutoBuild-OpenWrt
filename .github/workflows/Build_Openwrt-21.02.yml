@@ -138,6 +138,7 @@ jobs:
           rm -rf package/small8/fullconenat-nft
           cp -rf $GITHUB_WORKSPACE/patchs/package/network/utils package/network/utilsy
           cp -rf $GITHUB_WORKSPACE/patchs/package/utils package/utils
+          cp -rf $GITHUB_WORKSPACE/patchs/tools/meson tools/meson
 
 
     - name: set xray1.7.2
