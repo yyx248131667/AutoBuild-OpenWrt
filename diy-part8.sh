@@ -74,6 +74,9 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
+# 拉取设置向导
+git clone -b main https://github.com/0xACE8/openwrt-quickstart.git package/yuos/quickstart
+
 # 修改/tools/Makefile
 sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/ucl $GITHUB_WORKSPACE/openwrt/tools/ucl
