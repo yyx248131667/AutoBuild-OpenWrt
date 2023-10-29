@@ -96,16 +96,12 @@ wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/cools
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
 
-# 修改feeds里的luci-app-firewall加速开关等源码包
-wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
-pushd feeds/luci/applications/luci-app-firewall
-patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
-popd
+
 
 # 全锥形NAT修复
-git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
-mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+# git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
+# mkdir package/network/config/firewall/patches
+# wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
 
 # Patch LuCI
 pushd feeds/luci
