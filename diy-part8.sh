@@ -95,18 +95,6 @@ wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/cools
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/601-netfilter-export-udp_get_timeouts-function.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
-rm -f ./target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/661-use_fq_codel_by_default.patch
-rm -f ./target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/662-remove_pfifo_fast.patch
-rm -f ./target/linux/generic/hack-5.4/721-phy_packets.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/721-phy_packets.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/992-add-ndo-do-ioctl.patch
-# wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
-# wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/3335844502e5951ea57e9aa5ce4b2319e7383d37/include/meson.mk
-# netfilter补丁
 
 # 修改feeds里的luci-app-firewall加速开关等源码包
 wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
