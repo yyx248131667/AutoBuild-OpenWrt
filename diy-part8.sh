@@ -58,7 +58,7 @@ sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615
 # sed -i 's/kmod-mt76x2 kmod-usb2 kmod-usb-ohci/kmod-mt7612e kmod-usb2 kmod-usb-ohci luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 修改默认E8820V2 wifi驱动为闭源驱动
-# sed -i 's/kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-usb-ledtrig-usbport luci/kmod-mt7603e kmod-mt7612e luci-app-mtwifi kmod-usb3 kmod-usb-ledtrig-usbport wpad luci/g' target/linux/ramips/image/mt7621.mk
+sed -i 's/kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-usb-ledtrig-usbport luci/kmod-mt7603e kmod-mt7612e luci-app-mtwifi kmod-usb3 kmod-usb-ledtrig-usbport wpad luci/g' target/linux/ramips/image/mt7621.mk
 
 # 修改默认小米路由3G wifi驱动为闭源驱动
 # sed -i 's/kmod-mt7603 kmod-mt76x2/kmod-mt7603e kmod-mt76x2e luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
@@ -104,8 +104,8 @@ wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/cools
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/ryohuang/slim-wrt/dev-21.02/patches-modules/0001-fullcone-nat/misc/952-net-conntrack-events-support-multiple-registrant.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/992-add-ndo-do-ioctl.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
-wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/3335844502e5951ea57e9aa5ce4b2319e7383d37/include/meson.mk
+# wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/target/linux/generic/hack-5.4/999-thermal-tristate.patch
+# wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/3335844502e5951ea57e9aa5ce4b2319e7383d37/include/meson.mk
 # netfilter补丁
 
 # 修改feeds里的luci-app-firewall加速开关等源码包
