@@ -127,15 +127,6 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
-    - name: update fullconenat
-      run: |
-          cd openwrt
-          rm -rf package/feeds/small8/fullconenat-nft
-          rm -rf package/small8/fullconenat-nft
-          cp -rf $GITHUB_WORKSPACE/patchs/package/network/utils package/network/utils
-          cp -rf $GITHUB_WORKSPACE/patchs/package/utils package/utils
-          cp -rf $GITHUB_WORKSPACE/patchs/tools/meson tools/meson
         
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
