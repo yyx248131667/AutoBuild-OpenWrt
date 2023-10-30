@@ -4,82 +4,55 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uencrypt
-PKG_RELEASE:=5
+PKG_RELEASE:=2
 
+PKG_FLAGS:=nonshared
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_MAINTAINER:=Eneas U de Queiroz <cotequeiroz@gmail.com>
+PKG_CONFIG_DEPENDS:=\
+	CONFIG_UENCRYPT_OPENSSL \
+	CONFIG_UENCRYPT_WOLFSSL
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 CMAKE_INSTALL:=1
-ifeq ($(BUILD_VARIANT),mbedtls)
-  CMAKE_OPTIONS+=-DUSE_MBEDTLS=1
-else ifeq ($(BUILD_VARIANT),wolfssl)
-  CMAKE_OPTIONS+=-DUSE_WOLFSSL=1
-endif
+CMAKE_OPTIONS+=$(if $(CONFIG_UENCRYPT_WOLFSSL),-DUSE_WOLFSSL=1)
 
-TARGET_CFLAGS+=-Wall
-
-define Package/uencrypt/default
+define Package/uencrypt
   SECTION:=utils
   CATEGORY:=Base system
-  TITLE:=Small Decryption utility
+  TITLE:=Decryption utility for Arcadyan WG4xx223 and TP-Link Deco S4
+  DEPENDS:=+UENCRYPT_WOLFSSL:libwolfssl +UENCRYPT_OPENSSL:libopenssl
 endef
 
-define Package/uencrypt/default/description
+define Package/uencrypt/description
   This is a small encrypton/decryption program. It defaults
   to AES-128-CBC, but supports any encryption provided by
-  the crypto library. Even though it can be used for
-  non-critical* regular encryption and decryption operations,
+  the available openssl/wolfssl library. Even though it can
+  be used for regular encryption and decryption operations,
   it is included here to unencrypt the configuration from mtd
-  on some devices.
-
-  * Key and IV are exposed on cmdline
-
-  This variant uses $(1) as crypto provider
+  on Arcadyan WG430223/WG443223 and TP-Link Deco S4 routers
 endef
 
-define Package/uencrypt-mbedtls
-  $(Package/uencrypt/default)
-  VARIANT:=mbedtls
-  TITLE+= using mbedTLS
-  DEPENDS:=+libmbedtls
-  CONFLICTS:=uencrypt-openssl uencrypt-wolfssl
+define Package/uencrypt/config
+  if PACKAGE_uencrypt
+    choice
+	prompt "Crypto provider"
+	default UENCRYPT_OPENSSL
+
+	config UENCRYPT_OPENSSL
+	bool "OpenSSL"
+
+	config UENCRYPT_WOLFSSL
+	bool "wolfSSL"
+    endchoice
+  endif
 endef
 
-Package/uencrypt-mbedtls/description= \
-  $(call Package/uencrypt/default/description,mbedTLS)
-
-define Package/uencrypt-openssl
-  $(Package/uencrypt/default)
-  VARIANT:=openssl
-  TITLE+= using OpenSSL
-  DEPENDS:=+libopenssl
-  CONFLICTS:=uencrypt-wolfssl
-endef
-
-Package/uencrypt-openssl/description= \
-  $(call Package/uencrypt/default/description,OpenSSL)
-
-define Package/uencrypt-wolfssl
-  $(Package/uencrypt/default)
-  VARIANT:=wolfssl
-  TITLE+= using wolfSSL
-  DEPENDS:=+libwolfssl
-endef
-
-Package/uencrypt-wolfssl/description= \
-  $(call Package/uencrypt/default/description,wolfSSL)
-
-define Package/uencrypt/default/install
+define Package/uencrypt/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/uencrypt $(1)/usr/bin
 endef
-Package/uencrypt-openssl/install = $(Package/uencrypt/default/install)
-Package/uencrypt-wolfssl/install = $(Package/uencrypt/default/install)
-Package/uencrypt-mbedtls/install = $(Package/uencrypt/default/install)
 
-$(eval $(call BuildPackage,uencrypt-mbedtls))
-$(eval $(call BuildPackage,uencrypt-openssl))
-$(eval $(call BuildPackage,uencrypt-wolfssl))
+$(eval $(call BuildPackage,uencrypt))

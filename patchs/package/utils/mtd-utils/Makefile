@@ -19,7 +19,6 @@ PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
 
 PKG_FLAGS:=nonshared
-PKG_BUILD_FLAGS:=gc-sections
 
 PKG_BUILD_DEPENDS:=util-linux
 
@@ -64,6 +63,9 @@ CONFIGURE_ARGS += \
 	--without-xattr \
 	--without-zstd \
 	--without-lzo
+
+TARGET_CFLAGS += -ffunction-sections -fdata-sections
+TARGET_LDFLAGS += -Wl,--gc-sections
 
 define Package/ubi-utils/install
 	$(INSTALL_DIR) $(1)/usr/sbin

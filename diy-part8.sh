@@ -113,6 +113,8 @@ git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 # 实时监控
 
 ##补充包##
+rm -rf package/network
+cp -R $GITHUB_WORKSPACE/package/network package/network
 cp -R $GITHUB_WORKSPACE/patchs/qct package/qct
 cp -R $GITHUB_WORKSPACE/patchs/qca package/qca
 rm -rf package/firmware
