@@ -139,22 +139,6 @@ jobs:
 
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/xray feeds/helloworld/xray-core/xray
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/xray feeds/packages/net/xray-core/xray
-    
-    - name: update Cmake3.27.6
-      run: |
-          cmake -version
-          sudo apt-get remove cmake
-          sudo apt-get purge cmake
-          wget https://cmake.org/files/v3.27/cmake-3.27.6.tar.gz
-          tar -zxv -f cmake-3.27.6.tar.gz
-          sudo chmod -R 777 cmake-3.27.6
-          cd  cmake-3.27.6
-          sudo apt-get install build-essential 
-          ./bootstrap
-          make
-          sudo make install
-          sudo ln -s /usr/local/bin/cmake /usr/bin 
-          cmake -version
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
