@@ -72,7 +72,7 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 # 单独拉取软件包
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
-git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
+
 
 # 拉取设置向导
 git clone -b main https://github.com/0xACE8/openwrt-quickstart.git package/yuos/quickstart
@@ -119,7 +119,7 @@ rm -rf package/firmware
 cp -R $GITHUB_WORKSPACE/patchs/firmware package/firmware
 cp -R $GITHUB_WORKSPACE/patchs/wwan package/wwan
 
-# 
+# nft-fullcone
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nft-fullcone package/nft-fullcone
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.2-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.1-with-fullcone package/libnftnl

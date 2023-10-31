@@ -41,3 +41,7 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 # # 设置XRAY 1.7.2
 # cp -R $GITHUB_WORKSPACE/patchs/xray/Makefile feeds/helloworld/xray-core/Makefile
 # ./scripts/feeds update -a
+
+# 删除 fullconenat-nft
+rm -rf feeds/small8/fullconenat-nft
+rm -rf package/feeds/small8/fullconenat-nft
