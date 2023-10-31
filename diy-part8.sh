@@ -118,3 +118,8 @@ cp -R $GITHUB_WORKSPACE/patchs/qca package/qca
 rm -rf package/firmware
 cp -R $GITHUB_WORKSPACE/patchs/firmware package/firmware
 cp -R $GITHUB_WORKSPACE/patchs/wwan package/wwan
+
+# 
+git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nft-fullcone package/nft-fullcone
+git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.2-with-fullcone package/nftables
+git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.1-with-fullcone package/libnftnl
