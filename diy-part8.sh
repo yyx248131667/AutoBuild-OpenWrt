@@ -98,9 +98,9 @@ wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/cools
 wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
 
 # 全锥形NAT修复
-# git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
-# mkdir package/network/config/firewall/patches
-# wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
 
 # Patch LuCI
 pushd feeds/luci
