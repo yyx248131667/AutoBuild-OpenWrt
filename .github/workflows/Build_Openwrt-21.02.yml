@@ -146,7 +146,7 @@ jobs:
         rm -rf feeds/small8/fullconenat-nft
         rm -rf feeds/packages/fullconenat-nft
         rm -rf package/feeds/small8/fullconenat-nft
-        make clean && make dirclean
+        make clean
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
