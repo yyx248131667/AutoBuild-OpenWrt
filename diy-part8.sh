@@ -100,8 +100,8 @@ wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/cools
 # 全锥形NAT修复
 git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
 mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-
+# wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/quintus-lab/openwrt-rockchip/1e0e7f8928363d17a3b488476a603520dd13b5b7/not_use_file/1004-fullconenat.patch
 # Patch LuCI
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
