@@ -116,8 +116,6 @@ git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
 ##补充包##
 cp -R $GITHUB_WORKSPACE/patchs/qct package/qct
 cp -R $GITHUB_WORKSPACE/patchs/qca package/qca
-# rm -rf package/network
-# cp -R $GITHUB_WORKSPACE/patchs/network package/network
 cp -R $GITHUB_WORKSPACE/patchs/wwan package/wwan
 
 # nft-fullcone
