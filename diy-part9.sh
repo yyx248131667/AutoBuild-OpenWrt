@@ -42,7 +42,7 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 # openwrt21.02 netfilter补丁\
 cp -rfp $GITHUB_WORKSPACE/patchs/firewall/* $GITHUB_WORKSPACE/openwrt/package/firewall/
 
-patch -p1 < patchs/firewall/001-fix-firewall-flock.patch
-patch -p1 < patchs/firewall/322-mt7621-fix-cpu-clk-add-clkdev.patch
-patch -p1 < patchs/firewall/613-netfilter_optional_tcp_window_check.patch
-patch -p1 < patchs/firewall/luci-app-firewall_add_fullcone.patch
+patch -p1 < package/firewall/001-fix-firewall-flock.patch
+patch -p1 < package/firewall/322-mt7621-fix-cpu-clk-add-clkdev.patch
+patch -p1 < ppackage/firewall/613-netfilter_optional_tcp_window_check.patch
+patch -p1 < package/firewall/luci-app-firewall_add_fullcone.patch
