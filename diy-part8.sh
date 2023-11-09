@@ -29,11 +29,6 @@ cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/02_network $GITHUB_WORKSP
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/mac80211.sh $GITHUB_WORKSPACE/openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/ramips $GITHUB_WORKSPACE/openwrt/package/boot/uboot-envtools/files/ramips
 cp -R $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/platform.sh $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt7620/base-files/lib/upgrade/platform.sh
-## 以下为测试
-# copy firmware package
-# rm -rf $GITHUB_WORKSPACE/openwrt/package/firmware
-# cp -rf $GITHUB_WORKSPACE/patchs/firmware $GITHUB_WORKSPACE/openwrt/package/firmware
-## 以上为测试
 
 # 修改软件包版本为大杂烩-openwrt21.02
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
@@ -73,7 +68,6 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
-
 # 拉取设置向导
 git clone -b main https://github.com/0xACE8/openwrt-quickstart.git package/yuos/quickstart
 
@@ -83,42 +77,9 @@ cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/ucl $GITHUB_WORKSPACE/openwrt/tool
 cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/upx $GITHUB_WORKSPACE/openwrt/tools/upx
 
 # 添加5.4内核ACC、shortcut-fe补丁
-# netfilter补丁\
+# openwrt21.02 netfilter补丁\
 
-cp -R $GITHUB_WORKSPACE/patchs/613-netfilter_optional_tcp_window_check.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/pending-5.4/613-netfilter_optional_tcp_window_check.patch
-rm -f ./target/linux/generic/hack-5.4/250-netfilter_depends.patch
-rm -f ./target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
-rm -f ./target/linux/generic/hack-5.4/601-netfilter-export-udp_get_timeouts-function.patch
-rm -f ./target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
-rm -f ./target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/250-netfilter_depends.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/650-netfilter-add-xt_OFFLOAD-target.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/601-netfilter-export-udp_get_timeouts-function.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/645-netfilter-connmark-introduce-set-dscpmark.patch
-wget -P ./target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/647-netfilter-flow-acct.patch
-
-# 全锥形NAT修复
-git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat package/fullconenat
-git clone -b master --single-branch https://github.com/Chion82/netfilter-full-cone-nat package/netfilter-full-cone-nat
-mkdir package/network/config/firewall/patches
-# wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/quintus-lab/openwrt-rockchip/1e0e7f8928363d17a3b488476a603520dd13b5b7/not_use_file/1004-fullconenat.patch
-# Patch LuCI
-pushd feeds/luci
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
-popd
-
-##补充包##
-
-git clone https://github.com/sirpdboy/luci-app-netdata package/luci-app-netdata
-# 实时监控
-
-##补充包##
-cp -R $GITHUB_WORKSPACE/patchs/qct package/qct
-cp -R $GITHUB_WORKSPACE/patchs/qca package/qca
-cp -R $GITHUB_WORKSPACE/patchs/wwan package/wwan
 
 # nft-fullcone
-git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nft-fullcone package/nft-fullcone
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.2-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.1-with-fullcone package/libnftnl
