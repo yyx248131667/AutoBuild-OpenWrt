@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
+    - name: 检查工作流
       uses: actions/checkout@main
 
     - name: 初始化环境
