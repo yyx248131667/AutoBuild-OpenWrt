@@ -42,3 +42,5 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 # openwrt21.02 netfilter补丁\
 cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
 patch -p1 < package/firmware/001-fix-firewall-flock.patch
+# 打补丁
+wget -O net/netfilter/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
