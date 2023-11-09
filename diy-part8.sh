@@ -75,11 +75,6 @@ git clone -b main https://github.com/0xACE8/openwrt-quickstart.git package/yuos/
 sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/ucl $GITHUB_WORKSPACE/openwrt/tools/ucl
 cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/upx $GITHUB_WORKSPACE/openwrt/tools/upx
-
-# 添加5.4内核ACC、shortcut-fe补丁
-# openwrt21.02 netfilter补丁\
-
-
 # nft-fullcone
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.2-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.1-with-fullcone package/libnftnl

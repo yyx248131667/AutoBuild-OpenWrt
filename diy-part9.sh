@@ -37,3 +37,12 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 [ -z $(grep "CONFIG_KERNEL_BUILD_DOMAIN=" .config) ] &&
     echo 'CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions"' >>.config ||
     sed -i 's@\(CONFIG_KERNEL_BUILD_DOMAIN=\).*@\1$"GitHub Actions"@' .config
+
+# 添加5.4内核ACC、shortcut-fe补丁
+# openwrt21.02 netfilter补丁\
+cp -rf $GITHUB_WORKSPACE/patchs/firewall $GITHUB_WORKSPACE/openwrt/patchs/firewall
+
+patch -p1 < patchs/firewall/001-fix-firewall-flock.patch
+patch -p1 < patchs/firewall/322-mt7621-fix-cpu-clk-add-clkdev.patch
+patch -p1 < patchs/firewall/613-netfilter_optional_tcp_window_check.patch
+patch -p1 < patchs/firewall/luci-app-firewall_add_fullcone.patch
