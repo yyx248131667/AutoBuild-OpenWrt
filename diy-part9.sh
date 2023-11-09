@@ -43,4 +43,4 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
 
 patch -p1 < package/firmware/001-fix-firewall-flock.patch
-# patch -p1 < package/firmware/luci-app-firewall_add_fullcone.patch
+patch -p1 < package/firmware/fullconenat/patches/000-printk.patch
