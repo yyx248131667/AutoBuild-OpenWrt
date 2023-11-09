@@ -41,6 +41,4 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 # 添加5.4内核ACC、shortcut-fe补丁
 # openwrt21.02 netfilter补丁\
 cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
-
 patch -p1 < package/firmware/001-fix-firewall-flock.patch
-patch -p1 < package/firmware/fix/patches/000-printk.patch
