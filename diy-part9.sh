@@ -47,3 +47,4 @@ wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chio
 cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c include/net/netfilter/xt_FULLCONENAT.c
