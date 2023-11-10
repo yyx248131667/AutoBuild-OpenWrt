@@ -132,7 +132,8 @@ jobs:
       run: |
           cd openwrt
           rm -rf feeds/small8/fullconenat
-          cp -rf $GITHUB_WORKSPACE/patchs/firewall/fullconenat/* package/fullconenat/
+          rm -rf feeds/small8/fullconenat-nft
+          cp -rf $GITHUB_WORKSPACE/patchs/firewall/fullconenat package/fullconenat
 
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
