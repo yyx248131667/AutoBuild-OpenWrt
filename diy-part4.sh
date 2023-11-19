@@ -18,12 +18,12 @@ cp -R $GITHUB_WORKSPACE/patchs/4.14/mt76x8/mac80211.sh $GITHUB_WORKSPACE/openwrt
 # 修改软件包版本为大杂烩-openwrt19.07
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-19.07/github.com\/Lienol\/openwrt-packages.git;19.07/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-19.07/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+
 # 增加软件包
-sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' feeds.conf.default
+sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;main' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
-# sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages.git;master' feeds.conf.default
 
 
 # 预下载主题
