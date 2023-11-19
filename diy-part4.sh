@@ -38,7 +38,6 @@ sed -i 's/ppp-mod-pppoe/ppp-mod-pppoe default-settings luci curl/g' include/targ
 # 单独拉取软件包
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
-git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/yuos/luci-theme-netgear
 
 # 补充包
 # 修改默认斐讯K2 wifi驱动为闭源驱动
@@ -49,15 +48,14 @@ git clone -b master https://github.com/yuos-bit/luci-theme-netgear.git package/y
 
 # 添加4.14内核ACC、shortcut-fe补丁
 
-# 修改feeds里的luci-app-firewall加速开关等源码包
-wget -P ./feeds/luci/applications/luci-app-firewall/ https://raw.githubusercontent.com/zxlhhyccc/acc-imq-bbr/master/master/feeds/luci/applications/luci-app-firewall/patches/001-luci-app-firewall-Enable-FullCone-NAT.patch
-pushd feeds/luci/applications/luci-app-firewall
-patch -p1 < 001-luci-app-firewall-Enable-FullCone-NAT.patch
-popd
-# 全锥形NAT修复
-mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-# Patch LuCI
-pushd feeds/luci
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
-popd
+# 拉取设置向导
+git clone -b main https://github.com/0xACE8/openwrt-quickstart.git package/yuos/quickstart
+
+# 修改/tools/Makefile
+sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/ucl $GITHUB_WORKSPACE/openwrt/tools/ucl
+cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/upx $GITHUB_WORKSPACE/openwrt/tools/upx
+
+# nft-fullcone
+git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
+git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl

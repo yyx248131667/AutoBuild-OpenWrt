@@ -31,3 +31,13 @@ sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
 [ -z $(grep "CONFIG_KERNEL_BUILD_DOMAIN=" .config) ] &&
     echo 'CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions"' >>.config ||
     sed -i 's@\(CONFIG_KERNEL_BUILD_DOMAIN=\).*@\1$"GitHub Actions"@' .config
+
+# 添加5.4内核ACC、shortcut-fe补丁
+# openwrt21.02 netfilter补丁\
+cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
+patch -p1 < package/firmware/001-fix-firewall-flock.patch
+# 打补丁
+wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
