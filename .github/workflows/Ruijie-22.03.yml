@@ -72,7 +72,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/ruijie_${{ github.event.inputs.model }}.config
+  CONFIG_FILE: config/ruijie/ruijie_${{ github.event.inputs.model }}.config
   DIY_P1_SH: ruijie-1.sh
   DIY_P2_SH: ruijie-2.sh
 #  UPLOAD_BIN_DIR: true
