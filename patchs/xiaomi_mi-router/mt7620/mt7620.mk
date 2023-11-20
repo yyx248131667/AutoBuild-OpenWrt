@@ -1336,12 +1336,12 @@ define Device/xiaomi_mi-router-3
   KERNEL_SIZE := 4096k
   IMAGE_SIZE := 32768k
   UBINIZE_OPTS := -E 5
-  IMAGES += kernel1.bin rootfs0.bin breed-factory.bin factory.bin
+  IMAGES += kernel1.bin rootfs0.bin pb-boot.bin factory.bin
   IMAGE/kernel1.bin := append-kernel | check-size $$$$(KERNEL_SIZE)
   IMAGE/rootfs0.bin := append-ubi | check-size
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
   IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | check-size
-  IMAGE/breed-factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | \
+  IMAGE/pb-boot.bin := append-kernel | pad-to $$(KERNEL_SIZE) | \
 			     append-kernel | pad-to $$(KERNEL_SIZE) | \
 			     append-ubi | check-size
   DEVICE_VENDOR := Xiaomi
