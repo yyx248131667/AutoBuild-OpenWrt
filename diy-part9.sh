@@ -47,3 +47,21 @@ wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chio
 cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
+
+# 设置编译时间
+# sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
+# echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
+
+# sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
+# echo "DISTRIB_DESCRIPTION='Yuos_$(date +"%Y-%m-%d")@ 小渔学长 '" >> /etc/openwrt_release
+
+# 测试编译时间
+YUOS_DATE="$(date +%Y.%m.%d) (Xiaoyu build)"
+BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
+echo "Write build date in openwrt : $BUILD_DATE"
+echo -e '\n小渔学长 Build@'${BUILD_STRING}'\n'  >> package/base-files/files/etc/banner
+sed -i '/DISTRIB_REVISION/d' package/base-files/files/etc/openwrt_release
+echo "DISTRIB_REVISION=''" >> package/base-files/files/etc/openwrt_release
+sed -i '/DISTRIB_DESCRIPTION/d' package/base-files/files/etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='小渔学长 Build@${BUILD_STRING}'" >> package/base-files/files/etc/openwrt_release
+sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
