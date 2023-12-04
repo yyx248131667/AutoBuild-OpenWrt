@@ -26,6 +26,7 @@ on:
           - 'miwifi-mini'
           - 'miwifi-3'
           - 'miwifi-3x'
+          - 'E8820v2'
           - 'E8820v2_128m'
           - 'x86'   
       UPLOAD_BIN_DIR:
