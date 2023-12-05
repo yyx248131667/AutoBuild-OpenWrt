@@ -85,6 +85,8 @@ git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftab
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
 # nft补丁
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/* package/network/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
