@@ -83,6 +83,12 @@ cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/upx $GITHUB_WORKSPACE/openwrt/tool
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nft-fullcone package/nft-fullcone
 git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
+
 # nft补丁
-wget -O target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-wget -O target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/952-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/982-add-bcm-fullconenat-support.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/982-add-bcm-fullconenat-support.patch
+
+git apply $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+git apply $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+git apply $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-5.4/982-add-bcm-fullconenat-support.patch
