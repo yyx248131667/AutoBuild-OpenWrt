@@ -84,9 +84,14 @@ git clone -b master --single-branch https://github.com/fullcone-nat-nftables/nft
 git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
+# dnsmasq-full升级2.89
+rm -rf package/network/services/dnsmasq
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 # nft补丁
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/* package/network/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
+# 单独应用
+#rm -rf package/network/services/dnsmasq/patches/001-CVE-2022-0934-Fix-write-after-free-error-in-DHCPv6-code.patch
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
