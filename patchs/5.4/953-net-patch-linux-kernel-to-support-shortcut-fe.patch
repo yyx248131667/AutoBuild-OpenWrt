@@ -12,9 +12,9 @@
  			       struct list_head *br_ip_list);
 --- a/include/linux/skbuff.h
 +++ b/include/linux/skbuff.h
-@@ -828,6 +828,10 @@ struct sk_buff {
+@@ -826,6 +826,10 @@ struct sk_buff {
  #endif
- 	__u8			scm_io_uring:1;
+ 	__u8			gro_skip:1;
  
 +#ifdef CONFIG_SHORTCUT_FE
 +	__u8			fast_forwarded:1;
@@ -49,7 +49,7 @@
  	int (*fcn)(unsigned int events, struct nf_ct_event *item);
 --- a/net/bridge/br_if.c
 +++ b/net/bridge/br_if.c
-@@ -764,6 +764,28 @@ void br_port_flags_change(struct net_bri
+@@ -763,6 +763,28 @@ void br_port_flags_change(struct net_bri
  		br_recalculate_neigh_suppress_enabled(br);
  }
  
@@ -80,7 +80,7 @@
  	struct net_bridge_port *p;
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -3201,9 +3201,17 @@ static int xmit_one(struct sk_buff *skb,
+@@ -3218,8 +3218,17 @@ static int xmit_one(struct sk_buff *skb,
  	unsigned int len;
  	int rc;
  
@@ -92,14 +92,13 @@
 +#endif
  	if (dev_nit_active(dev))
  		dev_queue_xmit_nit(skb, dev);
--
 +#ifdef CONFIG_SHORTCUT_FE
 +	}
 +#endif
+ 
  #ifdef CONFIG_ETHERNET_PACKET_MANGLE
  	if (!dev->eth_mangle_tx ||
- 	    (skb = dev->eth_mangle_tx(dev, skb)) != NULL)
-@@ -4721,6 +4729,11 @@ void netdev_rx_handler_unregister(struct
+@@ -4754,6 +4763,11 @@ void netdev_rx_handler_unregister(struct
  }
  EXPORT_SYMBOL_GPL(netdev_rx_handler_unregister);
  
@@ -111,18 +110,18 @@
  /*
   * Limit the use of PFMEMALLOC reserves to those protocols that implement
   * the special handling of PFMEMALLOC skbs.
-@@ -4771,6 +4784,10 @@ static int __netif_receive_skb_core(stru
+@@ -4803,6 +4817,10 @@ static int __netif_receive_skb_core(stru
+ 	bool deliver_exact = false;
  	int ret = NET_RX_DROP;
  	__be16 type;
- 
++	
 +#ifdef CONFIG_SHORTCUT_FE
 +	int (*fast_recv)(struct sk_buff *skb);
 +#endif
-+
+ 
  	net_timestamp_check(!READ_ONCE(netdev_tstamp_prequeue), skb);
  
- 	trace_netif_receive_skb(skb);
-@@ -4810,6 +4827,16 @@ another_round:
+@@ -4843,6 +4861,16 @@ another_round:
  			goto out;
  	}
  
@@ -141,7 +140,7 @@
  
 --- a/net/Kconfig
 +++ b/net/Kconfig
-@@ -471,3 +471,6 @@ config HAVE_CBPF_JIT
+@@ -473,3 +473,6 @@ config HAVE_CBPF_JIT
  # Extended BPF JIT (eBPF)
  config HAVE_EBPF_JIT
  	bool
@@ -172,7 +171,7 @@
  static int nf_ct_tcp_loose __read_mostly = 1;
 --- a/net/netfilter/nf_conntrack_ecache.c
 +++ b/net/netfilter/nf_conntrack_ecache.c
-@@ -158,7 +158,11 @@ int nf_conntrack_eventmask_report(unsign
+@@ -162,7 +162,11 @@ int nf_conntrack_eventmask_report(unsign
  
  	rcu_read_lock();
  	notify = rcu_dereference(net->ct.nf_conntrack_event_cb);
@@ -184,7 +183,7 @@
  		goto out_unlock;
  
  	e = nf_ct_ecache_find(ct);
-@@ -177,7 +181,14 @@ int nf_conntrack_eventmask_report(unsign
+@@ -181,7 +185,14 @@ int nf_conntrack_eventmask_report(unsign
  		if (!((eventmask | missed) & e->ctmask))
  			goto out_unlock;
  
@@ -199,7 +198,7 @@
  		if (unlikely(ret < 0 || missed)) {
  			spin_lock_bh(&ct->lock);
  			if (ret < 0) {
-@@ -259,7 +270,11 @@ void nf_ct_deliver_cached_events(struct
+@@ -263,7 +274,11 @@ void nf_ct_deliver_cached_events(struct
  
  	rcu_read_lock();
  	notify = rcu_dereference(net->ct.nf_conntrack_event_cb);
@@ -211,7 +210,7 @@
  		goto out_unlock;
  
  	e = nf_ct_ecache_find(ct);
-@@ -283,7 +298,15 @@ void nf_ct_deliver_cached_events(struct
+@@ -287,7 +302,15 @@ void nf_ct_deliver_cached_events(struct
  	item.portid = 0;
  	item.report = 0;
  
@@ -227,7 +226,7 @@
  
  	if (likely(ret == 0 && !missed))
  		goto out_unlock;
-@@ -337,6 +360,11 @@ int nf_conntrack_register_notifier(struc
+@@ -340,6 +363,11 @@ int nf_conntrack_register_notifier(struc
  {
          return atomic_notifier_chain_register(&net->ct.nf_conntrack_chain, nb);
  }
@@ -239,7 +238,7 @@
  #else
  int nf_conntrack_register_notifier(struct net *net,
  				   struct nf_ct_event_notifier *new)
-@@ -366,6 +394,11 @@ int nf_conntrack_unregister_notifier(str
+@@ -369,6 +397,11 @@ int nf_conntrack_unregister_notifier(str
  {
  	return atomic_notifier_chain_unregister(&net->ct.nf_conntrack_chain, nb);
  }
