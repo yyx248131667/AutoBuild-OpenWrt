@@ -70,3 +70,8 @@ echo "DISTRIB_REVISION=''" >> package/base-files/files/etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' package/base-files/files/etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='小渔学长 Build @ ${BUILD_STRING}'" >> package/base-files/files/etc/openwrt_release
 sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
+
+
+# fullconenat-nft配置
+
+sed -i 's/nft_reg_load16(\(&regs->data\[priv->sreg_proto_min\]\))/nft_reg_load16(const \1)/' /workdir/openwrt/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7620/fullconenat-nft-2023-01-10-95ad79bc/src/nft_ext_fullcone.c
