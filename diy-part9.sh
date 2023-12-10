@@ -62,6 +62,7 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
 
 rm -rf package/network/utils
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
+
 # 测试编译时间
 YUOS_DATE="$(date +%Y.%m.%d)(自用版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
