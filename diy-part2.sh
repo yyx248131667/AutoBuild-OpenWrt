@@ -32,8 +32,6 @@ echo 'WNMEnable=1' >> package/kernel/mt-drivers/mt_wifi/files/mt7615.1.5G.dat
 
 # 打补丁
 wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
-cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
-cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
 
 # nft-fullcone
@@ -43,10 +41,6 @@ git clone -b master --single-branch https://github.com/fullcone-nat-nftables/lib
 # dnsmasq-full升级2.89
 rm -rf package/network/services/dnsmasq
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
-# nft补丁
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/* package/network/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
 
 rm -rf package/network/utils
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
