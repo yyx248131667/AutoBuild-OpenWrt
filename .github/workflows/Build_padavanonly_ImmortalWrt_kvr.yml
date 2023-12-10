@@ -20,6 +20,7 @@ on:
         type: choice
         options:
           - 'MI-R3G'
+          - 'ASR3000'
           - 'MI-R3P'
           - 'K2P'
           - 'D2'
