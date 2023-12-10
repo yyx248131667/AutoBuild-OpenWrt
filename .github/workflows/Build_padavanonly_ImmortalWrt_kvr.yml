@@ -75,7 +75,7 @@ on:
   
 env:
   REPO_URL: https://github.com/padavanonly/immortalwrt
-  REPO_BRANCH: master
+  REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/padavanonly/padavanonly_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part1.sh
