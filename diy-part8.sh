@@ -72,4 +72,4 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 # 修改/tools/Makefile
 sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
-cp -rf $GITHUB_WORKSPACE/patch/5.4/package/* tools/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* tools/
