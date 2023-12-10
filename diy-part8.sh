@@ -71,6 +71,6 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 
 # 修改/tools/Makefile
-# sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
-# cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/ucl $GITHUB_WORKSPACE/openwrt/tools/ucl
-# cp -rf $GITHUB_WORKSPACE/openwrt/package/yuos/upx $GITHUB_WORKSPACE/openwrt/tools/upx
+sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+cp -rf $GITHUB_WORKSPACE/patch/5.4/package/ucl $GITHUB_WORKSPACE/openwrt/tools/ucl
+cp -rf $GITHUB_WORKSPACE/patch/5.4/package/upx $GITHUB_WORKSPACE/openwrt/tools/upx
