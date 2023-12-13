@@ -53,8 +53,8 @@ git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftab
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
 # dnsmasq-full升级2.89
-rm -rf package/network/services/dnsmasq
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
+# rm -rf package/network/services/dnsmasq
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 
 # nft补丁
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/

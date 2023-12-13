@@ -75,4 +75,4 @@ sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' 
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* tools/
 
 # rpcd
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
