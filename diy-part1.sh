@@ -10,9 +10,13 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #=================================================
 
-# Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+# 更改默认配置文件
+rm -rf feeds.conf.default
+cp cp -rf $GITHUB_WORKSPACE/patchs/5.4/immortalwrt/* ./
 
+# 修改软件包版本为大杂烩-openwrt21.02
+sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 增加软件包
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;main' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
@@ -20,7 +24,7 @@ sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
 
 # 修改默认编译LUCI进系统
-sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp ppp-mod-pppoe default-settings luci curl ca-certificates/g' include/target.mk
+sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp-mod-pppoe curl ca-certificates/g' include/target.mk
 
 # 单独拉取 default-settings
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/yuos
