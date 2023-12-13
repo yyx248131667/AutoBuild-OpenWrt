@@ -7,7 +7,7 @@
 # Description: Build OpenWrt using GitHub Actions
 # Modified for padavanonly/immortalwrt
 
-name: Build_padavanonly_ImmortalWrt
+name: 云编译_ImmortalWrt
 
 on:
   repository_dispatch:
@@ -20,8 +20,10 @@ on:
         type: choice
         options:
           - 'MI-R3G'
+          - 'ASR3000'
           - 'MI-R3P'
           - 'K2P'
+          - 'D2'
       #cpu超频：1000Mhz--0x312 1100Mhz--0x362 1200Mhz--0x3B2
       cpu_overclock:
         type: boolean
@@ -73,10 +75,10 @@ on:
   #   types: [started]                  # 点击 star 之后
   
 env:
-  REPO_URL: https://github.com/padavanonly/immortalwrt
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/padavanonly/padavanonly_${{ github.event.inputs.model }}_1.config
+  CONFIG_FILE: config/padavanonly/padavanonly_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: true
@@ -100,9 +102,11 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo -E apt-get -qq install build-essential ccache ecj fastjar file g++ gawk \
+        gettext git java-propose-classpath libelf-dev libncurses5-dev \
+        libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+        python3-distutils python3-setuptools python3-dev rsync subversion \
+        swig time xsltproc zlib1g-dev
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -129,6 +133,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files immortalwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE immortalwrt/.config
         chmod +x $DIY_P2_SH
         cd immortalwrt
