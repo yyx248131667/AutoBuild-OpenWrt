@@ -114,15 +114,15 @@ jobs:
     - name: 更新插件
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
     
-    - name: 降级 Cmake3.2.0
+    - name: 降级 Cmake2.8.0
       run: |
           cmake -version
           sudo apt-get remove cmake
           sudo apt-get purge cmake
-          wget https://cmake.org/files/v3.2/cmake-3.2.0.tar.gz
-          tar -zxv -f cmake-3.2.0.tar.gz
-          sudo chmod -R 777 cmake-3.2.0
-          cd  cmake-3.2.0
+          wget https://cmake.org/files/v2.8/cmake-2.8.0.tar.gz
+          tar -zxv -f cmake-2.8.0.tar.gz
+          sudo chmod -R 777 cmake-2.8.0
+          cd  cmake-2.8.0
           sudo apt-get install build-essential 
           ./bootstrap
           make
