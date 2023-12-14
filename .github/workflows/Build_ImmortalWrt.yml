@@ -5,7 +5,7 @@
 #
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
-# Modified for padavanonly/immortalwrt
+# Modified for ImmortalWrt/immortalwrt
 
 name: 云编译_ImmortalWrt
 
@@ -16,14 +16,11 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'MI-R3G' 
+        default: 'NX30Pro' 
         type: choice
         options:
-          - 'MI-R3G'
+          - 'NX30Pro'
           - 'ASR3000'
-          - 'MI-R3P'
-          - 'K2P'
-          - 'D2'
       #cpu超频：1000Mhz--0x312 1100Mhz--0x362 1200Mhz--0x3B2
       cpu_overclock:
         type: boolean
@@ -78,7 +75,7 @@ env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/padavanonly/padavanonly_${{ github.event.inputs.model }}.config
+  CONFIG_FILE: config/ImmortalWrt/ImmortalWrt_${{ github.event.inputs.model }}.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: true
