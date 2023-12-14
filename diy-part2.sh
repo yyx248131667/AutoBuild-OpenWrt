@@ -19,9 +19,6 @@ sed -i 's/192.168.$((addr_offset++)).1/10.32.$((addr_offset++)).1/g' package/bas
 # 修改默认wifi名称ssid为Xiaomi-Wifi
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt76x8/mac80211.sh package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
-# 修改 edge 为默认主题,可根据你喜欢的修改成其他的（不选择那些会自动改变为默认主题的主题才有效果）
-sed -i 's/luci-theme-bootstrap/luci-theme-edge/g' openwrt/feeds/luci/collections/luci/Makefile
-
 #Enable 802.11k/v/r
 sed -i 's/RRMEnable=0/RRMEnable=1/g' package/kernel/mt-drivers/mt_wifi/files/mt7615.1.2G.dat
 sed -i 's/RRMEnable=0/RRMEnable=1/g' package/kernel/mt-drivers/mt_wifi/files/mt7615.1.5G.dat
@@ -42,8 +39,8 @@ git clone -b master --single-branch https://github.com/fullcone-nat-nftables/lib
 rm -rf package/network/services/dnsmasq
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 
-rm -rf package/network/utils
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
+# rm -rf package/network/utils
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
 
 # 测试编译时间
 YUOS_DATE="$(date +%Y.%m.%d)(自用版)"
