@@ -31,12 +31,12 @@ cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/ramips $GITHUB_WORK
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/platform.sh $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt7620/base-files/lib/upgrade/platform.sh
 
 # 修改软件包版本为大杂烩-openwrt21.02
-sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/immortalwrt\/packages.git;openwrt-21.02/g' feeds.conf.default
-sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/immortalwrt\/luci.git;openwrt-21.02/g' feeds.conf.default
+# sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/immortalwrt\/packages.git;openwrt-21.02/g' feeds.conf.default
+# sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/immortalwrt\/luci.git;openwrt-21.02/g' feeds.conf.default
 
 #备用方案
-#sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
-#sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 增加软件包
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;main' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
