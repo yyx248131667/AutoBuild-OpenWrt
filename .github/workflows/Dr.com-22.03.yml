@@ -68,8 +68,8 @@ env:
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/dr.com/dr.com_${{ github.event.inputs.model }}.config
-  DIY_P1_SH: dr.com-1.sh
-  DIY_P2_SH: dr.com-2.sh
+  DIY_P1_SH: dr.com-3.sh
+  DIY_P2_SH: dr.com-4.sh
 #  UPLOAD_BIN_DIR: true
 #  UPLOAD_FIRMWARE: true
 #  UPLOAD_COWTRANSFER: false
