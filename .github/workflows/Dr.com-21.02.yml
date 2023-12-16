@@ -127,7 +127,6 @@ jobs:
           tar -zxv -f cmake-3.28.0.tar.gz
           sudo chmod -R 777 cmake-3.28.0
           cd  cmake-3.28.0
-          sudo apt-get install build-essential 
           ./bootstrap
           make
           sudo make install
