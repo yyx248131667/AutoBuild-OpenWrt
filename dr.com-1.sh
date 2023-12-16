@@ -29,8 +29,8 @@ cp -R $GITHUB_WORKSPACE/patchs/ruijie/mt7620/02_network $GITHUB_WORKSPACE/openwr
 cp -R $GITHUB_WORKSPACE/patchs/ruijie/mt7620/mac80211.sh $GITHUB_WORKSPACE/openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改软件包版本为大杂烩-openwrt22.03
-sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-22.03/github.com\/coolsnowwolf\/packages.git;master/g' feeds.conf.default
-sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-22.03/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
+sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 
 # 增加软件包
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;main' feeds.conf.default
@@ -38,26 +38,13 @@ sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master'
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
 
-# 修改默认第一排插件
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 
-# # 修改默认第二排插件
-sed -i 's/firewall4/firewall block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun/g' include/target.mk
+# 修改默认dnsmasq为dnsmasq-full
+sed -i 's/dnsmasq/dnsmasq-full firewall iptables block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-ipt-raw6 kmod-tun/g' include/target.mk
 
-# # 修改默认第三排插件
-sed -i 's/nftables/nftables iptables-mod-tproxy/g' include/target.mk
+# 修改默认编译LUCI进系统
+sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp ppp-mod-pppoe default-settings luci curl ca-certificates/g' include/target.mk
 
-# # 修改默认第四排插件
-sed -i 's/kmod-nft-offload/kmod-nft-offload curl ca-certificates/g' include/target.mk
-
-# # 修改默认第五排插件
-sed -i 's/odhcp6c/odhcp6c iptables-mod-tproxy iptables-mod-extra/g' include/target.mk
-
-# # 修改默认第六排插件
-sed -i 's/odhcpd-ipv6only/odhcpd-ipv6only ipset ip-full default-settings luci/g' include/target.mk
-
-# 修改默认红米AC2100 wifi驱动为闭源驱动
-# sed -i 's/kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware/kmod-mt7603e kmod-mt7615d luci-app-mtwifi -wpad-openssl/g' target/linux/ramips/image/mt7621.mk
 
 # 单独拉取 default-settings
 git clone -b ruijie https://github.com/yuos-bit/other package/yuos
@@ -79,7 +66,10 @@ git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
 # 防检测
 git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAuth
 # 网页认证\
-
+git clone -b master https://github.com/muink/luci-app-change-mac package/yuos/luci-app-change-mac
+# 修改mac地址
+git clone -b master https://github.com/chenhaowen01/gdut-drcom-for-openwrt package/yuos/drcom
+# 拉取哆点
 
 ## 其他补丁
 # git clone -b master https://github.com/CHN-beta/xmurp-ua package/yuos/xmurp-ua
