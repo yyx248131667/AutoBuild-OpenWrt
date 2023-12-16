@@ -65,7 +65,8 @@ git clone -b master https://github.com/CHN-beta/rkp-ipid package/yuos/rkp-ipid
 git clone -b main https://github.com/lucikap/Brukamen package/yuos/Brukamen
 # 防检测
 git clone -b main https://github.com/a76yyyy/HustWebAuth package/yuos/HustWebAuth
-# 网页认证\
+# 网页认证
+git clone -b master https://github.com/muink/rgmac package/yuos/rgmac
 git clone -b master https://github.com/muink/luci-app-change-mac package/yuos/luci-app-change-mac
 # 修改mac地址
 git clone -b master https://github.com/chenhaowen01/gdut-drcom-for-openwrt package/yuos/drcom
