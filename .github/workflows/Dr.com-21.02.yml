@@ -119,6 +119,23 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
 
+    - name: 升级 cmake-3.28.0
+      run: |
+          cmake -version
+          sudo apt-get remove --purge cmake
+          wget https://cmake.org/files/v3.28/cmake-3.28.0.tar.gz
+          tar -zxv -f cmake-3.28.0.tar.gz
+          sudo chmod -R 777 cmake-3.28.0
+          cd  cmake-3.28.0
+          sudo apt-get install build-essential 
+          ./bootstrap
+          make
+          sudo make install
+          sudo ln -s /usr/local/bin/cmake /usr/bin 
+          cmake -version
+          sudo apt-get update
+          sudo apt-get install build-essential
+
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
