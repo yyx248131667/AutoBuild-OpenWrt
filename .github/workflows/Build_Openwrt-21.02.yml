@@ -26,6 +26,7 @@ on:
           - 'miwifi-mini'
           - 'miwifi-3'
           - 'miwifi-3x'
+          - 'miwifi-4a-G'
           - 'E8820v1'
           - 'E8820v2'
           - 'x86'   
