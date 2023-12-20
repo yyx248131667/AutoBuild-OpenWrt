@@ -121,6 +121,17 @@ jobs:
           rm -rf feeds/small8/fullconenat-nft
           rm -rf feeds/small8/fullconenat
 
+    - name: 更新GO1.21版本
+      run: |
+          sudo apt-get update
+          sudo apt-get install bison gcc make
+          bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+          source ~/.bashrc
+          gvm install go1.21
+          gvm use go1.21
+          go version
+
+
     - name: 设置xray1.7.5
       run: |
           cd openwrt
