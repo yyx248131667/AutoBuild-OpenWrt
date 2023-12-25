@@ -123,23 +123,18 @@ jobs:
 
     - name: 更新GO1.21版本
       run: |
-          sudo rm -rf /usr/local/go
-          sudo apt-get remove golang
-          sudo apt-get remove golang-go
-          sudo apt-get autoremove
-          sudo wget https://golang.google.cn/dl/go1.21.5.linux-amd64.tar.gz
-          sudo tar xfz go1.21.5.linux-amd64.tar.gz -C /usr/local
-          sudo echo "export GOROOT=/usr/local/go" >> /etc/profile
-          sudo echo "export GOPATH=$HOME/gowork" >> /etc/profile
-          sudo echo "export GOBIN=$GOPATH/bin" >> /etc/profile
-          sudo echo "export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH" >> /etc/profile
-          source /etc/profile
-          cd ~
-          sudo echo "source /etc/profile" >> .bashrc
+          sudo apt install golang-go
+          sudo apt-get install golang-1.21
+          sudo apt-get remove golang-1.21
+          sudo apt autoremove 
+          curl -O https://storage.googleapis.com/golang/go1.21.5.linux-amd64.tar.gz
+          tar -C /usr/local -zxvf go1.21.5.linux-amd64.tar.gz 
+          mkdir -p ~/go/src
+          sudo echo "export GOPATH=$HOME/go" >> ~/.profile
+          sudo echo "export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin" >> ~/.profile
+          sudo source ~/.bashrc
+          sudo source ~/.profile
           go version
-          go env -w GOPROXY="https://goproxy.cn"
-          go env -w GO111MODULE=on
-
 
     - name: 设置xray1.7.5
       run: |
