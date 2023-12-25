@@ -128,8 +128,8 @@ jobs:
           sudo apt-get remove golang-1.21
           sudo apt autoremove 
           curl -O https://storage.googleapis.com/golang/go1.21.5.linux-amd64.tar.gz
-          tar -C /usr/local -zxvf go1.21.5.linux-amd64.tar.gz 
-          mkdir -p ~/go/src
+          sudo tar -C /usr/local -zxvf go1.21.5.linux-amd64.tar.gz 
+          sudo mkdir -p ~/go/src
           sudo echo "export GOPATH=$HOME/go" >> ~/.profile
           sudo echo "export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin" >> ~/.profile
           sudo source ~/.bashrc
