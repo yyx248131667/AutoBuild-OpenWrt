@@ -132,8 +132,8 @@ jobs:
           sudo mkdir -p ~/go/src
           sudo echo "export GOPATH=$HOME/go" >> ~/.profile
           sudo echo "export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin" >> ~/.profile
-          sudo source ~/.bashrc
-          sudo source ~/.profile
+          sudo -s source  ~/.bashrc
+          sudo -s source  ~/.profile
           go version
 
     - name: 设置xray1.7.5
