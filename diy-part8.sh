@@ -29,7 +29,8 @@ cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/02_network $GITHUB_WORKS
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/mac80211.sh $GITHUB_WORKSPACE/openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/ramips $GITHUB_WORKSPACE/openwrt/package/boot/uboot-envtools/files/ramips
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/platform.sh $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt7620/base-files/lib/upgrade/platform.sh
-
+# MT7621
+cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7621_xiaomi_mi-router-4a-gigabit.dts $GITHUB_WORKSPACE/openwrt/target/linux/ramips/dts/mt7621_xiaomi_mi-router-4a-gigabit.dts
 # 修改软件包版本为大杂烩-openwrt21.02
 # sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/immortalwrt\/packages.git;openwrt-21.02/g' feeds.conf.default
 # sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/immortalwrt\/luci.git;openwrt-21.02/g' feeds.conf.default
