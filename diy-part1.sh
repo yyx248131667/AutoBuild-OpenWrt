@@ -37,4 +37,4 @@ sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' 
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* tools/
 
 # 更改默认wifi
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/NX30Pro/mtwifi.sh package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+cp -rf $GITHUB_WORKSPACE/patchs/NX30Pro/mtwifi.sh package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
