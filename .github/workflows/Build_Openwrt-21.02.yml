@@ -51,17 +51,6 @@ on:
         required: false
         default: 'false'
         type: boolean
-#   schedule:                           # 时间表
-#     - cron: '0 19 * * *'              # 每天国际时间19点，北京时间凌晨3点执行(北京+8)
-#  push: # push 操作
-#    branches: # 分支
-      #- master # 主分支
-    #   paths:                            # 路径
-    #     - openwrt/*                     # 监听openwrt目录下所有文件的push操作
-    #paths: # 路径
-      #- logs/g-dock.md # 监听logs目录下 k2.md 的push操作
-  # watch:                              # 监视操作
-  #   types: [started]                  # 点击 star 之后
   
 env:
   REPO_URL: https://github.com/yuos-bit/openwrt
@@ -79,15 +68,13 @@ jobs:
 
     steps:
     - name: 检查工作流
-      uses: actions/checkout@v2
-    
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: latest  # Use 'latest' to get the latest Go version
+      uses: actions/checkout@main
 
-    - name: Display Go version
-      run: go version
+    - name: 安装 Go
+    uses: actions/setup-go@v2
+    with:
+    go-version: '1.21.5'  # 请替换为你想要安装的 Go 版本
+    architecture: 'amd64'  # 请根据你的系统架构选择合适的值
 
     - name: 初始化环境
       env:
