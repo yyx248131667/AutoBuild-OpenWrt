@@ -75,11 +75,19 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - name: 检查工作流
       uses: actions/checkout@main
+    
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: latest  # Use 'latest' to get the latest Go version
+
+    - name: Display Go version
+      run: go version
 
     - name: 初始化环境
       env:
