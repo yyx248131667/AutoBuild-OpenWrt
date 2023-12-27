@@ -71,8 +71,6 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: '1.21.5'  # 请替换为你想要安装的 Go 版本
-        architecture: 'amd64'  # 请根据你的系统架构选择合适的值
-
 
     - name: 检查工作流
       uses: actions/checkout@main
