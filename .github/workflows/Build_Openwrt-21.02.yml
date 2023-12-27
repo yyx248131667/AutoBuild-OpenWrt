@@ -70,7 +70,10 @@ jobs:
     - name: 安装 Go
       uses: actions/setup-go@v2
       with:
-        go-version: '1.21.5'  # 请替换为你想要安装的 Go 版本
+        go-version: 1.18
+    
+    - name: 更新quic-go
+      run: go get -u github.com/lucas-clemente/quic-go
 
     - name: 检查工作流
       uses: actions/checkout@main
