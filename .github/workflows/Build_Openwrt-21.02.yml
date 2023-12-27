@@ -76,7 +76,7 @@ jobs:
       run: go mod init myproject
     
     - name: Download and Install quic-go
-      run: go install github.com/lucas-clemente/quic-go@latest
+      run: go install github.com/quic-go/quic-go@latest
 
     - name: 检查工作流
       uses: actions/checkout@main
