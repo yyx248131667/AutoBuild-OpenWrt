@@ -72,8 +72,11 @@ jobs:
       with:
         go-version: 1.18
     
-    - name: 更新quic-go
-      run: go get -u github.com/lucas-clemente/quic-go
+    - name: Initialize Go Module
+      run: go mod init myproject
+    
+    - name: Download and Install quic-go
+      run: go install github.com/lucas-clemente/quic-go@latest
 
     - name: 检查工作流
       uses: actions/checkout@main
