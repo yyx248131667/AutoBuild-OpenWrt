@@ -72,10 +72,10 @@ jobs:
       with:
         go-version: 1.18
     
-    - name: Initialize Go Module
+    - name: 设置go环境
       run: go mod init myproject
     
-    - name: Download and Install quic-go
+    - name: 下载并安装 quic-go
       run: go get -u github.com/quic-go/quic-go@latest
 
     - name: 检查工作流
