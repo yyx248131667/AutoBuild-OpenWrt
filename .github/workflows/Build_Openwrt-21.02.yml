@@ -70,7 +70,7 @@ jobs:
     - name: 安装 Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.12
+        go-version: 1.17
     
     - name: 设置go环境
       run: go mod init myproject
@@ -121,11 +121,11 @@ jobs:
           rm -rf feeds/small8/fullconenat-nft
           rm -rf feeds/small8/fullconenat
 
-    - name: 设置xray1.4.3
+    - name: 设置xray1.5.5
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.4.3/Makefile feeds/helloworld/xray-core/Makefile
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.4.3/Makefile feeds/packages/net/xray-core/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/Makefile feeds/helloworld/xray-core/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.5/Makefile feeds/packages/net/xray-core/Makefile
 
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
