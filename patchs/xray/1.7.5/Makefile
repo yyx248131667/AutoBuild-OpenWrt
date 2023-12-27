@@ -1,17 +1,20 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=xray-core
+PKG_NAME:=Xray-core
 PKG_VERSION:=1.7.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
+
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
+PKG_CONFIG_DEPENDS:= \
+	CONFIG_XRAY_CORE_COMPRESS_UPX \
+
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -39,15 +42,28 @@ define Package/xray-core/description
   It secures your network connections and thus protects your privacy.
 endef
 
-define Build/Install
-	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/usr/bin/main $(1)/usr/bin/xray
-	# Use upx to compress xray before installation
-	$(STAGING_DIR_HOST)/bin/upx --best $(1)/usr/bin/xray
+define Package/xray-core/config
+menu "Xray-core Configuration"
+	depends on PACKAGE_xray-core
+
+config XRAY_CORE_COMPRESS_UPX
+	bool "Compress executable files with UPX"
+	depends on !mips64
+	default n
+endmenu
+endef
+
+define Build/Compile
+	$(call GoPackage/Build/Compile)
+ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),)
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
+endif
 endef
 
 define Package/xray-core/install
-	$(call Build/Install,$(1))
+	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+	$(INSTALL_DIR) $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))
