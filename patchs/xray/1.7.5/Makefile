@@ -6,9 +6,6 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
-# PKG_HASH:=565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc
-#1.7.5  PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
-# 1.7.2 PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29
 PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
@@ -42,10 +39,15 @@ define Package/xray-core/description
   It secures your network connections and thus protects your privacy.
 endef
 
-define Package/xray-core/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+define Build/Install
 	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/usr/bin/main $(1)/usr/bin/xray
+	# Use upx to compress xray before installation
+	$(STAGING_DIR_HOST)/bin/upx --best $(1)/usr/bin/xray
+endef
+
+define Package/xray-core/install
+	$(call Build/Install,$(1))
 endef
 
 $(eval $(call BuildPackage,xray-core))
