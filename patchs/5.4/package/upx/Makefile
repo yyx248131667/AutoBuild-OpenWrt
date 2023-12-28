@@ -8,12 +8,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=upx
 PKG_VERSION:=3.96
-PKG_RELEASE:=30
+PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/upx/upx.git
 PKG_SOURCE_VERSION:=d7ba31cab8ce8d95d2c10e88d2ec787ac52005ef
-PKG_MIRROR_HASH:=skip
+PKG_MIRROR_HASH:=15b4884dbe35d3b7bda27538429cab92aaeaca006d558deb49f2ef93e3c261b8
 
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 PKG_LICENSE:=GPL-2.0-only
@@ -26,11 +26,11 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 
 define Package/upx
-	SECTION:=utils
-	CATEGORY:=Utilities
-	DEPENDS:=+libucl +libstdcpp +zlib
-	TITLE:=The Ultimate Packer for eXecutables
-	URL:=https://upx.github.io/
+  SECTION:=utils
+  CATEGORY:=Utilities
+  DEPENDS:=+libucl +libstdcpp +zlib
+  TITLE:=The Ultimate Packer for eXecutables
+  URL:=https://upx.github.io/
 endef
 
 define Package/upx/description
