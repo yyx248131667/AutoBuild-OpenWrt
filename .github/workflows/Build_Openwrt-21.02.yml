@@ -70,6 +70,9 @@ jobs:
     - name: 检查工作流
       uses: actions/checkout@main
 
+    - name: 创建日志目录
+      run: mkdir -p $GITHUB_WORKSPACE/logs
+
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
