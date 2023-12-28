@@ -80,3 +80,6 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/tools/
 # rpcd
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
+
+#删除重复包
+rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
