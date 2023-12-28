@@ -9,3 +9,8 @@
     
     - name: 下载并安装 quic-go
       run: go get -u github.com/quic-go/quic-go@latest
+
+
+
+
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main

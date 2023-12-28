@@ -47,10 +47,9 @@ define Host/Install
 	$(CP) $(HOST_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
 endef
 
-# define Host/Clean
-# 	rm -f $(STAGING_DIR_HOST)/bin/upx
-# endef
-# 临时注释
+define Host/Clean
+	rm -f $(STAGING_DIR_HOST)/bin/upx
+endef
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin

@@ -57,6 +57,7 @@ define Build/Compile
 	$(call GoPackage/Build/Compile)
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),)
 	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
+	upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
 endif
 endef
 
