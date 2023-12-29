@@ -20,14 +20,14 @@ detect_mtwifi() {
 					hwmode="11g"
 					htmode="HE40"
 					htbsscoex="1"
-					ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_2.4G
+					ssid="Xiaoyu-$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_2.4G"
 					dbdc_main="1"
 				else
 					band="5g"
 					hwmode="11a"
 					htmode="HE160"
 					htbsscoex="0"
-					ssid=Xiaoyu_$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_5G
+					ssid="Xiaoyu-$(cat /sys/class/ieee80211/${dev}/macaddress|awk -F ":" '{print $2""$3""$7 }'| tr a-z A-Z)_5G"
 					dbdc_main="0"
 				fi
 				uci -q batch <<-EOF
