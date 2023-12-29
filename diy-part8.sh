@@ -83,3 +83,6 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/tools/
 
 #删除重复包
 rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
+
+# 复制upx到dl目录
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/dl/* $GITHUB_WORKSPACE/openwrt/dl/
