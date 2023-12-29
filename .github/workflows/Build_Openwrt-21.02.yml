@@ -145,9 +145,8 @@ jobs:
 
     - name: 拷贝UPX包
       run: |
-# 复制upx到dl目录
         cp -rf $GITHUB_WORKSPACE/patchs/5.4/dl/* $GITHUB_WORKSPACE/openwrt/dl/
-        tar -xvf upx-4.2.1-src.tar.xz
+        tar -xvf $GITHUB_WORKSPACE/openwrt/dl/upx-4.2.1-src.tar.xz
 
     - name: 编译固件中
       id: compile
