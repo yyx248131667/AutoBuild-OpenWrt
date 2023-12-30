@@ -146,7 +146,7 @@ jobs:
     - name: 拷贝UPX包
       run: |
         cp -rf $GITHUB_WORKSPACE/patchs/5.4/dl/* $GITHUB_WORKSPACE/openwrt/dl/
-        tar -xvf $GITHUB_WORKSPACE/openwrt/dl/upx-4.2.1-src.tar.xz
+        tar -xvf $GITHUB_WORKSPACE/openwrt/dl/upx-4.2.1-src.tar.xz $GITHUB_WORKSPACE/openwrt/build_dir/target-mipsel_24kc_musl/
 
     - name: 编译固件中
       id: compile
