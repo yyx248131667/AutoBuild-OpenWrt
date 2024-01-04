@@ -27,7 +27,7 @@ on:
           - 'miwifi-3'
           - 'miwifi-3x'
           - 'miwifi-4a-G'
-          - 'E8820v1'
+          - 'E8820v1_32MB'
           - 'E8820v2'
           - 'x86'   
       UPLOAD_BIN_DIR:
@@ -139,7 +139,7 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        make download -j10 V=s
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 

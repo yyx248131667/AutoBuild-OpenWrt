@@ -311,6 +311,10 @@ ath79_setup_interfaces()
 		ucidef_add_switch "switch0" \
 			"0@eth0" "2:lan" "3:wan"
 		;;
+	zte,e8820v1)
+		ucidef_add_switch "switch0" \
+			"0@eth0" "2:lan" "3:wan" "4:lan" "1:lan"
+		;;
 	nec,wg800hp|\
 	xiaomi,aiot-ac2350)
 		ucidef_add_switch "switch0" \

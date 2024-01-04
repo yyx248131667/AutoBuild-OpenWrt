@@ -2300,3 +2300,20 @@ define Device/zyxel_nbg6616
   SUPPORTED_DEVICES += nbg6616
 endef
 TARGET_DEVICES += zyxel_nbg6616
+
+define Device/zte_e8820v1
+  SOC := qca9563
+  DEVICE_VENDOR := ZTE
+  DEVICE_MODEL := E8820V1
+  DEVICE_PACKAGES := kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-usb3 kmod-usb-ledtrig-usbport
+  IMAGE_SIZE := 32448k
+  IMAGES += kernel1.bin rootfs0.bin pb-boot.bin factory.bin
+  IMAGE/kernel1.bin := append-kernel | check-size $$$$(KERNEL_SIZE)
+  IMAGE/rootfs0.bin := append-ubi | check-size
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | check-size
+  IMAGE/pb-boot.bin := append-kernel | pad-to $$(KERNEL_SIZE) | \
+			     append-kernel | pad-to $$(KERNEL_SIZE) | \
+			     append-ubi | check-size
+endef
+TARGET_DEVICES += zte_e8820v1
