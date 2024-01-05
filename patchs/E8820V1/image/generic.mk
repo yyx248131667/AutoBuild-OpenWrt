@@ -2307,7 +2307,7 @@ define Device/zte_e8820v1
   DEVICE_MODEL := E8820V1
   DEVICE_PACKAGES := kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-usb3 kmod-usb-ledtrig-usbport
   IMAGE_SIZE := 32448k
-  IMAGES += 32MB-sysupgrade.bin
-  IMAGE/32MB-sysupgrade.bin := $$(IMAGE/sysupgrade.bin)
+  IMAGES += -32MB.bin
+  IMAGE/-32MB.bin := $$(IMAGE/sysupgrade.bin)
 endef
 TARGET_DEVICES += zte_e8820v1
