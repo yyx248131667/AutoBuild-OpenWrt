@@ -96,7 +96,8 @@ jobs:
     - name: 设置CMAKE-ninja环境
       working-directory: /workdir
       run: |
-        export MAKE=ninja
+        sudo apt-get install ninja-build
+        ninja --version
 
     - name: 拉取源码
       working-directory: /workdir
