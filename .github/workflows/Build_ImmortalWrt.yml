@@ -92,12 +92,6 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-    
-    - name: 设置CMAKE-ninja环境
-      working-directory: /workdir
-      run: |
-        sudo apt-get install ninja-build
-        ninja --version
 
     - name: 拉取源码
       working-directory: /workdir
