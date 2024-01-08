@@ -54,11 +54,13 @@ define Host/Clean
 endef
 
 define Package/upx/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/usr/src
-	cp -r $(PKG_BUILD_DIR)/src $(1)/usr/src/upx-$(PKG_VERSION)
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+    $(INSTALL_DIR) $(1)/usr/bin
+    $(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+
+    $(INSTALL_DIR) $(1)/usr/src
+    cp -r $(PKG_BUILD_DIR)/src $(1)/usr/src/upx-$(PKG_VERSION)
 endef
+
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,upx))
