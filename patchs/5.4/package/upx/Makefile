@@ -55,6 +55,8 @@ endef
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/src
+	cp -r $(PKG_BUILD_DIR)/src $(1)/usr/src/upx-$(PKG_VERSION)
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
 endef
 
