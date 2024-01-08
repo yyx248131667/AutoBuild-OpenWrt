@@ -40,23 +40,21 @@ executable packer for several executable formats.
 endef
 
 define Host/Compile
-	UPX_UCLDIR=$(STAGING_DIR_HOST) \
-	$(MAKE) -C $(HOST_BUILD_DIR)/src \
-		LDFLAGS="$(HOST_LDFLAGS)" \
-		CXX="$(HOSTCXX)"
+    UPX_UCLDIR=$(STAGING_DIR_HOST) \
+    $(MAKE) -C $(PKG_BUILD_DIR)/src
 endef
 
 define Host/Install
-	$(CP) $(HOST_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
+    $(CP) $(PKG_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Host/Clean
-	rm -f $(STAGING_DIR_HOST)/bin/upx
+    rm -f $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Package/upx/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+    $(INSTALL_DIR) $(1)/usr/bin
+    $(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
