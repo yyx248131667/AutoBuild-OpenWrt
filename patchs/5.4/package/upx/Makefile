@@ -11,7 +11,7 @@ PKG_VERSION:=4.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-src.tar.xz
-PKG_SOURCE_URL:=https://github.com/upx/upx/releases/download/v$(PKG_VERSION)/$(PKG_SOURCE)
+PKG_SOURCE_URL:=https://github.com/upx/upx/releases/download/v$(PKG_VERSION)
 # PKG_HASH:=3052915173267ad9854e0e7d9f40ceadfbbc491553550bf0dcc2fd55d30205fd
 PKG_HASH:=skip
 
