@@ -8,29 +8,22 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=upx
 PKG_VERSION:=3.96
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-src.tar.xz
-PKG_SOURCE_URL:=https://github.com/upx/upx/releases/download/v$(PKG_VERSION)
-PKG_HASH:=47774df5c958f2868ef550fb258b97c73272cb1f44fe776b798e393465993714
+PKG_RELEASE:=30
+
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/upx/upx.git
+PKG_SOURCE_VERSION:=d7ba31cab8ce8d95d2c10e88d2ec787ac52005ef
+PKG_MIRROR_HASH:=skip
+
+PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
+PKG_LICENSE:=GPL-2.0-only
+PKG_LICENSE_FILES:=COPYING LICENSE
 
 HOST_BUILD_DEPENDS:=ucl/host
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)-$(PKG_VERSION)-src
-include $(INCLUDE_DIR)/host-build.mk
+MAKE_PATH:=src
+
 include $(INCLUDE_DIR)/package.mk
-
-define Host/Compile
-	UPX_UCLDIR=$(STAGING_DIR_HOST) \
-	$(MAKE) -C $(HOST_BUILD_DIR)-src/src \
-		CXXFLAGS_WERROR="" LDFLAGS="$(HOST_LDFLAGS)" \
-		CXX="$(HOSTCXX) -std=gnu++11"
-endef
-
-define Host/Install
-	$(CP) $(HOST_BUILD_DIR)-src/src/upx.out $(STAGING_DIR_HOST)/bin/upx
-endef
-
-define Host/Clean
-	rm -f $(STAGING_DIR_HOST)/bin/upx
-endef
+include $(INCLUDE_DIR)/host-build.mk
 
 define Package/upx
   SECTION:=utils
@@ -41,18 +34,28 @@ define Package/upx
 endef
 
 define Package/upx/description
-UPX is a free, portable, extendable, high-performance executable packer for
-several different executable formats. It achieves an excellent compression ratio
-and offers very fast decompression. Your executables suffer no memory overhead
-or other drawbacks for most of the formats supported, because of in-place
-decompression.
+UPX is a free, secure, portable, extendable, high-performance
+executable packer for several executable formats.
 endef
 
-MAKE_PATH := src
+define Host/Compile
+	UPX_UCLDIR=$(STAGING_DIR_HOST) \
+	$(MAKE) -C $(HOST_BUILD_DIR)/src \
+		LDFLAGS="$(HOST_LDFLAGS)" \
+		CXX="$(HOSTCXX)"
+endef
+
+define Host/Install
+	$(CP) $(HOST_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
+endef
+
+define Host/Clean
+	rm -f $(STAGING_DIR_HOST)/bin/upx
+endef
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)-src/src/upx.out $(1)/usr/bin/upx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
