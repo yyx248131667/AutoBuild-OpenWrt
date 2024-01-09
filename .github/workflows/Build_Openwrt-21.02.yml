@@ -143,15 +143,6 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
     
-    - name: 编译UPX
-      run: |
-        sudo mkdir -p openwrt/build_dir/host/ && cd openwrt/build_dir/host/
-        wget -O -nocheck https://github.com/upx/upx/releases/download/v4.2.2/upx-4.2.2-src.tar.xz
-        tar -xvf upx-4.2.2-src.tar.xz
-        cd upx-4.2.2-src/src
-        make clean
-        make
-
     - name: 编译固件中
       id: compile
       run: |
