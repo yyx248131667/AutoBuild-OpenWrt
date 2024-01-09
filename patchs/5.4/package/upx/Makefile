@@ -19,13 +19,13 @@ include $(INCLUDE_DIR)/package.mk
 
 define Host/Compile
 	UPX_UCLDIR=$(STAGING_DIR_HOST) \
-	$(MAKE) -C $(HOST_BUILD_DIR)/src \
+	$(MAKE) -C $(HOST_BUILD_DIR)-src/src \
 		CXXFLAGS_WERROR="" LDFLAGS="$(HOST_LDFLAGS)" \
 		CXX="$(HOSTCXX) -std=gnu++11"
 endef
 
 define Host/Install
-	$(CP) $(HOST_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
+	$(CP) $(HOST_BUILD_DIR)-src/src/upx.out $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Host/Clean
