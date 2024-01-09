@@ -25,6 +25,9 @@ MAKE_PATH:=src
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 
+PKG_PATCH_DIR := $(PKG_NAME)/patches
+PKG_PATCHES := 010-fix-build-with-gcc11.patch
+
 define Package/upx
   SECTION:=utils
   CATEGORY:=Utilities
@@ -37,6 +40,11 @@ define Package/upx/description
 UPX is a free, secure, portable, extendable, high-performance
 executable packer for several executable formats.
 endef
+
+define Host/Patch
+	$(call PatchFile,$(PKG_NAME),$(PKG_PATCH_DIR)/010-fix-build-with-gcc11.patch)
+endef
+HOST_PATCHES += Patch
 
 define Host/Compile
 	UPX_UCLDIR=$(STAGING_DIR_HOST) \
