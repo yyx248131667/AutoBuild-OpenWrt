@@ -52,7 +52,7 @@ MAKE_PATH := src
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)-src/src/upx.out $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
