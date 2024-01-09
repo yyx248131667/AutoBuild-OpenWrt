@@ -147,7 +147,8 @@ jobs:
       run: |
         sudo mkdir -p openwrt/build_dir/host/ && cd openwrt/build_dir/host/
         wget -O -nocheck https://github.com/upx/upx/releases/download/v4.2.2/upx-4.2.2-src.tar.xz
-        sudo tar -xvf upx-4.2.2-src.tar.xz upx-4.2.2/
+        mkdir -p upx-4.2.2
+        tar -xf upx-4.2.2-src.tar.xz -C upx-4.2.2 --strip-components=1
         cd upx-4.2.2/src
         make clean
         make
