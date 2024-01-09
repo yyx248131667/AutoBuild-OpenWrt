@@ -1,9 +1,3 @@
-#
-# Copyright (C) 2011-2020 OpenWrt.org
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=upx
@@ -13,7 +7,6 @@ PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-src.tar.xz
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-src
 PKG_SOURCE_URL:=https://github.com/upx/upx/releases/download/v$(PKG_VERSION)
-# PKG_HASH:=3052915173267ad9854e0e7d9f40ceadfbbc491553550bf0dcc2fd55d30205fd
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
@@ -40,8 +33,7 @@ executable packer for several executable formats.
 endef
 
 define Host/Compile
-	UPX_UCLDIR=$(STAGING_DIR_HOST) \
-	$(MAKE) -C $(HOST_BUILD_DIR)/src
+	$(MAKE) -C $(PKG_BUILD_DIR)/src
 endef
 
 define Host/Install
