@@ -16,9 +16,10 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'NX30Pro' 
+        default: 'TEST' 
         type: choice
         options:
+          - 'TEST'
           - 'NX30Pro'
           - 'ASR3000'
       UPLOAD_BIN_DIR:
