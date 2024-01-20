@@ -16,10 +16,11 @@ on:
       model:
         description: '选择机型'
         required: true
-        default: 'TEST' 
+        default: 'mtk-deprecated' 
         type: choice
         options:
           - 'TEST'
+          - 'mtk-deprecated'
           - 'NX30Pro'
           - 'ASR3000'
       UPLOAD_BIN_DIR:
