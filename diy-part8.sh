@@ -33,10 +33,6 @@ cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/ramips $GITHUB_WORK
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7620/path/platform.sh $GITHUB_WORKSPACE/openwrt/target/linux/ramips/mt7620/base-files/lib/upgrade/platform.sh
 # MT7621
 cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7621_xiaomi_mi-router-4a-gigabit.dts $GITHUB_WORKSPACE/openwrt/target/linux/ramips/dts/mt7621_xiaomi_mi-router-4a-gigabit.dts
-# 修改软件包版本为大杂烩-openwrt21.02
-# sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/immortalwrt\/packages.git;openwrt-21.02/g' feeds.conf.default
-# sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/immortalwrt\/luci.git;openwrt-21.02/g' feeds.conf.default
-
 #备用方案
 sed -i 's/git.openwrt.org\/feed\/packages.git;openwrt-21.02/github.com\/Lienol\/openwrt-packages.git;21.02/g' feeds.conf.default
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
@@ -77,6 +73,7 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer.git package/yuos/luci-app-usb_printer
+git clone -b master --single-branch https://github.com/MilesPoupart/luci-app-vssr package/yuos/luci-app-vssr
 
 # 修改/tools/Makefile
 # sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
