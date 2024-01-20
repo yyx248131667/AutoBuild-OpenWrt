@@ -21,7 +21,7 @@ sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' fee
 sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp-mod-pppoe curl ca-certificates/g' include/target.mk
 
 # 拉取主题
-git clone -b theme https://github.com/yuos-bit/other package/theme
+git clone -b master https://github.com/kiddin9/luci-theme-edge package/theme/luci-theme-edge
 # 设置闭源驱动开机自启
 sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
 
