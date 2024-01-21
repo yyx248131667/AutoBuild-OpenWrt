@@ -35,13 +35,6 @@ cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_
 git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
-# dnsmasq-full升级2.89
-rm -rf package/network/services/dnsmasq
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
-
-# rm -rf package/network/utils
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
-
 # 测试编译时间
 YUOS_DATE="$(date +%Y.%m.%d)(自用版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
