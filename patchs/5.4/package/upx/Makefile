@@ -19,7 +19,7 @@ PKG_LICENSE:=GPL-2.0-only
 PKG_LICENSE_FILES:=COPYING LICENSE
 
 HOST_BUILD_DEPENDS:=ucl/host
-MAKE_PATH:=upx-$(PKG_VERSION)-src/upx-$(PKG_VERSION)-src
+MAKE_PATH:=upx-$(PKG_VERSION)-src
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
