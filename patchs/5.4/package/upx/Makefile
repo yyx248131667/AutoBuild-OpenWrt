@@ -39,13 +39,13 @@ endef
 
 define Host/Compile
 	UPX_UCLDIR=$(STAGING_DIR_HOST) \
-	$(MAKE) -C $(HOST_BUILD_DIR)/src \
+	$(MAKE) -C $(HOST_BUILD_DIR)/upx-$(PKG_VERSION)-src/src \
 		LDFLAGS="$(HOST_LDFLAGS)" \
 		CXX="$(HOSTCXX)"
 endef
 
 define Host/Install
-	$(CP) $(HOST_BUILD_DIR)/src/upx.out $(STAGING_DIR_HOST)/bin/upx
+	$(CP) $(HOST_BUILD_DIR)/upx-$(PKG_VERSION)-src/src/upx.out $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Host/Clean
@@ -54,7 +54,7 @@ endef
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/upx-$(PKG_VERSION)-src/src/upx.out $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
