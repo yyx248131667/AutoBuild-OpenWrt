@@ -81,6 +81,11 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/tools/
 # rpcd
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
 
+# 应用UPX补丁包
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/upx/patches/010-fix-build-with-gcc11.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ucl/patches/001-autoconf-compat.patch
+
+
 #删除重复包
 rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
 
