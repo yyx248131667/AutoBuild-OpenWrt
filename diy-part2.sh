@@ -36,7 +36,7 @@ git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftab
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
 # 测试编译时间
-YUOS_DATE="$(date +%Y.%m.%d)(自用版)"
+YUOS_DATE="$(date +%Y.%m.%d)(新春贺岁版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
 echo "Write build date in openwrt : $BUILD_DATE"
 echo -e '\n小渔学长 Build @ '${BUILD_STRING}'\n'  >> package/base-files/files/etc/banner
