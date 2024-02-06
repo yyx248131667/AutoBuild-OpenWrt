@@ -65,7 +65,7 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
 
 # 测试编译时间
-YUOS_DATE="$(date +%Y.%m.%d)(自用版)"
+YUOS_DATE="$(date +%Y.%m.%d)(新春贺岁版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
 echo "Write build date in openwrt : $BUILD_DATE"
 echo -e '\n小渔学长 Build @ '${BUILD_STRING}'\n'  >> package/base-files/files/etc/banner
