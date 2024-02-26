@@ -56,6 +56,7 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/y
 
 # 单独拉取 lean包到package 目录
 git clone -b main https://github.com/yuos-bit/other package/lean
+git clone -b master --single-branch https://github.com/MilesPoupart/luci-app-vssr package/yuos/luci-app-vssr
 
 # 设置闭源驱动开机自启
 sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl addif br-lan ra0' package/base-files/files/etc/rc.local
