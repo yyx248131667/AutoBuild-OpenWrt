@@ -29,7 +29,7 @@ detect_mtwifi() {
 					htmode="HE160"
 					htbsscoex="0"
 					wan_mac=$(ifconfig $(uci get network.wan.ifname) | awk '/ether/{print $2}' | cut -c1-4)
-					ssid="Xiaoyu_${wan_mac}_5G"
+					ssid="Xiaoyu_$(echo $wan_mac | awk -F: '{print $1$2}')_5G"
 					dbdc_main="0"
 				fi
 				uci -q batch <<-EOF
