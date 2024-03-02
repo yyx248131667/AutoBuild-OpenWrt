@@ -20,14 +20,16 @@ detect_mtwifi() {
 					hwmode="11g"
 					htmode="HE40"
 					htbsscoex="1"
-					ssid=Xiaoyu_$(cat /etc/config/network |awk -F ":" '{print $2 }' | tr a-z A-Z)_2.4G
+					wan_mac=$(ifconfig $(uci get network.wan.ifname) | awk '/ether/{print $2}' | cut -c1-4)
+					ssid="Xiaoyu_${wan_mac}_2.4G"
 					dbdc_main="1"
 				else
 					band="5g"
 					hwmode="11a"
 					htmode="HE160"
 					htbsscoex="0"
-					ssid=Xiaoyu_$(cat /etc/config/network |awk -F ":" '{print $2 }' | tr a-z A-Z)_5G
+					wan_mac=$(ifconfig $(uci get network.wan.ifname) | awk '/ether/{print $2}' | cut -c1-4)
+					ssid="Xiaoyu_${wan_mac}_5G"
 					dbdc_main="0"
 				fi
 				uci -q batch <<-EOF
