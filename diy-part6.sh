@@ -99,8 +99,7 @@ sed -i '2a ifconfig rai0 up\nifconfig ra0 up\nbrctl addif br-lan rai0\nbrctl add
 # ./scripts/feeds install -a
 ### 硬件加速
 ## 其他补丁
-# 更改默认wifi
-cp -rf $GITHUB_WORKSPACE/patchs/NX30Pro/mtwifi.sh package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+
 # 测试编译时间
 YUOS_DATE="$(date +%Y.%m.%d)(新春贺岁版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
@@ -109,5 +108,3 @@ echo -e '\n小渔学长 Build @ '${BUILD_STRING}'\n'  >> package/base-files/file
 sed -i '/DISTRIB_REVISION/d' package/base-files/files/etc/openwrt_release
 echo "DISTRIB_REVISION=''" >> package/base-files/files/etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' package/base-files/files/etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='小渔学长 Build @ ${BUILD_STRING}'" >> package/base-files/files/etc/openwrt_release
-sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
