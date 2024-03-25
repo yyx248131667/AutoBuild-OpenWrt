@@ -89,5 +89,5 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ucl/patches/001-autoconf-compat.patc
 
 
 #删除重复包
-rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
+# rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
 
