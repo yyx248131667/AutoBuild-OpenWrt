@@ -42,15 +42,16 @@ sed -i '/set wireless.default_radio${devidx}.encryption=psk2/a\set wireless.defa
 # openwrt21.02 netfilter补丁\
 cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
 patch -p1 < package/firmware/001-fix-firewall-flock.patch
+
+# nft-fullcone
+git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
+git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
+
 # 打补丁
 wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
 cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
-
-# nft-fullcone
-git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone package/nftables
-git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
 # dnsmasq-full升级2.89
 rm -rf package/network/services/dnsmasq
