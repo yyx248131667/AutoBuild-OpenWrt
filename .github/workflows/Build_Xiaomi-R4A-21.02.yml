@@ -109,8 +109,8 @@ jobs:
     - name: 设置upx4.2.2
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/upx/Makefile feeds/small8/upx/Makefile
-          cp -rf $GITHUB_WORKSPACE/upx/Makefile feeds/packages/upx/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/small8/upx/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/packages/upx/Makefile
 
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
