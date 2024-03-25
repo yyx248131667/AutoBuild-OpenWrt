@@ -100,7 +100,7 @@ jobs:
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/helloworld/xray-core/Makefile
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/packages/net/xray-core/Makefile
-    - name: 设置upx4.2.2
+    - name: 设置upx3.96
       run: |
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/small8/upx/Makefile
