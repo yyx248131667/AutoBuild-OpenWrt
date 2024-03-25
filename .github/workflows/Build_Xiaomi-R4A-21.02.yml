@@ -91,6 +91,10 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
+        
+    - name: 更新插件
+      run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
+
     - name: 设置xray1.6.5
       run: |
           cd openwrt
@@ -100,9 +104,6 @@ jobs:
       run: |
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/small8/upx/Makefile
-        
-    - name: 更新插件
-      run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
     
     - name: 删除fullconenat-nft
       run: |
