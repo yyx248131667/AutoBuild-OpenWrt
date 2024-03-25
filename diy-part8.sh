@@ -88,6 +88,46 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/upx/patches/010-fix-build-with-gcc11
 patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ucl/patches/001-autoconf-compat.patch
 
 
-#删除重复包
-# rm -rf feeds/small8/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
+### 后补的
+
+#patches
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/dnsmasq-add-filter-aaaa-option.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-add-filter-aaaa-option.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-app-firewall_add_sfe_switch.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/use_json_object_new_int64.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/kernel_crypto-add-rk3328-crypto-support.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/900-add-filter-aaaa-option.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/991-r8152-Add-module-param-for-customized-LEDs.patch
+
+patch -p1 < ./kernel_crypto-add-rk3328-crypto-support.patch
+patch -p1 < ./use_json_object_new_int64.patch
+patch -p1 < ./dnsmasq-add-filter-aaaa-option.patch
+patch -p1 < ./luci-add-filter-aaaa-option.patch
+patch -p1 < ./luci-app-firewall_add_sfe_switch.patch
+
+#FullCone Patch
+git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+# Patch FireWall for fullcone
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+
+pushd feeds/luci
+wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+popd
+#Patch Kernel for fullcone
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+popd
+
+# SFE kernel patch
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
+popd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+
+#install upx
+mkdir -p staging_dir/host/bin/
+ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
 
