@@ -198,30 +198,6 @@ jobs:
         files: | 
           ${{ env.FIRMWARE }}/*
           ${{ runner.workspace }}/logs/*
-  
-    - name: 验证 make.log 是否生成
-      if: always()
-      run: |
-        cd openwrt
-        if [ -f make.log ]; then
-          echo "make.log exists."
-          echo "status=success" >> $GITHUB_OUTPUT
-        else
-          echo "make.log does not exist."
-          echo "status=failure" >> $GITHUB_OUTPUT
-        fi
-
-    - name: 上传 make.log 至 Releases
-      if: always()
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.tag.outputs.upload_url }}
-        asset_path: openwrt/make.log
-        asset_name: make.log
-        asset_content_type: text/plain
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
     - name: 删除工作目录
       uses: GitRML/delete-workflow-runs@main
