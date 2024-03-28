@@ -63,7 +63,6 @@ jobs:
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
-        MAKE: ninja
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
@@ -112,7 +111,7 @@ jobs:
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/small8/upx/Makefile
 
-    - name: 升级Cmake 3.29.0
+    - name: 升级Cmake
       run: |
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/cmake/Makefile tools/cmake/Makefile
