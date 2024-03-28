@@ -83,7 +83,10 @@ cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
 
 # 修改/tools/Makefile
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/tools/
-sed -i '11a tools-y += ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+sed -i '11a tools-y += ucl upx ninja\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+sed -i '27s/$/ ninja/' tools/Makefile
+sed -i '46s/$(curdir)\/libressl\/compile/& $(curdir)\/ninja\/compile/' tools/Makefile
+
 # rpcd
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
 
