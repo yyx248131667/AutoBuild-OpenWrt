@@ -81,17 +81,14 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 # 添加gn
 cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
 
-# 修改/tools/Makefile
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
-sed -i '11a tools-y += ucl upx ninja\n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
-sed -i '27s/$/ ninja/' tools/Makefile
-sed -i '46s/$(curdir)\/libressl\/compile/& $(curdir)\/ninja\/compile/' tools/Makefile
-
 # 修改libs
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
 
-# rpcd
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/rpcd/* package/system/rpcd/
+# 修改tools
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+
+# 修改/tools/Makefile
+sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 
 # 应用UPX补丁包
 patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/upx/patches/010-fix-build-with-gcc11.patch
@@ -140,8 +137,3 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier p
 #install upx
 mkdir -p staging_dir/host/bin/
 ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
-
-# #cmake patches
-# patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/100-no-testing.patch
-# patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/120-curl-fix-libressl-linking.patch
-# patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/130-bootstrap_parallel_make_flag.patch
