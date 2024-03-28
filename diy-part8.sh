@@ -135,3 +135,10 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier p
 mkdir -p staging_dir/host/bin/
 ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
 
+#cmake patches
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/100-no-testing.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/110-liblzma.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/120-curl-fix-libressl-linking.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/130-bootstrap_parallel_make_flag.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/140-zlib.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/cmake/patches/150-zstd-libarchive.patch
