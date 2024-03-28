@@ -140,7 +140,6 @@ jobs:
         cd openwrt
         make defconfig
         make download -j8 V=s
-        make {toolchain,target,package/gn}/compile V=s -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
     
