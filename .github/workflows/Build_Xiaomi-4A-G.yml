@@ -109,7 +109,7 @@ jobs:
     - name: 设置复制UPX、UCL
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ package/feeds/small8/upx/
+          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/Makefile package/feeds/small8/upx/Makefile
           mkdir -p tools/upx/
           mkdir -p tools/ucl/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
