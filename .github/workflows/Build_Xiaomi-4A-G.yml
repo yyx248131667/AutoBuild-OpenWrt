@@ -111,11 +111,6 @@ jobs:
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/upx/Makefile feeds/small8/upx/Makefile
 
-    - name: 升级Cmake
-      run: |
-          cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/cmake/Makefile tools/cmake/Makefile
-
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
 
