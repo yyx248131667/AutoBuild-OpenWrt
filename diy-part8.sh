@@ -82,10 +82,10 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
 
 # 修改libs
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
 
 # 修改tools
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
 
 # 修改/tools/Makefile
 sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
