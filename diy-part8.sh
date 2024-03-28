@@ -79,7 +79,7 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 
 
 # 添加gn
-cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
+# cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
 
 # 添加iptables-mod-socket
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
