@@ -106,10 +106,12 @@ jobs:
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/helloworld/xray-core/Makefile
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/packages/net/xray-core/Makefile
 
-    - name: 设置复制UPX、UCL
+    - name: 设置复制UPX、UCL、gn
       run: |
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/Makefile feeds/small8/upx/Makefile
+          rm -rf feeds/helloworld/gn/
+          rm -rf feeds/small/gn/
           mkdir -p tools/upx/
           mkdir -p tools/ucl/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
