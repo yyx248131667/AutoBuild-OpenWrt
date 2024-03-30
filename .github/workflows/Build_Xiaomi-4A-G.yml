@@ -103,17 +103,33 @@ jobs:
     - name: 设置xray 1.6.5
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/helloworld/xray-core/Makefile
+          cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/small8/xray-core/Makefile
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/packages/net/xray-core/Makefile
 
-    - name: 设置复制UPX、UCL、gn
+    - name: 设置软件唯一性
       run: |
           cd openwrt
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/Makefile feeds/small8/upx/Makefile
           rm -rf feeds/helloworld/gn/
           rm -rf feeds/small/gn/
+          rm -rf feeds/helloworld/hysteria
+          rm -rf feeds/small/hysteria
+          rm -rf feeds/small/luci-app-passwall2
+          rm -rf feeds/small/brook
+          rm -rf feeds/helloworld/naiveproxy
+          rm -rf feeds/small/naiveproxy
+          rm -rf feeds/helloworld/shadowsocks-rust
+          rm -rf feeds/small/shadowsocks-rust
+          rm -rf feeds/helloworld/simple-obfs
+          rm -rf feeds/small/simple-obfs
+          rm -rf feeds/helloworld/v2ray-plugin
+          rm -rf feeds/small/v2ray-plugin
+          rm -rf feeds/helloworld/xray-core
+          rm -rf feeds/small/xray-core
+
           mkdir -p tools/upx/
           mkdir -p tools/ucl/
+          
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/ tools/ucl/
 
