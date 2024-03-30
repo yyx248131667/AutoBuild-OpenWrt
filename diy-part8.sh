@@ -78,9 +78,6 @@ git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer.git package/yuos/luci-app-usb_printer
 
 
-# 添加gn
-# cp -rfT $GITHUB_WORKSPACE/patchs/5.4/gn/ $GITHUB_WORKSPACE/openwrt/package/gn/
-
 # 添加iptables-mod-socket
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
@@ -89,9 +86,13 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
 
 # 修改tools
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
 
 # 修改/tools/Makefile
+sed -i '27s/tools-y += mklibs mm-macros mtd-utils mtools padjffs2 patch-image/tools-y += mklibs mm-macros mtd-utils mtools ninja padjffs2 patch-image/' tools/Makefile
+sed -i '46s|$(curdir)/cmake/compile += $(curdir)/libressl/compile|$(curdir)/cmake/compile += $(curdir)/libressl/compile $(curdir)/ninja/compile|' tools/Makefile
+sed -i '83s|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl ninja cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|' tools/Makefile
+
 sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 
 # 应用UPX补丁包
