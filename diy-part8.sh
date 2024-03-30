@@ -89,6 +89,9 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 # 修改tools
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
 
+# cmake
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/cmake/* $GITHUB_WORKSPACE/openwrt/tools/cmake/
+
 # 复制ninja
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/cmake.mk $GITHUB_WORKSPACE/openwrt/include/cmake.mk
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/rules.mk $GITHUB_WORKSPACE/openwrt/rules.mk
