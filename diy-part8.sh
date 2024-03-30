@@ -90,6 +90,9 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
 
 # 复制ninja
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/cmake.mk $GITHUB_WORKSPACE/openwrt/include/cmake.mk
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/rules.mk $GITHUB_WORKSPACE/openwrt/rules.mk
+
 mkdir -p tools/ninja/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/ $GITHUB_WORKSPACE/openwrt/tools/ninja/
 patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ninja/patches/100-make_jobserver_support.patch
