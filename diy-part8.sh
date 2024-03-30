@@ -86,7 +86,11 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
 
 # 修改tools
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+
+# 复制ninja
+mkdir -p tools/ninja/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/ $GITHUB_WORKSPACE/openwrt/tools/ninja/
 
 # 修改/tools/Makefile
 sed -i '27s/tools-y += mklibs mm-macros mtd-utils mtools padjffs2 patch-image/tools-y += mklibs mm-macros mtd-utils mtools ninja padjffs2 patch-image/' tools/Makefile
