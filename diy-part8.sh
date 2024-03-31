@@ -119,7 +119,10 @@ popd
 # SFE kernel patch
 pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/master/999-shortcut-fe-support.patch
-
 popd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+
+#install upx
+# mkdir -p staging_dir/host/bin/
+# ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
