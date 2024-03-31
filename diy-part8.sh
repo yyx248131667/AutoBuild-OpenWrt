@@ -118,8 +118,7 @@ popd
 
 # SFE kernel patch
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/MeIsReallyBa/Openwrt-sfe-flowoffload-linux-5.4/master/999-shortcut-fe-support.patch
-patch -p1 < ./999-shortcut-fe-support.patch
+wget https://raw.githubusercontent.com/hanwckf/immortalwrt-mt798x/openwrt-21.02/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 popd
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
 #install upx
