@@ -57,9 +57,6 @@ cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_
 rm -rf package/network/services/dnsmasq
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 
-# nft补丁
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
-
 # 测试编译时间
 YUOS_DATE="$(date +%Y.%m.%d)(新春贺岁版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}

@@ -78,14 +78,11 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer.git package/yuos/luci-app-usb_printer
 
-
 # 添加iptables-mod-socket
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
-
 ### 后补的
-
 #patches
 wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/dnsmasq-add-filter-aaaa-option.patch
 wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-add-filter-aaaa-option.patch
@@ -111,16 +108,7 @@ wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/full
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 popd
-#Patch Kernel for fullcone
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-popd
 
 # SFE kernel patch
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/hanwckf/immortalwrt-mt798x/openwrt-21.02/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-popd
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
-#install upx
-# mkdir -p staging_dir/host/bin/
-# ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
