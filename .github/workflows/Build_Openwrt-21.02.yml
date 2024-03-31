@@ -116,6 +116,26 @@ jobs:
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.5/Makefile feeds/helloworld/xray-core/Makefile
           cp -rf $GITHUB_WORKSPACE/patchs/xray/1.7.5/Makefile feeds/packages/net/xray-core/Makefile
 
+    - name: 设置软件唯一性
+      run: |
+          cd openwrt
+          rm -rf feeds/helloworld/gn/
+          rm -rf feeds/small/gn/
+          rm -rf feeds/helloworld/hysteria
+          rm -rf feeds/small/hysteria
+          rm -rf feeds/small/luci-app-passwall2
+          rm -rf feeds/small/brook
+          rm -rf feeds/helloworld/naiveproxy
+          rm -rf feeds/small/naiveproxy
+          rm -rf feeds/helloworld/shadowsocks-rust
+          rm -rf feeds/small/shadowsocks-rust
+          rm -rf feeds/helloworld/simple-obfs
+          rm -rf feeds/small/simple-obfs
+          rm -rf feeds/helloworld/v2ray-plugin
+          rm -rf feeds/small/v2ray-plugin
+          rm -rf feeds/helloworld/xray-core
+          rm -rf feeds/small/xray-core
+
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
 

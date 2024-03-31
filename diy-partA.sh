@@ -83,6 +83,34 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
+# 修改libs
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
+
+# 修改tools
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
+
+# cmake
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/cmake/* $GITHUB_WORKSPACE/openwrt/tools/cmake/
+
+# 复制ninja
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/cmake.mk $GITHUB_WORKSPACE/openwrt/include/cmake.mk
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/rules.mk $GITHUB_WORKSPACE/openwrt/rules.mk
+
+mkdir -p tools/ninja/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/ $GITHUB_WORKSPACE/openwrt/tools/ninja/
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ninja/patches/100-make_jobserver_support.patch
+
+# 修改/tools/Makefile
+sed -i '27s/tools-y += mklibs mm-macros mtd-utils mtools padjffs2 patch-image/tools-y += mklibs mm-macros mtd-utils mtools ninja padjffs2 patch-image/' tools/Makefile
+sed -i '46s|$(curdir)/cmake/compile += $(curdir)/libressl/compile|$(curdir)/cmake/compile += $(curdir)/libressl/compile $(curdir)/ninja/compile|' tools/Makefile
+sed -i '83s|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl ninja cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|' tools/Makefile
+
+sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+
+# 应用UPX补丁包
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/upx/patches/010-fix-build-with-gcc11.patch
+patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ucl/patches/001-autoconf-compat.patch
+
 
 ### 后补的
 
@@ -122,3 +150,7 @@ wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/gen
 popd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+
+#install upx
+mkdir -p staging_dir/host/bin/
+ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
