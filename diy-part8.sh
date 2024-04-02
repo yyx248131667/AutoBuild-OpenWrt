@@ -101,4 +101,4 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
 
 ### 复制新款闭源驱动管理面板
 
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/mtk/* package/yuos/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/mtk/* package/yuos/
