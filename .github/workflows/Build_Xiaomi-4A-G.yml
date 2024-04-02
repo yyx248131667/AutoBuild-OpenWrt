@@ -107,7 +107,9 @@ jobs:
           mkdir -p tools/upx/
           mkdir -p tools/ucl/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
+          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* feeds/small8/upx/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/ tools/ucl/
+          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
           sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 
     - name: 设置xray 1.6.5
