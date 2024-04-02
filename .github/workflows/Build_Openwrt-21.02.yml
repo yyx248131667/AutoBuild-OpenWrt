@@ -127,12 +127,13 @@ jobs:
           find . -type d -name "gn" -exec rm -r {} +
           mkdir -p feeds/small8/gn/
           cp -rf $GITHUB_WORKSPACE/patchs/5.4/gn/* feeds/small8/gn/
+          find . -type d -name "naiveproxy" -exec rm -r {} +
+          mkdir -p feeds/small8/naiveproxy/
+          cp -rf $GITHUB_WORKSPACE/patchs/5.4/naiveproxy/* feeds/small8/naiveproxy/
           rm -rf feeds/helloworld/hysteria
           rm -rf feeds/small/hysteria
           rm -rf feeds/small/luci-app-passwall2
           rm -rf feeds/small/brook
-          rm -rf feeds/helloworld/naiveproxy
-          rm -rf feeds/small/naiveproxy
           rm -rf feeds/helloworld/shadowsocks-rust
           rm -rf feeds/small/shadowsocks-rust
           rm -rf feeds/helloworld/simple-obfs
