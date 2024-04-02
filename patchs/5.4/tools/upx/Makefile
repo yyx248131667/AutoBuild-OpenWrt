@@ -16,6 +16,8 @@ PKG_HASH:=3b0f55468d285c760fcf5ea865a070b27696393002712054c69ff40d8f7f5592
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)-$(PKG_VERSION)-src
 
 include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Host/Compile
 	UPX_UCLDIR=$(STAGING_DIR_HOST) \
