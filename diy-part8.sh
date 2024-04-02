@@ -95,6 +95,8 @@ wget -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/
 popd
 
 # SFE kernel patch
+mkdir -p target/linux/generic/files-5.4/drivers/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/drivers/* target/linux/generic/files-5.4/drivers/
 cp -n $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
 cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
