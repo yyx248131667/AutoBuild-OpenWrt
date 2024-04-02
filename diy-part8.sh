@@ -108,7 +108,7 @@ patch -p1 < target/linux/generic/backport-5.4/500-v5.15-fs-ntfs3-Add-NTFS3-in-fs
 mkdir -p target/linux/generic/files-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/* target/linux/generic/files-5.4/
 
-#
+#添加 kmod-inet-diag
 sed -i '1227i\
 define KernelPackage/inet-diag\n\
   SUBMENU:=$(NETWORK_SUPPORT_MENU)\n\
