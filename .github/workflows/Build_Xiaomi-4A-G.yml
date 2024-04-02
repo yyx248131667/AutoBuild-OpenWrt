@@ -110,7 +110,6 @@ jobs:
     - name: 设置软件唯一性
       run: |
           cd openwrt
-          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/Makefile feeds/small8/upx/Makefile
           rm -rf feeds/helloworld/gn/
           rm -rf feeds/small/gn/
           rm -rf feeds/helloworld/hysteria
@@ -127,13 +126,7 @@ jobs:
           rm -rf feeds/small/v2ray-plugin
           rm -rf feeds/helloworld/xray-core
           rm -rf feeds/small/xray-core
-
-          mkdir -p tools/upx/
-          mkdir -p tools/ucl/
           
-          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
-          cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/ tools/ucl/
-
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
 

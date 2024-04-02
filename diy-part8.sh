@@ -83,21 +83,6 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
 ### 后补的
-#patches
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/dnsmasq-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-app-firewall_add_sfe_switch.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/use_json_object_new_int64.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/kernel_crypto-add-rk3328-crypto-support.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/900-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/991-r8152-Add-module-param-for-customized-LEDs.patch
-
-patch -p1 < ./kernel_crypto-add-rk3328-crypto-support.patch
-patch -p1 < ./use_json_object_new_int64.patch
-patch -p1 < ./dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ./luci-add-filter-aaaa-option.patch
-patch -p1 < ./luci-app-firewall_add_sfe_switch.patch
 
 #FullCone Patch
 git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat

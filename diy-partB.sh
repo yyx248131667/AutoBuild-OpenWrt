@@ -57,16 +57,8 @@ cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_
 rm -rf package/network/services/dnsmasq
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 
-# nft补丁
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/* package/network/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/shortcut-fe package/kernel/shortcut-fe
-
-# rm -rf package/network/utils
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/network/utils package/network/utils
-
 # 测试编译时间
-YUOS_DATE="$(date +%Y.%m.%d)(新春贺岁版)"
+YUOS_DATE="$(date +%Y.%m.%d)(典藏版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
 echo "Write build date in openwrt : $BUILD_DATE"
 echo -e '\n小渔学长 Build @ '${BUILD_STRING}'\n'  >> package/base-files/files/etc/banner
@@ -75,3 +67,7 @@ echo "DISTRIB_REVISION=''" >> package/base-files/files/etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' package/base-files/files/etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='小渔学长 Build @ ${BUILD_STRING}'" >> package/base-files/files/etc/openwrt_release
 sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
+
+
+#patches
+cp -n $GITHUB_WORKSPACE/patchs/5.4/other/* target/linux/generic/hack-5.4/

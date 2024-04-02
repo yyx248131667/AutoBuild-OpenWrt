@@ -78,57 +78,11 @@ git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/d
 git clone -b main --single-branch https://github.com/yuos-bit/other package/yuos
 git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer.git package/yuos/luci-app-usb_printer
 
-
 # 添加iptables-mod-socket
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
-# 修改libs
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/package/* $GITHUB_WORKSPACE/openwrt/package/
-
-# 修改tools
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/* $GITHUB_WORKSPACE/openwrt/tools/
-
-# cmake
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/cmake/* $GITHUB_WORKSPACE/openwrt/tools/cmake/
-
-# 复制ninja
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/cmake.mk $GITHUB_WORKSPACE/openwrt/include/cmake.mk
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/include/rules.mk $GITHUB_WORKSPACE/openwrt/rules.mk
-
-mkdir -p tools/ninja/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/ $GITHUB_WORKSPACE/openwrt/tools/ninja/
-patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ninja/patches/100-make_jobserver_support.patch
-
-# 修改/tools/Makefile
-sed -i '27s/tools-y += mklibs mm-macros mtd-utils mtools padjffs2 patch-image/tools-y += mklibs mm-macros mtd-utils mtools ninja padjffs2 patch-image/' tools/Makefile
-sed -i '46s|$(curdir)/cmake/compile += $(curdir)/libressl/compile|$(curdir)/cmake/compile += $(curdir)/libressl/compile $(curdir)/ninja/compile|' tools/Makefile
-sed -i '83s|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|$(foreach tool, $(filter-out xz zstd patch pkgconf libressl ninja cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))|' tools/Makefile
-
-sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
-
-# 应用UPX补丁包
-patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/upx/patches/010-fix-build-with-gcc11.patch
-patch -p1 < $GITHUB_WORKSPACE/openwrt/tools/ucl/patches/001-autoconf-compat.patch
-
-
 ### 后补的
-
-#patches
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/dnsmasq-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/luci-app-firewall_add_sfe_switch.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/use_json_object_new_int64.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/kernel_crypto-add-rk3328-crypto-support.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/900-add-filter-aaaa-option.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-wget https://github.com/quintus-lab/Openwrt-R2S/raw/master/patches/991-r8152-Add-module-param-for-customized-LEDs.patch
-
-patch -p1 < ./kernel_crypto-add-rk3328-crypto-support.patch
-patch -p1 < ./use_json_object_new_int64.patch
-patch -p1 < ./dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ./luci-add-filter-aaaa-option.patch
-patch -p1 < ./luci-app-firewall_add_sfe_switch.patch
 
 #FullCone Patch
 git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
@@ -139,18 +93,10 @@ wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/full
 pushd feeds/luci
 wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
 popd
-#Patch Kernel for fullcone
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-popd
 
 # SFE kernel patch
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
-popd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
-
-#install upx
-mkdir -p staging_dir/host/bin/
-ln -s /usr/bin/upx-ucl staging_dir/host/bin/upx
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
+cp -n $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
+cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
