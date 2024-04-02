@@ -70,7 +70,6 @@ sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
 
 
 #patches
-cp -n $GITHUB_WORKSPACE/patchs/5.4/other/* target/linux/generic/hack-5.4/
 
 mkdir -p package/network/config/firewall/patches
 wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
