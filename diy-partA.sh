@@ -86,5 +86,5 @@ patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
 # SFE kernel patch
 cp -n $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
-cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
+# cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
