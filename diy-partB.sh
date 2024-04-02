@@ -72,10 +72,10 @@ sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
 #patches
 
 mkdir -p package/network/config/firewall/patches
-wget -O package/network/config/firewall/patches/fullconenat.patch https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/Makefile.patch | patch -p1
+wget -O package/network/config/firewall/patches/fullconenat.patch https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
+# wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/Makefile.patch | patch -p1
 pushd feeds/luci
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | patch -p1
+wget -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | patch -p1
 popd
 
 # 临时处理
