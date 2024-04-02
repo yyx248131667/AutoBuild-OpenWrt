@@ -105,5 +105,5 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
 wget -P target/linux/generic/backport-5.4/ https://raw.githubusercontent.com/hanwckf/immortalwrt-mt798x/openwrt-21.02/target/linux/generic/backport-5.4/500-v5.15-fs-ntfs3-Add-NTFS3-in-fs-Kconfig-and-fs-Makefile.patch
 patch -p1 < target/linux/generic/backport-5.4/500-v5.15-fs-ntfs3-Add-NTFS3-in-fs-Kconfig-and-fs-Makefile.patch
 
-mkdir -n target/linux/generic/files-5.4/
+mkdir -p target/linux/generic/files-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/* target/linux/generic/files-5.4/
