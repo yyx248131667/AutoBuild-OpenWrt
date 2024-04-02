@@ -124,8 +124,9 @@ jobs:
     - name: 设置软件唯一性
       run: |
           cd openwrt
-          rm -rf feeds/helloworld/gn
-          rm -rf feeds/packages/devel/gn
+          find . -type d -name "gn" -exec rm -r {} +
+          mkdir -p feeds/small8/gn/
+          cp -rf $GITHUB_WORKSPACE/patchs/5.4/gn/* feeds/small8/gn/
           rm -rf feeds/helloworld/hysteria
           rm -rf feeds/small/hysteria
           rm -rf feeds/small/luci-app-passwall2
