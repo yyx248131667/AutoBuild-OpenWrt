@@ -109,30 +109,33 @@ mkdir -p target/linux/generic/files-5.4/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/* target/linux/generic/files-5.4/
 
 #添加 kmod-inet-diag
-sed -i '1227i\
-define KernelPackage/inet-diag\n\
-  SUBMENU:=$(NETWORK_SUPPORT_MENU)\n\
-  TITLE:=INET diag support for ss utility\n\
-  KCONFIG:= \\\n\
-\tCONFIG_INET_DIAG \\\n\
-\tCONFIG_INET_TCP_DIAG \\\n\
-\tCONFIG_INET_UDP_DIAG \\\n\
-\tCONFIG_INET_RAW_DIAG \\\n\
-\tCONFIG_INET_DIAG_DESTROY=n\n\
-  FILES:= \\\n\
-\t$(LINUX_DIR)/net/ipv4/inet_diag.ko \\\n\
-\t$(LINUX_DIR)/net/ipv4/tcp_diag.ko \\\n\
-\t$(LINUX_DIR)/net/ipv4/udp_diag.ko \\\n\
-\t$(LINUX_DIR)/net/ipv4/raw_diag.ko\n\
-  AUTOLOAD:=$(call AutoLoad,31,inet_diag tcp_diag udp_diag raw_diag)\n\
-endef\n\
-\n\
-define KernelPackage/inet-diag/description\n\
-Support for INET (TCP, DCCP, etc) socket monitoring interface used by\n\
-native Linux tools such as ss.\n\
-endef\n\
-\n\
-$(eval $(call KernelPackage,inet-diag))' package/kernel/linux/modules/netsupport.mk
+# sed -i '1227i\
+# define KernelPackage/inet-diag\n\
+#   SUBMENU:=$(NETWORK_SUPPORT_MENU)\n\
+#   TITLE:=INET diag support for ss utility\n\
+#   KCONFIG:= \\\n\
+# \tCONFIG_INET_DIAG \\\n\
+# \tCONFIG_INET_TCP_DIAG \\\n\
+# \tCONFIG_INET_UDP_DIAG \\\n\
+# \tCONFIG_INET_RAW_DIAG \\\n\
+# \tCONFIG_INET_DIAG_DESTROY=n\n\
+#   FILES:= \\\n\
+# \t$(LINUX_DIR)/net/ipv4/inet_diag.ko \\\n\
+# \t$(LINUX_DIR)/net/ipv4/tcp_diag.ko \\\n\
+# \t$(LINUX_DIR)/net/ipv4/udp_diag.ko \\\n\
+# \t$(LINUX_DIR)/net/ipv4/raw_diag.ko\n\
+#   AUTOLOAD:=$(call AutoLoad,31,inet_diag tcp_diag udp_diag raw_diag)\n\
+# endef\n\
+# \n\
+# define KernelPackage/inet-diag/description\n\
+# Support for INET (TCP, DCCP, etc) socket monitoring interface used by\n\
+# native Linux tools such as ss.\n\
+# endef\n\
+# \n\
+# $(eval $(call KernelPackage,inet-diag))' package/kernel/linux/modules/netsupport.mk
+
+# 测试
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/netsupport.mk
 
 
 # 升级golang
