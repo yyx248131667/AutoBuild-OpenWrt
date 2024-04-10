@@ -32,7 +32,7 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(CP) $(HOST_BUILD_DIR)/build/release/upx $(STAGING_DIR_HOST)/bin/upx
+	$(CP) $(PKG_INSTALL_DIR)/usr/bin/upx $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Host/Clean
