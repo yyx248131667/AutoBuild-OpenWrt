@@ -32,7 +32,7 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(CP) $(PKG_INSTALL_DIR)/usr/bin/upx $(STAGING_DIR_HOST)/bin/upx
+	$(CP) $(HOST_BUILD_DIR)/build/debug/upx $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Host/Clean
@@ -59,7 +59,7 @@ MAKE_PATH := src
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/upx $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build/debug/upx $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
