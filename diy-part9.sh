@@ -74,4 +74,5 @@ rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-short
 
 #升级golang
 find . -type d -name "golang" -exec rm -r {} +
-svn co https://github.com/openwrt/packages/tree/master/lang/golang feeds/packages/lang/golang
+mkdir -p feeds/packages/lang/golang/golang/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/golang/
