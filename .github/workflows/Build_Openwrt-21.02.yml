@@ -218,7 +218,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件至Github
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2.0.4
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -236,7 +236,7 @@ jobs:
         keep_minimum_runs: 4
 
     - name: 删除历史固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
+      uses: dev-drprasad/delete-older-releases@v0.3.3
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 8
