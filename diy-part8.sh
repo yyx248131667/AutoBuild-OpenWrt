@@ -82,8 +82,10 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
+# 添加 kmod-nf-tproxy 依赖
 sed -i 's/DEPENDS\+=+kmod-ipt-conntrack +IPV6:kmod-nf-conntrack6/DEPENDS\+=+kmod-nf-tproxy +kmod-nf-conntrack +IPV6:kmod-nf-conntrack6/' package/kernel/linux/modules/netfilter.mk
 
+# 添加 ipt-socket 依赖
 sed -i '/$(eval $(call KernelPackage,ipt-led))/a \
 \
 define KernelPackage/ipt-socket\n\
@@ -101,7 +103,7 @@ endef\n\
 \n\
 $(eval $(call KernelPackage,ipt-socket))' package/kernel/linux/modules/netfilter.mk
 
-# 
+# 添加 iptables-mod-socket 依赖
 sed -i '382i\ \
 define Package/iptables-mod-socket\n\
 $(call Package/iptables/Module, +kmod-ipt-socket)\n\
@@ -116,7 +118,7 @@ Socket match iptables extensions.\n\
 \n\
 endef' package/network/utils/iptables/Makefile
 
-
+# 添加 kmod-inet-diag 依赖
 sed -i '/define KernelPackage\/wireguard/,/$(eval $(call KernelPackage,wireguard))/c\
 \
 define KernelPackage/inet-diag\n\
