@@ -99,3 +99,5 @@ rm -rf feeds/helloworld/v2ray-plugin
 rm -rf feeds/small/v2ray-plugin
 rm -rf feeds/helloworld/xray-core
 rm -rf feeds/small/xray-core
+
+cp -rf feeds/small8/tailscale/* feeds/packages/net/tailscale/
