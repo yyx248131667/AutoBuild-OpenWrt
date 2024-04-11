@@ -82,6 +82,68 @@ git clone -b main --single-branch https://github.com/siwind/luci-app-usb_printer
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/iptables-mod-socket.patch $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 patch -p1 < $GITHUB_WORKSPACE/openwrt/package/iptables-mod-socket.patch
 
+sed -i 's/DEPENDS\+=+kmod-ipt-conntrack +IPV6:kmod-nf-conntrack6/DEPENDS\+=+kmod-nf-tproxy +kmod-nf-conntrack +IPV6:kmod-nf-conntrack6/' package/kernel/linux/modules/netfilter.mk
+
+sed -i '/$(eval $(call KernelPackage,ipt-led))/a \
+\
+define KernelPackage/ipt-socket\n\
+  TITLE:=Iptables socket matching support\n\
+  DEPENDS+=+kmod-nf-socket +kmod-nf-conntrack +IPV6:kmod-nf-conntrack6\n\
+  KCONFIG:=$(KCONFIG_IPT_SOCKET)\n\
+  FILES:=$(foreach mod,$(IPT_SOCKET-m),$(LINUX_DIR)/net/$(mod).ko)\n\
+  AUTOLOAD:=$(call AutoProbe,$(notdir $(IPT_SOCKET-m)))\n\
+  $(call AddDepends/ipt)\n\
+endef\n\
+\n\
+define KernelPackage/ipt-socket/description\n\
+  Kernel modules for socket matching\n\
+endef\n\
+\n\
+$(eval $(call KernelPackage,ipt-socket))' package/kernel/linux/modules/netfilter.mk
+
+# 
+sed -i '382i\ \
+define Package/iptables-mod-socket\n\
+$(call Package/iptables/Module, +kmod-ipt-socket)\n\
+  TITLE:=Socket match iptables extensions\n\
+endef\n\
+\n\
+define Package/iptables-mod-socket/description\n\
+Socket match iptables extensions.\n\
+\n\
+ Matches:\n\
+  - socket\n\
+\n\
+endef' package/network/utils/iptables/Makefile
+
+
+sed -i '/define KernelPackage\/wireguard/,/$(eval $(call KernelPackage,wireguard))/c\
+\
+define KernelPackage/inet-diag\n\
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)\n\
+  TITLE:=INET diag support for ss utility\n\
+  KCONFIG:= \\\n\
+	CONFIG_INET_DIAG \\\n\
+	CONFIG_INET_TCP_DIAG \\\n\
+	CONFIG_INET_UDP_DIAG \\\n\
+	CONFIG_INET_RAW_DIAG \\\n\
+	CONFIG_INET_DIAG_DESTROY=n\n\
+  FILES:= \\\n\
+	$(LINUX_DIR)/net/ipv4/inet_diag.ko \\\n\
+	$(LINUX_DIR)/net/ipv4/tcp_diag.ko \\\n\
+	$(LINUX_DIR)/net/ipv4/udp_diag.ko \\\n\
+	$(LINUX_DIR)/net/ipv4/raw_diag.ko@ge4.10\n\
+  AUTOLOAD:=$(call AutoLoad,31,inet_diag tcp_diag udp_diag raw_diag@ge4.10)\n\
+endef\n\
+\n\
+define KernelPackage/inet-diag/description\n\
+  Support for INET (TCP, DCCP, etc) socket monitoring interface used by\n\
+  native Linux tools such as ss.\n\
+endef\n\
+\n\
+$(eval $(call KernelPackage,inet-diag))' package/kernel/linux/modules/netsupport.mk
+
+
 ### 后补的
 
 #FullCone Patch
