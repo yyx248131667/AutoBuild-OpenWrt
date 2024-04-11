@@ -81,3 +81,43 @@ popd
 # 临时处理
 rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+
+#升级golang
+find . -type d -name "golang" -exec rm -r {} +
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+# mkdir -p feeds/packages/lang/golang/golang/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/golang/
+
+#设置软件唯一性
+find . -type d -name "gn" -exec rm -r {} +
+mkdir -p feeds/small8/gn/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/gn/* feeds/small8/gn/
+find . -type d -name "naiveproxy" -exec rm -r {} +
+mkdir -p feeds/small8/naiveproxy/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/naiveproxy/* feeds/small8/naiveproxy/
+rm -rf feeds/helloworld/hysteria
+rm -rf feeds/small/hysteria
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hysteria/* feeds/packages/net/hysteria/
+rm -rf feeds/small/luci-app-passwall2
+rm -rf feeds/small/brook
+rm -rf feeds/helloworld/shadowsocks-rust
+rm -rf feeds/small/shadowsocks-rust
+rm -rf feeds/helloworld/simple-obfs
+rm -rf feeds/small/simple-obfs
+rm -rf feeds/helloworld/v2ray-plugin
+rm -rf feeds/small/v2ray-plugin
+rm -rf feeds/helloworld/xray-core
+rm -rf feeds/small/xray-core
+
+mkdir -p tools/upx/
+mkdir -p tools/ucl/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* feeds/small8/upx/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/ tools/ucl/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
+sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+rm -rf feeds/small8/fullconenat-nft
+rm -rf feeds/small8/fullconenat
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/small8/xray-core/Makefile
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/packages/net/xray-core/Makefile

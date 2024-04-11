@@ -78,3 +78,24 @@ rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 # mkdir -p feeds/packages/lang/golang/golang/
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/golang/
+
+#设置软件唯一性
+find . -type d -name "gn" -exec rm -r {} +
+mkdir -p feeds/small8/gn/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/gn/* feeds/small8/gn/
+find . -type d -name "naiveproxy" -exec rm -r {} +
+mkdir -p feeds/small8/naiveproxy/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/naiveproxy/* feeds/small8/naiveproxy/
+rm -rf feeds/helloworld/hysteria
+rm -rf feeds/small/hysteria
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/hysteria/* feeds/packages/net/hysteria/
+rm -rf feeds/small/luci-app-passwall2
+rm -rf feeds/small/brook
+rm -rf feeds/helloworld/shadowsocks-rust
+rm -rf feeds/small/shadowsocks-rust
+rm -rf feeds/helloworld/simple-obfs
+rm -rf feeds/small/simple-obfs
+rm -rf feeds/helloworld/v2ray-plugin
+rm -rf feeds/small/v2ray-plugin
+rm -rf feeds/helloworld/xray-core
+rm -rf feeds/small/xray-core
