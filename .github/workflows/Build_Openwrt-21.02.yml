@@ -142,8 +142,6 @@ jobs:
           rm -rf feeds/small/v2ray-plugin
           rm -rf feeds/helloworld/xray-core
           rm -rf feeds/small/xray-core
-          find . -type d -name "golang" -exec rm -r {} +
-          svn co https://github.com/openwrt/packages/branches/master/lang/golang feeds/packages/lang/golang
 
     - name: 安装插件
       run: cd openwrt && ./scripts/feeds install -a
