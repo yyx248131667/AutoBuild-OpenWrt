@@ -247,9 +247,3 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/* target/linux/generic/files-5.4/
 
 # 测试
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/netsupport.mk
-
-
-# 升级golang
-find . -type d -name "golang" -exec rm -r {} +
-mkdir -p feeds/packages/lang/golang/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/
