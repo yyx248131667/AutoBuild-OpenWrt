@@ -85,7 +85,7 @@ rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-short
 #升级golang
 find . -type d -name "golang" -exec rm -r {} +
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 19.x feeds/packages/lang/golang
 # mkdir -p feeds/packages/lang/golang/golang/
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/golang/
 
@@ -119,5 +119,5 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
 sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 rm -rf feeds/small8/fullconenat-nft
 rm -rf feeds/small8/fullconenat
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/small8/xray-core/Makefile
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.6.5/Makefile feeds/packages/net/xray-core/Makefile
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/small8/xray-core/Makefile
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/packages/net/xray-core/Makefile
