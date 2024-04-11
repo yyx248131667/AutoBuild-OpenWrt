@@ -72,7 +72,3 @@ sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
 rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 
-#升级golang
-find . -type d -name "golang" -exec rm -r {} +
-mkdir -p feeds/packages/lang/golang/golang/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/golang/* feeds/packages/lang/golang/golang/
