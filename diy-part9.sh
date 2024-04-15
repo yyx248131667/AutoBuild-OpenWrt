@@ -118,8 +118,8 @@ popd
 cp -n $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
 
 # 临时处理
-# rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-# rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 # 临时处理
 
 cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
