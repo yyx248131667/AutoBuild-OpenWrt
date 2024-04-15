@@ -58,7 +58,7 @@ rm -rf package/network/services/dnsmasq
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/dnsmasq package/network/services/dnsmasq
 
 # 测试编译时间
-YUOS_DATE="$(date +%Y.%m.%d)(典藏版)"
+YUOS_DATE="$(date +%Y.%m.%d)(纯享版)"
 BUILD_STRING=${BUILD_STRING:-$YUOS_DATE}
 echo "Write build date in openwrt : $BUILD_DATE"
 echo -e '\n小渔学长 Build @ '${BUILD_STRING}'\n'  >> package/base-files/files/etc/banner
@@ -69,18 +69,6 @@ echo "DISTRIB_DESCRIPTION='小渔学长 Build @ ${BUILD_STRING}'" >> package/bas
 sed -i '/luciversion/d' feeds/luci/modules/luci-base/luasrc/version.lua
 
 
-#patches
-
-mkdir -p package/network/config/firewall/patches
-wget -O package/network/config/firewall/patches/fullconenat.patch https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
-# wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/Makefile.patch | patch -p1
-pushd feeds/luci
-wget -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | patch -p1
-popd
-
-# 临时处理
-rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 
 #升级golang
 find . -type d -name "golang" -exec rm -r {} +
@@ -109,6 +97,43 @@ rm -rf feeds/helloworld/v2ray-plugin
 rm -rf feeds/small/v2ray-plugin
 rm -rf feeds/helloworld/xray-core
 rm -rf feeds/small/xray-core
+
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tailscale/* feeds/packages/net/tailscale/
+
+
+### 后补的
+
+#FullCone Patch
+git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+# Patch FireWall for fullcone
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
+
+pushd feeds/luci
+wget -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
+popd
+
+### 后补的
+# SFE kernel patch
+cp -n $GITHUB_WORKSPACE/patchs/5.4/hack-5.4/* target/linux/generic/hack-5.4/
+
+# 临时处理
+# rm -rf target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+# rm -rf target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+# 临时处理
+
+cp -n $GITHUB_WORKSPACE/patchs/5.4/pending-5.4/* target/linux/generic/pending-5.4/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/sfe/* package/yuos/
+
+# 解决kconfig补丁
+wget -P target/linux/generic/backport-5.4/ https://raw.githubusercontent.com/hanwckf/immortalwrt-mt798x/openwrt-21.02/target/linux/generic/backport-5.4/500-v5.15-fs-ntfs3-Add-NTFS3-in-fs-Kconfig-and-fs-Makefile.patch
+patch -p1 < target/linux/generic/backport-5.4/500-v5.15-fs-ntfs3-Add-NTFS3-in-fs-Kconfig-and-fs-Makefile.patch
+
+mkdir -p target/linux/generic/files-5.4/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/files-5.4/* target/linux/generic/files-5.4/
+
+# 测试
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/netsupport.mk
 
 mkdir -p tools/upx/
 mkdir -p tools/ucl/
