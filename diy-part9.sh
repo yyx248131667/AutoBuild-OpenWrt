@@ -102,6 +102,10 @@ rm -rf feeds/small/xray-core
 
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/tailscale/* feeds/packages/net/tailscale/
 
+#升级cmake
+rm -rf tools/cmake
+mkdir -p tools/cmake/
+cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/cmake/* tools/cmake/
 
 ### 后补的
 
