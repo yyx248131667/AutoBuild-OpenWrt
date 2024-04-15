@@ -217,3 +217,11 @@ native Linux tools such as ss.\n\
 endef\n\
 \n\
 $(eval $(call KernelPackage,inet-diag))' package/kernel/linux/modules/netsupport.mk
+
+
+# nf-tproxy nf-socket
+sed -i '/$(eval $(call KernelPackage,nf-flow))/a\
+\
+define KernelPackage/nf-socket\n  SUBMENU:=$(NF_MENU)\n  TITLE:=Netfilter socket lookup support\n  KCONFIG:= $(KCONFIG_NF_SOCKET)\n  FILES:=$(foreach mod,$(NF_SOCKET-m),$(LINUX_DIR)/net/$(mod).ko)\n  AUTOLOAD:=$(call AutoProbe,$(notdir $(NF_SOCKET-m)))\nendef\n\n$(eval $(call KernelPackage,nf-socket))\
+\
+define KernelPackage/nf-tproxy\n  SUBMENU:=$(NF_MENU)\n  TITLE:=Netfilter tproxy support\n  KCONFIG:= $(KCONFIG_NF_TPROXY)\n  FILES:=$(foreach mod,$(NF_TPROXY-m),$(LINUX_DIR)/net/$(mod).ko)\n  AUTOLOAD:=$(call AutoProbe,$(notdir $(NF_TPROXY-m)))\nendef\n\n$(eval $(call KernelPackage,nf-tproxy))' package/kernel/linux/modules/netfilter.mk
