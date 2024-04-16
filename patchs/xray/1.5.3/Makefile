@@ -1,42 +1,38 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=xray-core
-PKG_VERSION:=1.7.5
-PKG_RELEASE:=1
+PKG_NAME := xray-core
+PKG_VERSION := 1.7.5
+PKG_RELEASE := 1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
+PKG_SOURCE := $(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL := https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
+PKG_HASH := a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
 
-PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
-PKG_LICENSE:=MPL-2.0
-PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER := Tianling Shen <cnsztl@immortalwrt.org>
+PKG_LICENSE := MPL-2.0
+PKG_LICENSE_FILES := LICENSE
 
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_XRAY_CORE_COMPRESS_GOPROXY \
-	CONFIG_XRAY_CORE_COMPRESS_UPX \
+PKG_BUILD_DIR := $(BUILD_DIR)/Xray-core-$(PKG_VERSION)
+PKG_BUILD_DEPENDS := golang/host
+PKG_BUILD_PARALLEL := 1
+PKG_USE_MIPS16 := 0
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=golang/host
-PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
-
-GO_PKG:=github.com/xtls/xray-core
-GO_PKG_LDFLAGS:=-s -w
-GO_PKG_BUILD_PKG:=$(GO_PKG)/main
-GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.build=OpenWrt \
-	$(GO_PKG)/core.version=$(PKG_VERSION)
+GO_PKG := github.com/xtls/xray-core
+GO_PKG_LDFLAGS := -s -w
+GO_PKG_BUILD_PKG := $(GO_PKG)/main
+GO_PKG_LDFLAGS_X := \
+    $(GO_PKG)/core.build=OpenWrt \
+    $(GO_PKG)/core.version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/xray-core
-  TITLE:=A platform for building proxies to bypass network restrictions
-  SECTION:=net
-  CATEGORY:=Network
-  URL:=https://xtls.github.io
-  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
+  TITLE := A platform for building proxies to bypass network restrictions
+  SECTION := net
+  CATEGORY := Network
+  URL := https://xtls.github.io
+  DEPENDS := $(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
 define Package/xray-core/description
@@ -44,25 +40,14 @@ define Package/xray-core/description
   It secures your network connections and thus protects your privacy.
 endef
 
-ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
-	export GO111MODULE=on
-	export GOPROXY=https://goproxy.io
-endif
-
-define Build/Compile
-	@if [ -f $(TOPDIR)/feeds/packages/net/xray-core/xray ]; then \
-		$(INSTALL_DIR) $(PKG_INSTALL_DIR)/usr/bin/; \
-		$(INSTALL_BIN) $(TOPDIR)/feeds/packages/net/xray-core/xray $(PKG_INSTALL_DIR)/usr/bin/; \
-	else \
-		$(call GoPackage/Build/Compile); \
-		ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),) \
-			$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main; \
-		fi \
-	fi
-endef
-
 define Package/xray-core/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+    $(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+    $(INSTALL_DIR) $(1)/usr/bin/
+ifeq (,$(wildcard $(TOPDIR)/feeds/packages/net/xray-core/xray))
+    $(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+else
+    cp $(TOPDIR)/feeds/packages/net/xray-core/xray $(1)/usr/bin/xray
+endif
 endef
 
 $(eval $(call BuildPackage,xray-core))
