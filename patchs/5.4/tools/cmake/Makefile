@@ -56,4 +56,5 @@ ifneq ($(findstring c,$(OPENWRT_VERBOSE)),)
   HOST_MAKE_FLAGS += VERBOSE=1
 endif
 
+NINJA_DEPENDS:=ninja/compile
 $(eval $(call HostBuild))
