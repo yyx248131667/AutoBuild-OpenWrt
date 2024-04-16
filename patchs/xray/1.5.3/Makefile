@@ -50,16 +50,19 @@ ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
 endif
 
 define Build/Compile
-	$(call GoPackage/Build/Compile)
-ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
-endif
+	@if [ -f $(TOPDIR)/feeds/packages/net/xray-core/xray ]; then \
+		$(INSTALL_DIR) $(PKG_INSTALL_DIR)/usr/bin/; \
+		$(INSTALL_BIN) $(TOPDIR)/feeds/packages/net/xray-core/xray $(PKG_INSTALL_DIR)/usr/bin/; \
+	else \
+		$(call GoPackage/Build/Compile); \
+		ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),) \
+			$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main; \
+		fi \
+	fi
 endef
 
 define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))

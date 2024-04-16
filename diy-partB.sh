@@ -162,5 +162,7 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
 sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 rm -rf feeds/small8/fullconenat-nft
 rm -rf feeds/small8/fullconenat
+
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/small8/xray-core/Makefile
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/packages/net/xray-core/Makefile
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/xray feeds/packages/net/xray-core/xray
