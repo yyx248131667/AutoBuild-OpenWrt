@@ -97,6 +97,8 @@ rm -rf feeds/helloworld/v2ray-plugin
 rm -rf feeds/small/v2ray-plugin
 rm -rf feeds/helloworld/xray-core
 rm -rf feeds/small/xray-core
+cp -rf feeds/small8/xray-core/* feeds/packages/net/xray-core/
+cp -rf feeds/small8/xray-core/* feeds/Lienol/net/xray-core/
 # find . -type d -name "sing-box" -exec rm -r {} +
 
 
@@ -106,66 +108,6 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/tailscale/* feeds/packages/net/tailscale/
 rm -rf tools/cmake
 mkdir -p tools/cmake/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/cmake/* tools/cmake/
-
-# mkdir -p tools/ninja/
-# rm -rf feeds/Lienol/devel/ninja
-# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/* tools/ninja/
-# sed -i '11a\tools-y += ninja' tools/Makefile
-# sed -i 's/^\($(curdir)\/cmake\/compile += $(curdir)\/libressl\/compile\)$/$(curdir)\/cmake\/compile += $(curdir)\/libressl\/compile $(curdir)\/ninja\/compile/' tools/Makefile
-# sed -i 's/^\($(foreach tool, $(filter-out xz zstd patch pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)\/$(tool)\/compile += $(curdir)\/ccache\/compile))\)$/$(foreach tool, $(filter-out xz zstd patch ninja pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)\/$(tool)\/compile += $(curdir)\/ccache\/compile))/' tools/Makefile
-
-# sed -i '/^include \/cmake.mk$/a\
-# \
-# PKG_USE_NINJA ?= 1\
-# HOST_USE_NINJA ?= 1\
-# ifeq ($(PKG_USE_NINJA),1)\
-#   PKG_BUILD_PARALLEL ?= 1\
-# endif\
-# ifeq ($(HOST_USE_NINJA),1)\
-#   HOST_BUILD_PARALLEL ?= 1\
-# endif' include/cmake.mk
-
-# sed -i '/^CMAKE_SHARED_LDFLAGS:=-Wl,-Bsymbolic-functions$/a\
-# \
-# ifeq ($(HOST_USE_NINJA),1)\
-#   CMAKE_HOST_OPTIONS += -DCMAKE_GENERATOR="Ninja"\
-# \
-#   define Host/Compile/Default\
-# 	+$(NINJA) -C $(HOST_CMAKE_BINARY_DIR) $(1)\
-#   endef\
-# \
-#   define Host/Install/Default\
-# 	+$(NINJA) -C $(HOST_CMAKE_BINARY_DIR) install\
-#   endef\
-# \
-#   define Host/Uninstall/Default\
-# 	+$(NINJA) -C $(HOST_CMAKE_BINARY_DIR) uninstall\
-#   endef\
-# endif\
-# \
-# ifeq ($(PKG_USE_NINJA),1)\
-#   CMAKE_OPTIONS += -DCMAKE_GENERATOR="Ninja"\
-# \
-#   define Build/Compile/Default\
-# 	+$(NINJA) -C $(CMAKE_BINARY_DIR) $(1)\
-#   endef\
-# \
-#   define Build/Install/Default\
-# 	+DESTDIR="$(PKG_INSTALL_DIR)" $(NINJA) -C $(CMAKE_BINARY_DIR) install\
-#   endef\
-# endif' include/cmake.mk
-
-
-# sed -i '/^ifeq \($(CONFIG_IPV6),y\)$/i\
-# NINJA = \
-# 	MAKEFLAGS="$(MAKE_JOBSERVER)" \
-# 	$(STAGING_DIR_HOST)/bin/ninja \
-# 		$(if $(findstring c,$(OPENWRT_VERBOSE)),-v) \
-# 		$(if $(MAKE_JOBSERVER),,-j1)' rules.mk
-
-# sed -i '/$(curdir)\/libressl\/compile := $(curdir)\/pkgconf\/compile/a $(curdir)\/ninja\/compile: $(curdir)\/cmake\/compile' tools/Makefile
-
-
 
 ### 后补的
 
