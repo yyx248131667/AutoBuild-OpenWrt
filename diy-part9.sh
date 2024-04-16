@@ -108,6 +108,7 @@ mkdir -p tools/cmake/
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/cmake/* tools/cmake/
 
 mkdir -p tools/ninja/
+rm -rf feeds/Lienol/devel/ninja
 cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ninja/* tools/ninja/
 sed -i '11a\tools-y += ninja' tools/Makefile
 sed -i 's/^\($(curdir)\/cmake\/compile += $(curdir)\/libressl\/compile\)$/$(curdir)\/cmake\/compile += $(curdir)\/libressl\/compile $(curdir)\/ninja\/compile/' tools/Makefile
