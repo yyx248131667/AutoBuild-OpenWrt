@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2013 OpenWrt.org
+# Copyright (C) 2011-2020 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,46 +7,27 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=upx
-PKG_VERSION:=3.91
-PKG_RELEASE:=2
+PKG_RELEASE:=27
 
-# PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-src.tar.gz
-# PKG_SOURCE_URL:=@SF/upx
-# PKG_MD5SUM:=1253da46eac54a217eb73e2d44818e53
-# PKG_CAT:=bzcat
-
-PKG_BUILD_DEPENDS:=upx/host
+PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
+PKG_LICENSE:=GPL-2.0-only
+PKG_LICENSE_FILES:=COPYING LICENSE
 
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_DATE:=2022-01-15
+PKG_SOURCE_VERSION:=a46b63817a9c6ad5af7cf519332e859f11558592
 PKG_SOURCE_URL:=https://github.com/upx/upx.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)-src
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)-src.tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_DATE).tar.gz
 
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)-$(PKG_VERSION)-src
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-src
+HOST_BUILD_DEPENDS:=ucl/host
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/upx
-	TITLE:=UPX - the Ultimate Packer for eXecutables
-	URL:=https://github.com/upx/upx.git
-	SECTION:=utils
-	CATEGORY:=Utilities
-	DEPENDS:=+libc +libstdcpp +zlib +libucl
-endef
-
-define Package/upx/description
-	UPX - the Ultimate Packer for eXecutables
-endef
-
 define Host/Compile
-	rm -f $(HOST_BUILD_DIR)/src/.depend
-	$(MAKE) UPX_LZMADIR="$(HOST_BUILD_DIR)/src/lzma-sdk" -C $(HOST_BUILD_DIR)/src \
-		UPX_UCLDIR="$(STAGING_DIR_HOST)" \
-		CXXFLAGS="$(CXXFLAGS) -DUCL_NO_ASM" CXXFLAGS_WERROR="" \
-		LDFLAGS="-L$(STAGING_DIR_HOST)/lib -lucl -static" \
+	UPX_UCLDIR=$(STAGING_DIR_HOST) \
+	$(MAKE) -C $(HOST_BUILD_DIR)/src \
+		CXXFLAGS_WERROR="" LDFLAGS="$(HOST_LDFLAGS)" \
 		CXX="$(HOSTCXX)"
 endef
 
@@ -58,18 +39,27 @@ define Host/Clean
 	rm -f $(STAGING_DIR_HOST)/bin/upx
 endef
 
-define Build/Compile
-	rm -f $(BUILD_DIR)/src/.depend
-	$(MAKE) UPX_LZMADIR="$(PKG_BUILD_DIR)/src/lzma-sdk" -C $(PKG_BUILD_DIR)/src \
-		CXXFLAGS="$(TARGET_CXXFLAGS) -DUCL_NO_ASM" \
-		CXXFLAGS_WERROR="" LDFLAGS="$(TARGET_LDFLAGS) -lucl" \
-		CC="$(REAL_GNU_TARGET_NAME)-gcc" \
-		CXX="$(REAL_GNU_TARGET_NAME)-g++"
+define Package/upx
+  SECTION:=utils
+  CATEGORY:=Utilities
+  DEPENDS:=+libucl +libstdcpp +zlib
+  TITLE:=The Ultimate Packer for eXecutables
+  URL:=https://upx.github.io/
 endef
+
+define Package/upx/description
+UPX is a free, portable, extendable, high-performance executable packer for
+several different executable formats. It achieves an excellent compression ratio
+and offers very fast decompression. Your executables suffer no memory overhead
+or other drawbacks for most of the formats supported, because of in-place
+decompression.
+endef
+
+MAKE_PATH := src
 
 define Package/upx/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(CP) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/upx.out $(1)/usr/bin/upx
 endef
 
 $(eval $(call HostBuild))
