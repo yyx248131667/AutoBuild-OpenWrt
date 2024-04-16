@@ -162,6 +162,7 @@ NINJA = \
 		$(if $(findstring c,$(OPENWRT_VERBOSE)),-v) \
 		$(if $(MAKE_JOBSERVER),,-j1)' rules.mk
 
+sed -i '/$(curdir)\/libressl\/compile := $(curdir)\/pkgconf\/compile/a $(curdir)\/ninja\/compile: $(curdir)\/cmake\/compile' tools/Makefile
 
 ### 后补的
 
