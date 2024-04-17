@@ -42,7 +42,7 @@ endef
 
 define Package/xray-core/install
     $(INSTALL_DIR) $(1)/usr/bin/
-    cp $(THISDIR)/xray $(1)/usr/bin/xray
+    $(INSTALL_BIN) $(THISDIR)/xray $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))
