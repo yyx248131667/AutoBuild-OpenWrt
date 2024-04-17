@@ -28,16 +28,16 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/xray-core
-  TITLE := A platform for building proxies to bypass network restrictions
-  SECTION := net
-  CATEGORY := Network
-  URL := https://xtls.github.io
-  DEPENDS := $(GO_ARCH_DEPENDS) +ca-bundle
+	TITLE := A platform for building proxies to bypass network restrictions
+	SECTION := net
+	CATEGORY := Network
+	URL := https://xtls.github.io
+	DEPENDS := $(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
 define Package/xray-core/description
-  Xray, Penetrates Everything. It helps you to build your own computer network.
-  It secures your network connections and thus protects your privacy.
+	Xray, Penetrates Everything. It helps you to build your own computer network.
+	It secures your network connections and thus protects your privacy.
 endef
 
 define Package/xray-core/install
