@@ -158,8 +158,6 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/n
 git clone https://github.com/kuoruan/openwrt-upx.git package/openwrt-upx
 ./scripts/feeds update -a
 ./scripts/feeds install -a
-make defconfig
-make package/upx/{clean,compile} V=s
 # mkdir -p tools/upx/
 # mkdir -p tools/ucl/
 # cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/ tools/upx/

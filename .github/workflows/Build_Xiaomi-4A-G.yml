@@ -123,6 +123,7 @@ jobs:
         make download -j8 V=s
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        make package/upx/{clean,compile} V=s
     
     - name: 编译固件中
       id: compile
