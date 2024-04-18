@@ -31,7 +31,10 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/xray-core
-  $(call Package/xray/template)
+  TITLE:=A platform for building proxies to bypass network restrictions
+  SECTION:=net
+  CATEGORY:=Network
+  URL:=https://xtls.github.io
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
