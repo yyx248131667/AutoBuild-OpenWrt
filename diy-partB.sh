@@ -156,13 +156,13 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/n
 
 # upx测试
 # git clone https://github.com/kuoruan/openwrt-upx.git package/openwrt-upx
-mkdir -p tools/upx/
-mkdir -p tools/ucl/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* tools/upx/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* feeds/small8/upx/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* tools/ucl/
-cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
-sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
+# mkdir -p tools/upx/
+# mkdir -p tools/ucl/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* tools/upx/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/upx/* feeds/small8/upx/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* tools/ucl/
+# cp -rf $GITHUB_WORKSPACE/patchs/5.4/tools/ucl/* feeds/small8/ucl/
+# sed -i '11a tools-y += ucl upx \n$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
 
 rm -rf feeds/small8/fullconenat-nft
 rm -rf feeds/small8/fullconenat
