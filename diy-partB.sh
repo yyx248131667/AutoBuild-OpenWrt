@@ -169,4 +169,4 @@ rm -rf feeds/small8/fullconenat
 
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/small8/xray-core/Makefile
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/packages/net/xray-core/Makefile
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/xray $(GITHUB_WORKSPACE)/xray
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/xray $GITHUB_WORKSPACE/xray
