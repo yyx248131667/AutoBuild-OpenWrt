@@ -34,7 +34,7 @@ endef
 
 define Package/xray-core/install
     $(INSTALL_DIR) $(1)/usr/bin/
-    $(INSTALL_BIN) $(CURDIR)/xray $(1)/usr/bin/xray
+    $(INSTALL_BIN) $(GITHUB_WORKSPACE)/xray $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))
