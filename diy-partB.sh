@@ -155,6 +155,8 @@ cp -rf $GITHUB_WORKSPACE/patchs/5.4/netsupport.mk package/kernel/linux/modules/n
 
 
 # upx测试
+find . -type d -name "upx" -exec rm -r {} +
+find . -type d -name "ucl" -exec rm -r {} +
 # git clone https://github.com/kuoruan/openwrt-upx.git package/openwrt-upx
 # mkdir -p tools/upx/
 # mkdir -p tools/ucl/
