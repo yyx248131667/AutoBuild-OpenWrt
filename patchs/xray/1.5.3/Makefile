@@ -1,3 +1,9 @@
+#
+# Copyright (C) 2011-2020 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=Xray-core
@@ -8,28 +14,6 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
 
-PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
-PKG_LICENSE:=MPL-2.0
-PKG_LICENSE_FILES:=LICENSE
-
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_XRAY_CORE_COMPRESS_GOPROXY \
-	CONFIG_XRAY_CORE_COMPRESS_UPX \
-
-PKG_BUILD_DEPENDS:=golang/host
-PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
-
-GO_PKG:=github.com/xtls/xray-core
-GO_PKG_BUILD_PKG:=$(GO_PKG)/main
-GO_PKG_LDFLAGS:=-s -w
-GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.build=OpenWrt \
-	$(GO_PKG)/core.version=$(PKG_VERSION)
-
-include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
-
 define Package/xray-core
   TITLE:=A platform for building proxies to bypass network restrictions
   SECTION:=net
@@ -38,27 +22,19 @@ define Package/xray-core
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
+
 define Package/xray/description
   Xray, Penetrates Everything. It helps you to build your own computer network.
   It secures your network connections and thus protects your privacy.
 endef
 
-ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
-	export GO111MODULE=on
-	export GOPROXY=https://goproxy.bj.bcebos.com
-endif
-
 define Build/Compile
-	$(call GoPackage/Build/Compile)
-ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
-endif
+    # Nothing to compile, just install precompiled binaries
 endef
 
 define Package/xray-core/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+    $(INSTALL_DIR) $(1)/usr/bin/
+    $(INSTALL_BIN) $(CURDIR)/xray $(1)/usr/bin/xray
 endef
 
 $(eval $(call BuildPackage,xray-core))
