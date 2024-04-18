@@ -30,58 +30,14 @@ GO_PKG_LDFLAGS_X:= \
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/xray/template
-  TITLE:=A platform for building proxies to bypass network restrictions
-  SECTION:=net
-  CATEGORY:=Network
-  URL:=https://xtls.github.io
-endef
-
 define Package/xray-core
   $(call Package/xray/template)
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/xray-example
-  $(call Package/xray/template)
-  TITLE+= (example configs)
-  DEPENDS:=xray-core
-  PKGARCH:=all
-endef
-
 define Package/xray/description
   Xray, Penetrates Everything. It helps you to build your own computer network.
   It secures your network connections and thus protects your privacy.
-endef
-
-define Package/xray-core/description
-  $(call Package/xray/description)
-endef
-
-define Package/xray-example/description
-  $(call Package/xray/description)
-
-  This includes example configuration files for xray-core.
-endef
-
-define Package/xray-core/config
-menu "Xray-core Configuration"
-	depends on PACKAGE_xray-core
-
-config XRAY_CORE_COMPRESS_GOPROXY
-	bool "Compiling with GOPROXY proxy"
-	default n
-
-config XRAY_CORE_COMPRESS_UPX
-	bool "Compress executable files with UPX"
-	depends on !mips64
-	default n
-endmenu
-endef
-
-define Package/xray-core/conffiles
-/etc/xray/
-/etc/config/xray
 endef
 
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
@@ -100,21 +56,6 @@ define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
-
-	$(INSTALL_DIR) $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/config.json.example $(1)/etc/xray/
-
-	$(INSTALL_DIR) $(1)/etc/config/
-	$(INSTALL_CONF) $(CURDIR)/files/xray.conf $(1)/etc/config/xray
-	$(INSTALL_DIR) $(1)/etc/init.d/
-	$(INSTALL_BIN) $(CURDIR)/files/xray.init $(1)/etc/init.d/xray
-endef
-
-define Package/xray-example/install
-	$(INSTALL_DIR) $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/vpoint_socks_vmess.json $(1)/etc/xray/
-	$(INSTALL_DATA) $(CURDIR)/files/vpoint_vmess_freedom.json $(1)/etc/xray/
 endef
 
 $(eval $(call BuildPackage,xray-core))
-$(eval $(call BuildPackage,xray-example))
