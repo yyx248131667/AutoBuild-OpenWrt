@@ -21,8 +21,8 @@ GO_PKG:=github.com/xtls/xray-core
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_BUILD_PKG:=$(GO_PKG)/main
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.build=OpenWrt \
-	$(GO_PKG)/core.version=$(PKG_VERSION)
+  $(GO_PKG)/core.build=OpenWrt \
+  $(GO_PKG)/core.version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
@@ -56,9 +56,9 @@ endef
 
 
 define Package/xray-core/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+  $(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+  $(INSTALL_DIR) $(1)/usr/bin/
+  $(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
   $(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/xray
 endef
 
