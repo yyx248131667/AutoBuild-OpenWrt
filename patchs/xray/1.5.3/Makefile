@@ -55,13 +55,9 @@ define Package/xray-core/description
   It secures your network connections and thus protects your privacy.
 endef
 
-define Build/Compile
-  $(call GoPackage/Build/Compile)
-  $(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
-endef
-
 define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+  $(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_INSTALL_DIR)/usr/bin/main
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
 endef
