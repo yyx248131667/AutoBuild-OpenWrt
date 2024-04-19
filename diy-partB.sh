@@ -106,8 +106,6 @@ rm -rf feeds/small/simple-obfs
 
 rm -rf feeds/helloworld/v2ray-plugin
 rm -rf feeds/small/v2ray-plugin
-rm -rf feeds/helloworld/xray-core
-rm -rf feeds/small/xray-core
 # cp -rf feeds/small8/xray-core/* feeds/packages/net/xray-core/
 # cp -rf feeds/small8/xray-core/* feeds/Lienol/net/xray-core/
 # find . -type d -name "sing-box" -exec rm -r {} +
@@ -169,6 +167,7 @@ find . -type d -name "ucl" -exec rm -r {} +
 rm -rf feeds/small8/fullconenat-nft
 rm -rf feeds/small8/fullconenat
 
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/small8/xray-core/Makefile
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/Makefile feeds/packages/net/xray-core/Makefile
-cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/xray $GITHUB_WORKSPACE/xray
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/small8/xray-core/
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/small/xray-core/
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/helloworld/xray-core/
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/packages/net/xray-core/
