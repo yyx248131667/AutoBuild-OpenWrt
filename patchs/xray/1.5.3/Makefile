@@ -12,6 +12,7 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
+PKG_BUILD_DIR_1:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=golang/host 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -37,8 +38,8 @@ endef
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(eval $(call Download,upx))
-	$(TAR) --strip-components=1 -C $(PKG_BUILD_DIR)/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
-	$(CP) $(PKG_BUILD_DIR)/upx $(STAGING_DIR_HOST)/bin/upx
+	$(TAR) --strip-components=1 -C $(PKG_BUILD_DIR_2)/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
+	$(CP) $(PKG_BUILD_DIR_2)/upx $(STAGING_DIR_HOST)/bin/upx
 endef
 
 define Package/xray-core
