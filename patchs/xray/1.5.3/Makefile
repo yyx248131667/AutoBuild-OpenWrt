@@ -1,6 +1,6 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=xray-core
+PKG_NAME:=Xray-core
 PKG_VERSION:=1.7.2
 PKG_RELEASE:=1
 
