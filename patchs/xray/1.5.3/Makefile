@@ -1,5 +1,6 @@
 include $(TOPDIR)/rules.mk
-
+include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 PKG_NAME:=xray-core
 PKG_VERSION:=1.8.7
 PKG_RELEASE:=77
@@ -23,20 +24,21 @@ GO_PKG_LDFLAGS_X:= \
     $(GO_PKG)/core.build=OpenWrt \
     $(GO_PKG)/core.version=$(PKG_VERSION)
 
-include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+
 define Download/upx
   FILE:=upx-4.2.3-amd64_linux.tar.xz
   URL_FILE:=upx.tar.xz
   URL:=https://github.com/upx/upx/releases/download/v4.2.3/
   HASH:=skip
 endef
+
 define Build/Prepare
     $(call Build/Prepare/Default)
     $(eval $(call Download,upx))
     $(TAR) --strip-components=1 -C $(PKG_BUILD_DIR)/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
     $(CP) $(PKG_BUILD_DIR)/upx $(STAGING_DIR_HOST)/bin/upx
 endef
+
 define Package/xray/template
   TITLE:=A platform for building proxies to bypass network restrictions
   SECTION:=net
