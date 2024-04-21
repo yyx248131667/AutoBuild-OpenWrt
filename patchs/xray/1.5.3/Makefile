@@ -38,7 +38,7 @@ endef
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(eval $(call Download,upx))
-  $(call mkdir,$(PKG_BUILD_DIR)/upx)
+	$(call mkdir,$(PKG_BUILD_DIR)/upx)
 	$(TAR) --strip-components=1 -C $(PKG_BUILD_DIR)/upx/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
 	$(CP) $(PKG_BUILD_DIR)/upx/upx $(STAGING_DIR_HOST)/bin/upx
 endef
