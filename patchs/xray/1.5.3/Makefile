@@ -38,7 +38,7 @@ endef
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(eval $(call Download,upx))
-	$(call mkdir,$(PKG_BUILD_DIR)/Xray-core-$(PKG_VERSION)/upx)
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)/Xray-core-$(PKG_VERSION)/upx/
 	$(TAR) --strip-components=1 -C $(PKG_BUILD_DIR)/Xray-core-$(PKG_VERSION)/upx/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
 	$(CP) $(PKG_BUILD_DIR)/Xray-core-$(PKG_VERSION)/upx/upx $(STAGING_DIR_HOST)/bin/upx
 endef
