@@ -169,3 +169,4 @@ cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/small8/xray-core/
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/small/xray-core/
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/helloworld/xray-core/
 cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* feeds/packages/net/xray-core/
+cp -rf $GITHUB_WORKSPACE/patchs/xray/1.5.3/* package/feeds/packages/xray-core/
