@@ -36,7 +36,7 @@ cp -rf $GITHUB_WORKSPACE/patchs/xiaomi_mi-router/mt7621_xiaomi_mi-router-4a-giga
 #备用方案
 sed -i 's/git.openwrt.org\/project\/luci.git;openwrt-21.02/github.com\/coolsnowwolf\/luci.git;master/g' feeds.conf.default
 # 增加软件包
-sed -i '$a src-git Lienol https://github.com/Lienol/openwrt-packages.git;21.02' feeds.conf.default
+# sed -i '$a src-git Lienol https://github.com/Lienol/openwrt-packages.git;21.02' feeds.conf.default
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;master' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
