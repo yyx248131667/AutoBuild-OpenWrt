@@ -1,41 +1,87 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME := Xray-core
-PKG_VERSION := 1.7.5
-PKG_RELEASE := 77
+PKG_NAME:=Xray-core
+PKG_VERSION:=1.8.7
+PKG_RELEASE:=77
 
-PKG_SOURCE := $(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL := https://github.com/yuos-bit/other/archive/refs/tags/v$(PKG_VERSION).tar.gz
-PKG_HASH := skip
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=skip
 
-PKG_INSTALL_DIR := /tmp/install_dir
-TAR_FILE := $(PKG_NAME)-$(PKG_VERSION).tar.gz
-TEMP_DIR := $(PKG_INSTALL_DIR)/temp
-INSTALL_DIR := $(1)/usr/bin
-BIN_NAME := xray
+PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
+PKG_LICENSE:=MPL-2.0
+PKG_LICENSE_FILES:=LICENSE
+
+PKG_BUILD_DEPENDS:=golang/host 
+PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
+
+GO_PKG:=github.com/xtls/xray-core
+GO_PKG_BUILD_PKG:=$(GO_PKG)/main
+GO_PKG_LDFLAGS_X:= \
+	$(GO_PKG)/core.build=OpenWrt \
+	$(GO_PKG)/core.version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+define Download/upx
+  FILE:=upx-4.2.3-amd64_linux.tar.xz
+  URL_FILE:=upx.tar.xz
+  URL:=https://github.com/upx/upx/releases/download/v4.2.3/
+  HASH:=skip
+endef
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(eval $(call Download,upx))
+	$(TAR) --strip-components=1 -C $(PKG_BUILD_DIR)/ -xvf $(DL_DIR)/upx-4.2.3-amd64_linux.tar.xz
+	$(CP) $(PKG_BUILD_DIR)/upx $(STAGING_DIR_HOST)/bin/upx
+endef
+define Package/xray/template
+  TITLE:=A platform for building proxies to bypass network restrictions
+  SECTION:=net
+  CATEGORY:=Network
+  URL:=https://xtls.github.io
+endef
 
-.PHONY: all clean
+define Package/xray-core
+  $(call Package/xray/template)
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
+endef
 
-all: download extract install
+define Package/xray-example
+  $(call Package/xray/template)
+  TITLE+= (example configs)
+  DEPENDS:=xray-core
+  PKGARCH:=all
+endef
 
-download:
-	@echo "Downloading $(PKG_SOURCE) from $(PKG_SOURCE_URL)..."
-	mkdir -p $(DL_DIR)
-	wget -O $(DL_DIR)/$(PKG_SOURCE) "$(PKG_SOURCE_URL)"
+define Package/xray/description
+  Xray, Penetrates Everything. It helps you to build your own computer network.
+  It secures your network connections and thus protects your privacy.
+endef
 
-extract:
-	@echo "Extracting $(PKG_SOURCE) to $(TEMP_DIR)..."
-	mkdir -p $(TEMP_DIR)
-	tar -xzvf $(DL_DIR)/$(PKG_SOURCE) -C $(TEMP_DIR) --strip-components=1
+define Package/xray-core/description
+  $(call Package/xray/description)
+endef
 
-install:
-	@echo "Installing $(BIN_NAME) to $(INSTALL_DIR)..."
-	mkdir -p $(call INSTALL_DIR,$(1))
-	cp $(TEMP_DIR)/$(BIN_NAME) $(call INSTALL_DIR,$(1))
+define Package/xray-example/description
+  $(call Package/xray/description)
 
-clean:
-	@echo "Cleaning up..."
-	rm -rf $(PKG_INSTALL_DIR)
+  This includes example configuration files for xray-core.
+endef
+
+define Package/xray-core/conffiles
+/etc/xray/
+/etc/config/xray
+endef
+
+define Package/xray-core/install
+	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+	$(INSTALL_DIR) $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(1)/usr/bin/xray
+	
+endef
+
+$(eval $(call BuildPackage,xray-core))
