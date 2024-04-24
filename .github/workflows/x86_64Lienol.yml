@@ -1,244 +1,202 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
 
+name: 云编译OpenwrtLienol-源码
 
-name: Lienol-源码
 on:
+  repository_dispatch:
   workflow_dispatch:
     inputs:
-      REPO_BRANCH:
-        description: '（Lienol源码）请选择源码分支'
+      model:
+        description: '选择机型'
         required: true
-        default: '19.07'
+        default: 'x86_64' 
         type: choice
         options:
-          - '22.03'
-          - '19.07'
-          - '21.02'
-          - '23.05'
-          - 'main'
-      CONFIG_FILE:
-        description: '请选择配置文件'
-        required: true
-        default: 'x86_64'
-        type: choice
-        options:
-          - 'x86_64'
-      CPU_SELECTION:
-        description: 'CPU优选,增加编译速度'
-        required: true
-        default: '默认'
-        type: choice
-        options:
-          - '默认'
-      INFORMATION_NOTICE:
-        description: 'Telegram或pushplus信息通知'
-        required: true
-        default: '关闭'
-        type: choice
-        options:
-          - '关闭'
-          - 'Telegram'
-          - 'Pushplus'
-      SSH_ACTION:
-        description: 'SSH远程配置固件'
+          - 'x86'   
+      UPLOAD_BIN_DIR:
+        type: boolean
+        description: '上传bin文件夹'
         required: false
         default: 'false'
-        type: boolean
       UPLOAD_FIRMWARE:
-        description: '上传固件到 Github Artifacts'
+        type: boolean
+        description: '上传固件'
         required: false
         default: 'true'
-        type: boolean
       UPLOAD_RELEASE:
-        description: '发布固件到 Github Releases'
+        type: boolean
+        description: '上传RELEASE'
+        required: false
+        default: 'true'
+      
+      ssh:
+        description: 'SSH connection to Actions'
         required: false
         default: 'false'
         type: boolean
-      CACHEWRTBUILD_SWITCH:
-        description: '缓存加速编译'
-        required: false
-        default: 'true'
-        type: boolean
-      UPDATE_FIRMWARE_ONLINE:
-        description: '增加在线更新固件功能/自动打包Amlogic_Rockchip系列固件'
-        required: false
-        default: 'true'
-        type: boolean
-      COMPILATION_INFORMATION:
-        description: '是否显示编译信息'
-        required: false
-        default: 'true'
-        type: boolean
-
-
-# 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
-#  schedule:
-#   - cron: 35 18 * * *
-
+  
 env:
-  GITHUB_LINK: https://github.com/${{github.repository}}
-  GIT_ACTOR: ${{github.actor}}
-  GIT_REPOSITORY: ${{github.repository}}
-  RUN_NUMBER: ${{github.run_number}}
-  RUN_WORKFLOW: ${{github.workflow}}
-  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
-  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  REPO_URL: https://github.com/yyx248131667/Lienolopenwrt
+  REPO_BRANCH: 'main'
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: config/21.02/Yuos_${{ github.event.inputs.model }}.config
+  DIY_P1_SH: xdiy-part1.sh
+  DIY_P2_SH: xdiy-part2.sh
+  UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    name: 启动"${{ matrix.target }}-${{ github.event.inputs.REPO_BRANCH }}"触发编译
     runs-on: ubuntu-22.04
-    if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
-    
-    env:
-      FOLDER_NAME: ${{ matrix.target }}
-    strategy:
-      fail-fast: false
-      matrix:
-        target: [Lienol]
-        
-        # 请勿对 target: [Lienol] 做任何修改
-        
+
     steps:
-    - name: 密匙检测（密匙为空则退出）
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        if [[ -z "${{ secrets.REPO_TOKEN }}" ]]; then
-          echo "您没有设置仓库密匙，请按教程设置好密匙再来"
-          echo "REPO_TOKEN密匙制作教程：https://git.io/jm.md"
-          exit 1
-        fi
-    
-    - name: 准备结束
-      uses: actions/checkout@v4
+    - name: 检查工作流
+      uses: actions/checkout@main
 
-    - name: 检测文件和对比上游版本
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash <(curl -fsSL https://raw.githubusercontent.com/281677160/common/main/custom/first.sh)
-        source ${GITHUB_WORKSPACE}/build/${{ env.FOLDER_NAME }}/settings.ini
-        export INPUTS_REPO_BRANCH="${{ github.event.inputs.REPO_BRANCH }}"
-        export INPUTS_CONFIG_FILE="${{ github.event.inputs.CONFIG_FILE }}"
-        export INPUTS_CPU_SELECTION="${{ github.event.inputs.CPU_SELECTION }}"
-        export INPUTS_INFORMATION_NOTICE="${{ github.event.inputs.INFORMATION_NOTICE }}"
-        export INPUTS_SSH_ACTION="${{ github.event.inputs.SSH_ACTION }}"
-        export INPUTS_UPLOAD_FIRMWARE="${{ github.event.inputs.UPLOAD_FIRMWARE }}"
-        export INPUTS_UPLOAD_RELEASE="${{ github.event.inputs.UPLOAD_RELEASE }}"
-        export INPUTS_CACHEWRTBUILD_SWITCH="${{ github.event.inputs.CACHEWRTBUILD_SWITCH }}"
-        export INPUTS_UPDATE_FIRMWARE_ONLINE="${{ github.event.inputs.UPDATE_FIRMWARE_ONLINE }}"
-        export INPUTS_COMPILATION_INFORMATION="${{ github.event.inputs.COMPILATION_INFORMATION }}"
-        export INPUTS_PACKAGING_FIRMWARE="${{ github.event.inputs.PACKAGING_FIRMWARE }}"
-        source build/${{ env.FOLDER_NAME }}/common.sh && Diy_menu1
-
-    - name: 部署编译环境
+    - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E apt-get -qq update -y
-        sudo -E apt-get -qq install -y gawk git gettext libssl-dev xsltproc zip git-core wget curl grep python2.7 python3 python3-pip libpython3-dev
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+        bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+        git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
+        libmpc-dev libmpfr-dev libip4tc2 libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
+        mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
+        libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
+        libpython3-dev \
+        vim wget xmlto xxd zlib1g-dev python3-setuptools clang
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
+        sudo apt-get install -y gcc-13
+        sudo apt-get install -y g++-13
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 60 --slave /usr/bin/g++ g++ /usr/bin/g++-13
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /${{ env.DIY_WORK }}
-        sudo chown $USER:$GROUPS /${{ env.DIY_WORK }}
-    
-    - name: 下载"${{ matrix.target }}-${{ github.event.inputs.REPO_BRANCH }}"源码
-      working-directory: /${{ env.DIY_WORK }}
-      run: |
-        git clone -b "${REPO_BRANCH}" --single-branch "${REPO_URL}" openwrt
-        ln -sf /${{ env.DIY_WORK }}/openwrt ${GITHUB_WORKSPACE}/openwrt
-        cp -Rf ${GITHUB_WORKSPACE}/build ${GITHUB_WORKSPACE}/openwrt/build
-        chmod -R +x ${GITHUB_WORKSPACE}/openwrt/build
-    
-    - name: 公 告
-      if: env.REPO_TOKEN
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_menu2
- 
-    - name: 更新插件源
-      if: env.REPO_TOKEN
-      run: |
-        cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_menu3
- 
-    - name: 加载自定义设置
-      if: env.REPO_TOKEN
-      run: |
-        cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_menu4
-        
-    - name: 安装插件源
-      if: env.REPO_TOKEN
-      run: |
-        cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_menu5
-    
-    - name: SSH远程连接（make menuconfig）
-      if: env.SSH_ACTION == 'true'
-      uses: danshui-git/debugger-action@main
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
 
-    - name: 生成"${{ matrix.target }}"配置文件
-      if: env.REPO_TOKEN
+    - name: 拉取源码
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: 运行第一脚本
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+        
+    - name: 更新插件
+      run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
+    
+    - name: 安装插件
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: 运行第二脚本
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+
+    - name: 云编译设置
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+    - name: 下载插件环境包
+      id: package
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8 V=s
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+    
+    - name: 编译固件中
       id: compile
       run: |
         cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_menu6
+        echo -e "$(nproc) thread compile"
+        make -j$(nproc) || make -j1 || make -j1 V=s
+        echo "status=success" >> $GITHUB_OUTPUT
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+
+    - name: 检查打包环境
+      if: (!cancelled())
+      run: | 
+        df -hT
         
-    - name: 上传"${{ matrix.target }}"配置文件在 Github Artifacts
-      if: steps.compile.outcome == 'success'
+    - name: 上传文件
       uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' && github.event.inputs.UPLOAD_BIN_DIR == 'true' && !cancelled()
       with:
-        name: .config_${{ env.SOURCE }}_${{ env.LUCI_EDITION }}_${{ env.TARGET_PROFILE }}_${{ env.Firmware_Date }}
-        path: openwrt/build_logo/config.txt
-        
-    - name: 编译信息
-      continue-on-error: true
-      if: env.COMPILATION_INFORMATION == 'true'
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin
+
+    - name: 更新文件
+      id: organize
+      if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        cd openwrt
-        source ${BUILD_PATH}/common.sh && Diy_xinxi
-    
-    - name: 清理Actions空间
-      continue-on-error: true
-      if: env.REPO_TOKEN
-      uses: small-5/delete-workflow-runs@main
+        cd openwrt/bin/targets/*/*
+        rm -rf packages
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
+        
+    - name: 打包固件
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && github.event.inputs.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        token: ${{ secrets.REPO_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_min: ${{ env.RETAIN_MINUTE }}
-    
-    - name: 清理releases
-      continue-on-error: true
-      if: env.REPO_TOKEN
-      uses: ophub/delete-releases-workflows@main
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: 创建标签
+      id: tag
+      if: github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-${{ github.event.inputs.model }}" >> $GITHUB_OUTPUT
+        touch release.txt
+        echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: 上传固件至Github
+      uses: softprops/action-gh-release@v2.0.4
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        delete_releases: true
-        releases_keep_keyword: targz/Update
-        releases_keep_latest: ${{ env.KEEP_LATEST }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: | 
+          ${{ env.FIRMWARE }}/*
+          ${{ runner.workspace }}/logs/*
+
+    - name: 删除工作目录
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 7
+        keep_minimum_runs: 4
+
+    - name: 删除历史固件
+      uses: dev-drprasad/delete-older-releases@v0.3.3
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        keep_latest: 8
         delete_tags: true
-        delete_workflows: false
-        workflows_keep_day: 90
-        gh_token: ${{ secrets.REPO_TOKEN }}
-        
-    - name: 触发启动"${{ matrix.target }}"开始编译
-      id: gitpush
-      if: steps.compile.outcome == 'success' && env.REPO_TOKEN
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        source ${BUILD_PATH}/common.sh && build_openwrt
-        
-    - name: Telegram或pushplus信息通知
-      if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG'
-      run: |
-        if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
-          if [[ "${{steps.gitpush.outcome}}" == 'success' ]]; then
-            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人💕：您的编译脚本成功触发【${{matrix.target}}】文件夹编译【${REPO_BRANCH}分支的${{env.TARGET_PROFILE}}】固件中,请耐心等待...... 😋(${{env.WAREHOUSE_MAN}}仓库的#${{env.RUN_NUMBER}}号)！($(date +%Y年%m月%d号%H时%M分))💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
-          fi
-        fi
-        if [[ "${{ env.INFORMATION_NOTICE }}" == "PUSH" ]]; then
-          if [[ "${{steps.gitpush.outcome}}" == 'success' ]]; then
-            curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="开始编译【${{matrix.target}}】" --data "content=🎉 主人💕：您的编译脚本成功触发【${{matrix.target}}】文件夹编译【${REPO_BRANCH}分支的${{env.TARGET_PROFILE}}】固件中,请耐心等待...... 😋(${{env.WAREHOUSE_MAN}}仓库的#${{env.RUN_NUMBER}}号)！($(date +%Y年%m月%d号%H时%M分))💐" "http://www.pushplus.plus/send"
-          fi
-        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
