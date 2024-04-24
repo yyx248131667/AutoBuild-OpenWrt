@@ -44,7 +44,7 @@ on:
   
 env:
   REPO_URL: https://github.com/yyx248131667/Lienolopenwrt
-  REPO_BRANCH: 'main'
+  REPO_BRANCH: '22.03'
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/21.02/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: xdiy-part1.sh
