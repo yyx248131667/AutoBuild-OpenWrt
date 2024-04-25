@@ -95,6 +95,10 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
+        - name: 清理内存
+        if: always()
+        run: sudo sync && sudo sysctl vm.drop_caches=3
+
         
     - name: 更新插件
       run: cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a
