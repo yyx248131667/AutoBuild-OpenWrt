@@ -16,7 +16,6 @@ sed -i '$a src-git helloworld https://github.com/fw876/helloworld.git;main' feed
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages.git;master' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small.git;master' feeds.conf.default
 sed -i '$a src-git small8 https://github.com/kenzok8/small-package.git;main' feeds.conf.default
-sed -i '$a src-git openwrt-r8168 https://github.com/goldkeyber112/openwrt-r8168.git;master' feeds.conf.default
 
 # 修改默认编译LUCI进系统
 sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp-mod-pppoe curl ca-certificates/g' include/target.mk
@@ -26,7 +25,7 @@ sed -i 's/ppp-mod-pppoe/iptables-mod-tproxy iptables-mod-extra ipset ip-full ppp
 
 # 单独拉取软件包
 git clone -b Lienol-default-settings https://github.com/yuos-bit/other package/default-settings
-
+git clone -b Lienol-openwrt-r8168 https://github.com/goldkeyber112/openwrt-r8168.git package/openwrt-r8168
 
 # # 删除冲突包
 # rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd-alt,miniupnpd-iptables,wireless-regdb}
