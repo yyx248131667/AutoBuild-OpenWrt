@@ -41,8 +41,8 @@ env:
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/22.03/x86_64.config
-  DIY_P1_SH: diy-part6.sh
-  DIY_P2_SH: diy-part7.sh
+  DIY_P1_SH: diy-part8.sh
+  DIY_P2_SH: diy-part9.sh
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
