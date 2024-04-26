@@ -46,7 +46,7 @@ env:
   REPO_URL: https://github.com/yyx248131667/Lienolopenwrt
   REPO_BRANCH: 22.03
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/21.02/Yuos_${{ github.event.inputs.model }}.config
+  CONFIG_FILE: config/22.03/Yuos_${{ github.event.inputs.model }}.config
   DIY_P1_SH: xdiy-part1.sh
   DIY_P2_SH: xdiy-part2.sh
   UPLOAD_RELEASE: true
@@ -95,9 +95,7 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        - name: 清理内存
-        if: always()
-        run: sudo sync && sudo sysctl vm.drop_caches=3
+       
 
         
     - name: 更新插件
