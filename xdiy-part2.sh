@@ -13,7 +13,7 @@
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 # 修改网关
-#sed -i 's/192.168.$((addr_offset++)).1/10.32.$((addr_offset++)).1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.$((addr_offset++)).1/192.168.$((addr_offset++)).1/g' package/base-files/files/bin/config_generate
 
 # 修改主机名称
 #sed -i 's/OpenWrt/Yuos/g' package/base-files/files/bin/config_generate
@@ -40,7 +40,7 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 
 # 添加5.4内核ACC、shortcut-fe补丁
 # openwrt21.02 netfilter补丁\
-#cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
+cp -rf $GITHUB_WORKSPACE/patchs/firewall/* package/firmware/
 #patch -p1 < package/firmware/001-fix-firewall-flock.patch
 
 # nft-fullcone
@@ -48,10 +48,10 @@ git clone -b main --single-branch https://github.com/fullcone-nat-nftables/nftab
 git clone -b master --single-branch https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone package/libnftnl
 
 # 打补丁
-#wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
-#cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
-#cp -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
-#cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
+wget -O package/firmware/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c package/nftables/include/linux/netfilter/xt_FULLCONENAT.c
+#p -rf package/firmware/xt_FULLCONENAT.c package/libnftnl/include/linux/netfilter/xt_FULLCONENAT.c
+cp -rf package/firmware/xt_FULLCONENAT.c package/libs/libnetfilter-conntrack/xt_FULLCONENAT.c
 
 # dnsmasq-full升级2.89
 rm -rf package/network/services/dnsmasq
